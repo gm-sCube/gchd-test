@@ -53,7 +53,9 @@ Description : JSON must contain :
           "createLP": true,
           "licenseTable": "HATEST",
           "childLicense": "Marijuana/Combo/Testing Facility/License",
-          "recordIdField": "TEST haetham"
+          "recordIdField": "TEST haetham" ,
+		  "copyRecordName": true ,
+		  "copyRecordDetails": true
         },
         "postScript": ""
       }
@@ -419,8 +421,16 @@ function licenseIssuance(itemCapId, recordSettings) {
 			}//rNewLicId is OK
 		}//rLicChild array OK
 	}
-}
 
+if(recordSettings.copyRecordName)
+{
+	copyRecordNameLocal(capIdsArray, usageType);
+}
+if(recordSettings.copyRecordDetails)
+{
+	copyRecordDetailsLocal(capIdsArray, usageType);
+}
+}
 function createParentLocal(grp, typ, stype, cat, desc)
 //
 // creates the new application and returns the capID object
@@ -1074,7 +1084,6 @@ function associateLPToPublicUser(licenseNum, userNum) {
 		logDebug("Error associateLPToPublicUser :: " + licResult.getErrorMessage());
 	}
 }
-
 /**
  * replace * in cap type with corresponding parts from current cap type,
  * returns false if type to return is not exist on the env
@@ -1130,4 +1139,63 @@ function prepareAppTypeArray(appTypeToCreate) {
 		logDebug("**ERROR prepareAppTypeArray(): failed to get getCapTypeListByModule, error: " + capTypeList.getErrorMessage());
 	}
 	return false;
+}
+function copyRecordNameLocal(capIdsArray, copyDirection) {
+
+	//This Portlet is not supported in Pageflow
+	if (controlString.equalsIgnoreCase("Pageflow")) {
+		return;
+	}
+
+	for (ca in capIdsArray) {
+		var srcDestArray = getCopySrcDest(capId, capIdsArray[ca], copyDirection);
+
+		var fromCapModel = aa.cap.getCapByPK(srcDestArray["src"], true);
+		if (fromCapModel.getSuccess()) {
+			fromCapModel = fromCapModel.getOutput();
+
+			var toCapModel = aa.cap.getCapByPK(srcDestArray["dest"], true);
+			if (toCapModel.getSuccess()) {
+				toCapModel = toCapModel.getOutput();
+				//For 'Application Name' Field
+				toCapModel.setSpecialText(fromCapModel.getSpecialText());
+				aa.cap.editCapByPK(toCapModel).getSuccess();
+			}
+		}
+		//copy from 1st parent only (other will just overwrite)
+		if (copyDirection == FROM_PARENT) {
+			return true;
+		}
+	} //for all capIdsArray
+	return true;
+}
+
+/**
+ * Copy Record Details from Current record to Parent or Child records, Or from Parent to Current Record, based on copyDirection parameter
+ * @param capIdsArray array of Parent or Child CapIdModel
+ * @param copyDirection Number: TO_PARENT = 1, FROM_PARENT = 2, TO_CHILD = 3
+ * @returns {Boolean} true if success, false otherwise
+ */
+function copyRecordDetailsLocal(capIdsArray, copyDirection) {
+
+	//This Portlet is not supported in Pageflow
+	if (controlString.equalsIgnoreCase("Pageflow")) {
+		return;
+	}
+
+	for (ca in capIdsArray) {
+
+		var srcDestArray = getCopySrcDest(capId, capIdsArray[ca], copyDirection);
+        //for 'Short Notes' Field
+		aa.cap.copyCapDetailInfo(srcDestArray["src"], srcDestArray["dest"]);
+
+		//for Description Field
+		aa.cap.copyCapWorkDesInfo(srcDestArray["src"], srcDestArray["dest"]);
+
+		//copy from 1st parent only (other will just overwrite)
+		if (copyDirection == FROM_PARENT) {
+			return true;
+		}
+	} //for all capIdsArray
+	return true;
 }
