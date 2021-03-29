@@ -33,7 +33,9 @@
           "licenseTable": "",
           "refLPType": "Food Facility",
           "contactType": "Applicant",
-          "contactAddressType": "Mailing"
+          "contactAddressType": "Mailing",
+          "copyRecordName": true,
+		  "copyRecordDetails": true
         },
         "postScript": ""
       }

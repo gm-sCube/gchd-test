@@ -35,7 +35,9 @@
           "licenseTable": "",
           "refLPType": "Business",
           "contactType": "Applicant",
-          "contactAddressType": "Mailing"
+          "contactAddressType": "Mailing",
+          "copyRecordName": true ,
+		  "copyRecordDetails": true
         },
         "postScript": ""
       }
