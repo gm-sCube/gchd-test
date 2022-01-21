@@ -6,14 +6,14 @@
       "searchByRecordSubType":"*",
       "searchByRecordCategory":"Permit",
       "searchStatus": "Active",
-      "searchByDaysOut": 60,
+      "searchByDaysOut": 45,
       "searchByFromDate": false,
       "searchByToDate": false,
       "expiringInterval":"nextquarter",
       "notificationConfScript":"CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_NOTICE",
-      "firstNotice": "60 Day Notice",
+      "firstNotice": "45 Day Notice",
       "excludeRecordType": [{
-          "type": "Licenses/Type/Subtype/Category"
+          "type": "EnvHealth/Land Use/Septic/Permit"
         },
         {
           "type": "Licenses/Type/Subtype/Category"
@@ -26,7 +26,7 @@
           "status": "Closed"
         }
       ],
-      "adminEmail": "",
+      "adminEmail": "michael.zachry@scubeenterprise.com",
       "batchResultEmailTemplate": "BATCH_LICENSE_RENEWAL_RESULTS"
     }
   },
@@ -51,7 +51,7 @@
         }
       ],
       "adminEmail": "",
-      "batchResultEmailTemplate": "BATCH_LICENSE_RENEWAL_RESULTS"
+      "batchResultEmailTemplate": "BATCH_LICENSE_RENEWAL_RESULTS_turned_off"
     }
   }
 }

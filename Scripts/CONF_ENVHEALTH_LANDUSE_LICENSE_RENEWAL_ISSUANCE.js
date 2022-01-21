@@ -16,7 +16,7 @@
         },
         "preScript": "",
         "action": {
-          "issuedRecordStatus": "Active",
+          "issuedRecordStatus": "ACTIVE MAINTENANCE",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
 		  "expirationType":"Expiration Code",

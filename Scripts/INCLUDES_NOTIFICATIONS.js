@@ -87,6 +87,8 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             }
 
             thisCap = recordIdObjectArray[rec];
+			// logDebug(thisCap);   // added mz
+			// logDebugObject(thisCap);  // added mz
             logDebug("thisCap: " + thisCap);
             recordIdObject = aa.cap.getCapID(thisCap.getCapID().getID1(), thisCap.getCapID().getID2(), thisCap.getCapID().getID3()).getOutput();
             if (!recordIdObject) {
@@ -154,6 +156,7 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             }
 
             // get JSON rules for record type
+			appTypeArray = thisRecordTypeString.split("/")
             var myRules = getJSONRulesForNotification(noticeRules, thisRecordTypeString, thisNextNotification);
             if (!myRules || typeof myRules === 'undefined') {
                 logDebug("No Rules defined for the configured search criteria. Record Type: " + thisRecordTypeString + ". Notice: " + thisNextNotification);
@@ -179,7 +182,8 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             var inspectionType = myRules.inspectionType;
             var scheduleOutDays = myRules.scheduleOutDays;
             var cancelAllInspections = myRules.cancelAllInspections ;
-            var assessFeesArray = myRules.assessFees ;
+            var invoiceOnNotification = myRules.invoiceOnNotification ;
+			var assessFeesArray = myRules.assessFees ;
 
             // validate configuration
             if (!mailerSetPrefix || !notificationTemplate || !notifyContactTypes) {
@@ -206,8 +210,9 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             logDebug("updateWorkflowStatus: " + updateWorkflowStatus);
             logDebug("nextNotificationDays: " + nextNotificationDays);
             logDebug("nextNotification: " + nextNotification);
-            logDebug("cancelAllInspections:" + cancelAllInspections ) ; 
-			logDebug("assessFeesArray length:" + assessFeesArray.length  ) ; 
+            logDebug("cancelAllInspections: " + cancelAllInspections ) ; 
+			if(typeof(invoiceOnNotification) != 'undefined') logDebug("invoiceOnNotification: " + invoiceOnNotification  ) ; 
+			if(typeof(assessFeesArray) != 'undefined') logDebug("assessFeesArray length:" + assessFeesArray.length  ) ;
          
             // TO DO: add validation of rule params
 
@@ -228,7 +233,8 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             if (notifyContactTypes) {
                 var contactTypeString = new String(notifyContactTypes);
                 var contactTypeArr = contactTypeString.split(",");
-                prepAndSendNotification(agencyReplyEmail, contactTypeArr, acaURL, notificationTemplate, notificationReport, recordIdObject);
+//  mz - this is causing error capDetailObjResult not defined 
+prepAndSendNotification(agencyReplyEmail, contactTypeArr, acaURL, notificationTemplate, notificationReport, recordIdObject);
             }
 
             // TO DO: add to mailer set if preferred channel is not email
@@ -256,29 +262,37 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
         	 thisRecord.cancelAllInspection() ;
         	}
 		 //Adding auto assess invoice 	 
-      if (!isEmptyOrNull(assessFeesArray) ) {
-		for ( var i in assessFeesArray) {
-			var feeCode = assessFeesArray[i]["feeCode"];
-			var feeSchedule = assessFeesArray[i]["feeSchedule"];
-			var feeQuantity = parseInt(assessFeesArray[i]["feeQuantity"]);
-			var feeInvoice = assessFeesArray[i]["feeInvoice"];
-			var feePeriod = assessFeesArray[i]["feePeriod"];
-			var feeSchduleList = aa.finance.getFeeScheduleList("").getOutput();
-			logDebug("feeCode:" + feeCode);
-					logDebug("feeSchedule:" + feeSchedule );
-					logDebug("feePeriod:" +  feePeriod);
-					logDebug("feeQuantity:" +  feeQuantity);
-					logDebug("feeInvoice:" +  feeInvoice);
-					logDebug("capId:" + recordIdObject );
-			for ( var i in feeSchduleList) {
-				if (feeSchduleList[i].getFeeSchedule() == feeSchedule) 
-				{
-					addFee(feeCode, feeSchedule, feePeriod, feeQuantity, feeInvoice, recordIdObject);
-				}
-				}
-			}
+		 //to force program element automation to assess and invoice fees when notifications are sent using STDBASE_PROGRAM_ELEMENT_AUTOMATION
+		  if (typeof(invoiceOnNotification) != 'undefined' && invoiceOnNotification) {
+			  var capId = recordIdObject; // added by mz to force the capId from the batch job
+			  var controlString = 'AnnualRenewal' 
+			  appTypeArray = thisRecordTypeString.split("/")
+			  logDebug('Attempt to log fees');
+			  eval(getScriptText('STDBASE_PROGRAM_ELEMENT_AUTOMATION')); 
+		  }
+		  if (!isEmptyOrNull(assessFeesArray) ) {
+			for ( var i in assessFeesArray) {
+				var feeCode = assessFeesArray[i]["feeCode"];
+				var feeSchedule = assessFeesArray[i]["feeSchedule"];
+				var feeQuantity = parseInt(assessFeesArray[i]["feeQuantity"]);
+				var feeInvoice = assessFeesArray[i]["feeInvoice"];
+				var feePeriod = assessFeesArray[i]["feePeriod"];
+				var feeSchduleList = aa.finance.getFeeScheduleList("").getOutput();
+				logDebug("feeCode:" + feeCode);
+						logDebug("feeSchedule:" + feeSchedule );
+						logDebug("feePeriod:" +  feePeriod);
+						logDebug("feeQuantity:" +  feeQuantity);
+						logDebug("feeInvoice:" +  feeInvoice);
+						logDebug("capId:" + recordIdObject );
+				for ( var i in feeSchduleList) {
+					if (feeSchduleList[i].getFeeSchedule() == feeSchedule) 
+					{
+						addFee(feeCode, feeSchedule, feePeriod, feeQuantity, feeInvoice, recordIdObject);
+					}
+					}
+				} 
 
-		}		 
+			}		 
         }
 
         var resultParams = aa.util.newHashtable();
@@ -418,13 +432,17 @@ function prepAndSendNotification(agencyReplyEmail, contactTypesArray, acaURL, no
     fileDateObj = cap.getFileDate();
     fileDate = "" + fileDateObj.getMonth() + "/" + fileDateObj.getDayOfMonth() + "/" + fileDateObj.getYear();
     fileDateYYYYMMDD = dateFormatted(fileDateObj.getMonth(), fileDateObj.getDayOfMonth(), fileDateObj.getYear(), "YYYY-MM-DD");
+	logDebug("capId = " + capId); //mz
+	logDebug("itemCapId = " + itemCapId); //mz
     var capDetailObjResult = aa.cap.getCapDetail(itemCapId);
-    if (capDetailObjResult.getSuccess()) {
-        capDetail = capDetailObjResult.getOutput();
-        houseCount = capDetail.getHouseCount();
-        feesInvoicedTotal = capDetail.getTotalFee();
-        balanceDue = capDetail.getBalance();
-    }
+	if (typeof(capDetailObjResult) != 'undefined') {
+		if (capDetailObjResult.getSuccess()) {
+			logDebug("Success capDetailObjResult = " + capDetailObjResult);
+			capDetail = capDetailObjResult.getOutput();
+			houseCount = capDetail.getHouseCount();
+			feesInvoicedTotal = capDetail.getTotalFee();
+			balanceDue = capDetail.getBalance();
+		}
 
     // Get an array of Contact Objects using Master Scripts 3.0
     logDebug("contactTypesArray: " + contactTypesArray);
@@ -486,6 +504,9 @@ function prepAndSendNotification(agencyReplyEmail, contactTypesArray, acaURL, no
             }
         }
     }
+	}else{
+		logDebug("ERROR: capDetailObjResult is undefined");
+	}
 }
 
 
@@ -582,3 +603,40 @@ function getJSONRulesForNotification(rules, recordType, notification) {
 function isEmptyOrNull(value) {
 	return value == null || value === undefined || String(value) == "";
 }
+
+function logDebugObject(myObject) {
+/*
+usage - logDebugObject(object)
+
+author - Michael Zachry
+created - 10/10/2018
+
+updates
+10/11/2018 - initial version
+
+*/
+  //list the methods
+  try {
+    logDebug("object is is a " + myObject.getClass());
+    logDebug("object has the following methods:");
+    for (x in myObject) {
+      if (typeof(myObject[x]) == "function" ) {
+        logDebug("  " + x);
+      }
+    }
+  } catch (err) {
+    logDebug("A JavaScript Error occured: " + err.message);
+  }
+  try {
+    //list the properties and values    
+    logDebug("object has the following properties and values:");
+    for (x in myObject) {
+      if (typeof(myObject[x]) != "function" ) {
+        logDebug("  " + x + " = " + myObject[x]);
+      }
+    }
+  } catch (err) {
+    logDebug("A JavaScript Error occured: " + err.message);
+  }
+}
+

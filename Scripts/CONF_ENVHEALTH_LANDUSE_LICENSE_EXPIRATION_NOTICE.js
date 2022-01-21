@@ -1,31 +1,17 @@
 {
 	"EnvHealth/Land Use/*/Permit": {
-		"60 Day Notice": {
+		"45 Day Notice": {
 			"notificationTemplate": "SS_PERMIT_ABOUT_TO_EXPIRE",
 			"notificationReport": false,
-			"notifyContactTypes": "Applicant, Accounts Receivable",
+			"notifyContactTypes": "Property Owner",
 			"mailerSetType": "Renewal",
 			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE", 
+			"mailerSetPrefix": "SEPTIC_LIC_ABOUT_TO_EXPIRE", 
 			"updateExpirationStatus": "About to Expire",
 			"updateRecordStatus": false,
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
-			"nextNotificationDays": 30,
-			"nextNotification": "30 Day Notice"
-		},
-		"30 Day Notice": {
-			"notificationTemplate": "SS_PERMIT_EXPIRATION_30_DAY_NOTICE",
-			"notificationReport": false,
-			"notifyContactTypes": "Applicant, Accounts Receivable",
-			"mailerSetType": "Renewal",
-			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "LIC_EXPIRATION_30_DAY_NOTICE",
-			"updateExpirationStatus": false,
-			"updateRecordStatus": false,
-			"updateWorkflowTask": false,
-			"updateWorkflowStatus": false,
-			"nextNotificationDays": 30,
+			"nextNotificationDays": 45,
 			"nextNotification": "Expiration Notice"
 		},
 		"Expiration Notice": {

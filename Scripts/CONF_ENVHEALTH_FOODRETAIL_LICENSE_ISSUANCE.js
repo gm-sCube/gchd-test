@@ -8,6 +8,7 @@
         },
         "preScript": "",
         "criteria": {
+          "balanceAllowed": false,
           "task": [
             "Permit Issuance"
           ],
@@ -17,7 +18,7 @@
         },
         "action": {
           "parentLicense": "EnvHealth/Food Retail/*/Permit",
-          "issuedStatus": "Active",
+          "issuedStatus": "Pending",
           "copyCustomFields": [
             "ALL"
           ],
@@ -35,11 +36,10 @@
           "contactType": "Applicant",
           "contactAddressType": "Mailing",
           "copyRecordName": true,
-		  "copyRecordDetails": true
+          "copyRecordDetails": true
         },
         "postScript": ""
       }
     ]
   }
-  
 }

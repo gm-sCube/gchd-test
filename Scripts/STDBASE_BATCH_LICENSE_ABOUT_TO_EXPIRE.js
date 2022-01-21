@@ -15,7 +15,7 @@
 - Set Saved Search: Renewal Mass Mailer - Open, Renewal Mass Mailer - Ready for Mailing, Renewal Mass Mailer - Completed
  */
 
-//aa.env.setValue("confScriptName", "CONF_MARIJUANA_LICENSE_EXPIRATION_SEARCH");
+//aa.env.setValue("confScriptName", "CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_SEARCH");
 var confScriptName = aa.env.getValue("confScriptName");
 
 var batchProcess = "License About to Expire"
@@ -166,6 +166,7 @@ function processExpiration(confSearchScriptName) {
 		}//expiringInterval not used
 
 		logDebug("Date Range -- fromDate: " + fromDate + ", toDate: " + toDate);
+		logDebug('searchStatus = ' + searchStatus);
 
 		/**
 		 * TO DO:
@@ -180,6 +181,7 @@ function processExpiration(confSearchScriptName) {
 
 		// execute record search
 		var searchResult = aa.expiration.getLicensesByDate(searchStatus, fromDate, toDate);
+		// var searchResult = aa.expiration.getLicensesByDate(searchStatus, "9/1/2021", "10/31/2021");
 		if (searchResult.getSuccess()) {
 			searchResultArray = searchResult.getOutput();
 			logDebug("Processing " + searchResultArray.length + " expiration records");

@@ -15,7 +15,7 @@
 - Set Saved Search: Renewal Mass Mailer - Open, Renewal Mass Mailer - Ready for Mailing, Renewal Mass Mailer - Completed
  */
 
-//aa.env.setValue("confScriptName","CONF_LICENSING_LICENSE_EXPIRATION_SEARCH")
+//aa.env.setValue("confScriptName","CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_SEARCH")
 var confScriptName = aa.env.getValue("confScriptName");
 
 var batchProcess = "License Expiration Notice"

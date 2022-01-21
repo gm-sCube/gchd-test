@@ -33,6 +33,9 @@
           "ASSETS": [
             "ALL"
            ],
+          "LICENSEDPROFESSIONALS": [
+            "ALL"
+          ],
           "ADDRESS": [  "ALL"],
           "Renewal": false,
           "keepExistingAPO": false,
@@ -74,6 +77,9 @@
             
           ],
           "ASSETS": [
+            "ALL"
+          ],
+          "LICENSEDPROFESSIONALS": [
             "ALL"
           ],
           "ADDRESS": ["ALL"],
@@ -119,7 +125,10 @@
           "ASSETS": [
             "ALL"
           ],
-          "ADDRESS": ["ALL"],
+           "LICENSEDPROFESSIONALS": [
+            "ALL"
+          ],
+         "ADDRESS": ["ALL"],
           "Renewal": true,
           "keepExistingAPO": true,
           "RECORDDETAILS": true,

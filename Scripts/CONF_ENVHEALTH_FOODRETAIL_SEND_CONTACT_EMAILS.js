@@ -220,4 +220,33 @@
       }
     ]
   }
+  "EnvHealth/Food Retail/*/Renewal": {
+    "ConvertToRealCAPAfter": [
+     {
+        "metadata": {
+          "description": "Send notification when permit is issued upon completion of renewal, with permit form attached",
+          "operators": {}
+        },
+        "preScript": "",
+        "criteria": {
+        "balanceAllowed": false,
+        },
+        "action": {
+          "notificationTemplate": "SS_PERMIT_ISSUED_REPORT",
+          "notificationReport": [
+            "EnvHealth Agency License Report"
+          ],
+          "reportParamContactType": "Facility Owner",
+          "notifyContactTypes": [
+            "Facility Owner"
+          ],
+          "additionalEmailsTo": "",
+          "url4ACA": "",
+          "createFromParent": true,
+          "reportingInfoStandards": ""
+        },
+        "postScript": ""
+      },
+	]
+  }
 }

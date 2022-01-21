@@ -50,10 +50,10 @@ try {
 		// need to find this record has child record if yes ---> this mean we need to cancel the process 
 	
 		var isHasChildRecord = aa.cap.getChildByMasterID(capId).getSuccess()
-		if(isHasChildRecord){ 
-		cancelCfgExecution = true ; 
-		logDebug("**WARN STDBASE Script [" + scriptSuffix + "] canceled by cancelCfgExecution , becuase the record type is permit and has app, so the fees already invoiced op app level");
-		}
+		// if(isHasChildRecord){ 
+		// cancelCfgExecution = true ; 
+		// logDebug("**WARN STDBASE Script [" + scriptSuffix + "] canceled by cancelCfgExecution , becuase the record type is permit and has app, so the fees already invoiced op app level");
+		// }
 		
 		if (cancelCfgExecution) {
 			logDebug("**WARN STDBASE Script [" + scriptSuffix + "] canceled by cancelCfgExecution");
@@ -147,24 +147,38 @@ function ProgramElementAutomation()
 	 
 	var feeResult = aa.fee.getFeeItems(capId, feeCode, null);
 	if (feeResult.getSuccess()) {	
-		var feeObjArr = feeResult.getOutput();
-		if(feeObjArr != null && feeObjArr.length > 0) 
-		{
-			return false;//Fees already assessed for this fee code
-		}
+		// var feeObjArr = feeResult.getOutput();   //added mz - had to disable checking if fee had been assessed to process annual renewal
+		// if(feeObjArr != null && feeObjArr.length > 0) 
+		// {
+			// logDebug('Fees already assessed for this fee code');  //added mz
+			// return false;//Fees already assessed for this fee code
+		// }
 	} else {	
 		logDebug("**ERROR: getting fee items: " + feeResult.getErrorMessage());
 		return false;
 	}
-		
-	addFee(feeCode, feeSchedule, feePeriod, feeQuantity, feeInvoice);	
+	logDebug('feeCode = ' + feeCode);   //added mz
+	logDebug('feeSchedule = ' + feeSchedule);   //added mz
+	logDebug('feePeriod = ' + feePeriod);   //added mz
+	logDebug('feeQuantity = ' + feeQuantity);   //added mz
+	logDebug('feeInvoice = ' + feeInvoice);   //added mz
+	logDebug('capId = ' + capId);   //added mz
+	if(typeof(invoiceOnNotification) != 'undefined') {
+		logDebug('invoiceOnNotification = ' + invoiceOnNotification);   //added mz
+		logDebug('batch job capId = ' + capId);   //added mz
+		myAddFee(feeCode, feeSchedule, feePeriod, feeQuantity, feeInvoice, capId); // added mz required to pass the capId when called from a batch job - there is no active record
+	}else{
+		logDebug('active record capId = ' + capId);   //added mz
+		myAddFee(feeCode, feeSchedule, feePeriod, feeQuantity, feeInvoice);
+	}
 }
 
 function getProgramElementASIValue()
 {
 	var updated = false;
 	var i=0;
-	var itemCap = capId;	
+	var itemCap = capId;
+	logDebug(itemCap);
    		
     var appSpecInfoResult = aa.appSpecificInfo.getByCapID(itemCap);
 	if (appSpecInfoResult.getSuccess())
@@ -218,3 +232,48 @@ function getStandardChoiceArray(stdChoice) {
 	}
 	return stdChoiceArray;
 }
+
+function myAddFee(fcode, fsched, fperiod, fqty, finvoice) // Adds a single fee, optional argument: fCap
+{
+	// Updated Script will return feeSeq number or null if error encountered (SR5112)
+	var feeCap = capId;
+	var feeCapMessage = "";
+	var feeSeq_L = new Array(); // invoicing fee for CAP in args
+	var paymentPeriod_L = new Array(); // invoicing pay periods for CAP in args
+	var feeSeq = null;
+	if (arguments.length > 5) {
+		feeCap = arguments[5]; // use cap ID specified in args
+		feeCapMessage = " to specified CAP";
+	}
+
+	assessFeeResult = aa.finance.createFeeItem(feeCap, fsched, fcode, fperiod, fqty);
+	if (assessFeeResult.getSuccess()) {
+		feeSeq = assessFeeResult.getOutput();
+		logMessage("Successfully added Fee " + fcode + ", Qty " + fqty + feeCapMessage);
+		logDebug("The assessed fee Sequence Number " + feeSeq + feeCapMessage);
+
+		if (finvoice == "Y" && arguments.length == 5) // use current CAP
+		{
+			feeSeqList.push(feeSeq);
+			paymentPeriodList.push(fperiod);
+		}
+		if (finvoice == "Y" && arguments.length > 5) // use CAP in args
+		{
+			feeSeq_L.push(feeSeq);
+			paymentPeriod_L.push(fperiod);
+			var invoiceResult_L = aa.finance.createInvoice(feeCap, feeSeq_L, paymentPeriod_L);
+			if (invoiceResult_L.getSuccess())
+				logMessage("Invoicing assessed fee items" + feeCapMessage + " is successful.");
+			else
+				logDebug("**ERROR: Invoicing the fee items assessed" + feeCapMessage + " was not successful.  Reason: " + invoiceResult.getErrorMessage());
+		}
+		updateFeeItemInvoiceFlag(feeSeq, finvoice);
+	} else {
+		logDebug("**ERROR: assessing fee (" + fcode + "): " + assessFeeResult.getErrorMessage());
+		feeSeq = null;
+	}
+
+	return feeSeq;
+
+}
+ 

@@ -297,6 +297,20 @@ else if(!isEmptyOrNull(rules.action.rangeToCustomField))
 			logDebug("**WARN unsupported expirationTypeUpdate " + rules.action.expirationTypeUpdate);
 		}
 	}//has expirationTypeUpdate
+	
+	if(!isEmptyOrNull(rules.action.postToTimeAccounting) && rules.action.postToTimeAccounting ) {
+		// call function to post to time accounting
+		inspObj = aa.inspection.getInspection(capId,inspId).getOutput();
+		var inspDate =  inspObj.getInspectionDate().getMonth() + "/" + inspObj.getInspectionDate().getDayOfMonth() + "/" + inspObj.getInspectionDate().getYear();
+		var timeAccountingResult = addTimeAccountingRecordToInspectionV2(capId, inspId, 'Inspection', 'Regular Inspection (R)', inspDate, false);
+		if (timeAccountingResult){
+			logDebug('Successfully added time accounting'); 
+		}else{ 
+			logDebug('Adding time accounting failed');
+		}
+	}else{
+		logDebug('no time accounting rule to process or failed to meet criteria');
+	}
 }
 
 /**
@@ -457,3 +471,142 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 		}//success
 	}
 }
+
+function addTimeAccountingRecordToInspectionV2(itemCap, inspectionId, taGroup, taType, resultDate, billable) {
+	/*
+    V2 will look at db fields 'Start Time' & 'End Time'. If null, script will defer to 'Total time'
+	Author CGray
+	@param itemCap {object}
+	@param inspectionId {string} Inspection ID
+	@param taGroup {string} Time Accounting Group
+	@param taType {string} Time Accounting Type
+	@param resultDate {string} Result date of inspection
+	@param billable {boolean} Billable true for "Y", false for "N"
+    */
+    if (!aa.timeAccounting.getTimeTypeByTimeTypeName) {
+		logDebug("addTimeAccountingRecordToInpection function required AA 7.1SP3 or higher.");
+        return false;
+    }
+	capIDString = itemCap.getCustomID();
+	cap = aa.cap.getCap(itemCap).getOutput();
+	appTypeResult = cap.getCapType();
+	appTypeAlias = appTypeResult.getAlias();
+	appTypeString = appTypeResult.toString();
+	appTypeArray = appTypeString.split("/");
+	logDebug('appTypeString = ' + appTypeString);
+	logDebug('appTypeArray[0] = ' + appTypeArray[0]);
+	logDebug('inspectionId = ' + inspectionId);
+	logDebug('getInspector(inspectionId) = ' + getInspector(inspectionId));
+	logDebug('inspId = ' + inspId);
+	logDebug('getInspector(inspId) = ' + getInspector(inspId));
+	var inspResultObj = aa.inspection.getInspection(itemCap, inspectionId);
+	if (inspResultObj.getSuccess()) {
+		var currentInp = inspResultObj.getOutput();
+		currInspector = currentInp.getInspector().getGaUserID();
+		logDebug('currInspector = ' + currInspector);
+	}else{
+		logDebug('could not find inspector');
+	}				
+    // userRight = aa.userright.getUserRight(appTypeArray[0], getInspector(inspectionId)).getOutput();
+	userRight = aa.userright.getUserRight(appTypeArray[0], currInspector).getOutput();    // userRight = aa.userright.getUserRight(appTypeArray[0], getInspector(inspectionId)).getOutput();
+
+    TimeAccountingResult = aa.timeAccounting.getTimeLogModel();
+    if (TimeAccountingResult.getSuccess()) {
+        var timeElapsedString = "";
+		TimeAccounting = TimeAccountingResult.getOutput();
+		if (inspObj.getInspection().getActivity().getStartTime() != null && inspObj.getInspection().getActivity().getEndTime() != null) {
+			var startTime = resultDate + " " + String(inspObj.getInspection().getActivity().getStartTime().getHours()) + ":" + String(inspObj.getInspection().getActivity().getStartTime().getMinutes()) + ":00";
+			TimeAccounting.setStartTime(aa.date.parseDate(startTime));
+			var endTime = resultDate + " " + String(inspObj.getInspection().getActivity().getEndTime().getHours()) + ":" + String(inspObj.getInspection().getActivity().getEndTime().getMinutes()) + ":00";
+			TimeAccounting.setEndTime(aa.date.parseDate(endTime));
+            timeElapsedString = new Date(endTime).getTime()-new Date(startTime).getTime();
+            function epochMsToTime(duration) {
+                var milliseconds = parseInt((duration % 1000) / 100),
+                seconds = Math.floor((duration / 1000) % 60),
+                minutes = Math.floor((duration / (1000 * 60)) % 60),
+                hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+            
+                hours = (hours < 10) ? "0" + hours : hours;
+                minutes = (minutes < 10) ? "0" + minutes : minutes;
+                seconds = (seconds < 10) ? "0" + seconds : seconds;
+                return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+            }
+            timeElapsedString = epochMsToTime(timeElapsedString);
+        }
+        else {
+			logDebug("Start/End Times are null, using total time");
+            if (inspTotalTime) {
+                inspTotalTime = String(parseFloat(inspTotalTime).toFixed(1));
+                if (inspTotalTime.indexOf(".") != -1) {
+                    timeElapsedString = inspTotalTime.substr(0, inspTotalTime.indexOf(".")) + ":" + (inspTotalTime.substr(inspTotalTime.indexOf(".")) * 60).toString() + ":00";
+                }
+                else {
+                    timeElapsedString = inspTotalTime + ":00:00";
+                }
+            }
+		}
+        if (timeElapsedString) {
+            var totMinutes = 0;
+            totMinutes += parseInt(timeElapsedString.split(":")[0]) * 60;
+            totMinutes += parseInt(timeElapsedString.split(":")[1]);
+            TimeAccounting.setTotalMinutes(totMinutes);
+            TimeAccounting.setTimeElapsed(aa.date.parseDate(resultDate + " " + timeElapsedString));
+            var bill = "N";
+            if (billable) {
+                bill = "Y";
+            }
+            TimeAccounting.setAccessModel("N");
+            TimeAccounting.setBillable(bill);
+            // TimeAccounting.setCreatedBy(getInspector(inspectionId));
+            TimeAccounting.setCreatedBy(currInspector);
+            TimeAccounting.setCreatedDate(aa.date.getCurrentDate());
+            TimeAccounting.setDateLogged(aa.date.parseDate(resultDate));
+            TimeAccounting.setEntryCost(0.0);
+            TimeAccounting.setEntryPct(0.0);
+            TimeAccounting.setEntryRate(0.0);
+            TimeAccounting.setLastChangeDate(aa.date.getCurrentDate());
+            // TimeAccounting.setLastChangeUser(getInspector(inspectionId));
+            TimeAccounting.setLastChangeUser(currInspector);
+            TimeAccounting.setMaterialsCost(0.0);
+            TimeAccounting.setMilageTotal(0.0);
+            TimeAccounting.setMileageEnd(0.0);
+            TimeAccounting.setMileageStart(0.0);
+            if (itemCap) {
+                TimeAccounting.setReference(itemCap);
+            }
+            else {
+                TimeAccounting.setReference("N/A");
+            }
+            TimeAccounting.getTimeLogModel().setEntityId(inspectionId);		
+            TimeAccounting.getTimeLogModel().setEntityType("INSPECTION");
+            var taTypeResult = aa.timeAccounting.getTimeTypeByTimeTypeName(taType);
+            if (!taTypeResult.getSuccess() || !taTypeResult.getOutput()) {
+                logDebug("**WARNING: error retrieving Timeaccounting type : " + taType + " : " + taTypeResult.getErrorMessage()); 
+				return false;
+            }
+            var taGroupResult = aa.timeAccounting.getTimeGroupByTimeGroupName(taGroup);
+            if (!taGroupResult.getSuccess() || !taGroupResult.getOutput()) {
+                logDebug("**WARNING: error retrieving Timeaccounting group : " + taGroup + " : " + taGroupResult.getErrorMessage());
+                return false;
+            }
+            TimeAccounting.setTimeGroupSeq(taGroupResult.getOutput().getTimeGroupSeq());
+            TimeAccounting.setTimeTypeSeq(taTypeResult.getOutput().getTimeTypeSeq());
+            TimeAccounting.setUserGroupSeqNbr(userRight.getGroupSeqNumber());
+            TimeAccounting.setVehicleId(null);
+            addResult = aa.timeAccounting.addTimeLogModel(TimeAccounting);
+            if (addResult.getSuccess()) {
+                logDebug("Successfully added Time Accounting Record.");
+				return true;
+            }
+            else {
+                logDebug("**ERROR: adding Time Accounting Record: " + addResult.getErrorMessage());
+                return false;
+            }
+        }
+        else {
+            logDebug("**ERROR: adding Time Accounting Record: No time parameters have been provided");
+            return false;
+        }
+	}
+}
+

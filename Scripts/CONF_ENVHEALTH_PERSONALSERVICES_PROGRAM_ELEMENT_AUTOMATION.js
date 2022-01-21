@@ -1,13 +1,20 @@
 {
   "EnvHealth/Personal Services/Artificial Tanning/*": {
-    "ApplicationSubmitAfter": [
-      {
-    	  "metadata": {
-              "description": "To automate the fee by program element",
-              "operators": {}
-            },
-            "criteria": {},
-            "preScript": "",
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "To automate the fee by program element",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"task": [
+						"Application Review"
+					],
+					"status": [
+						"Completed"
+					]
+				},
         "action": {
           "assessFees": 
             {
@@ -43,14 +50,21 @@
     ]
   },
   "EnvHealth/Personal Services/Body Art/*": {
-    "ApplicationSubmitAfter": [
-      {
-    	  "metadata": {
-              "description": "To automate the fee by program element",
-              "operators": {}
-            },
-            "criteria": {},
-            "preScript": "",
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "To automate the fee by program element",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"task": [
+						"Application Review"
+					],
+					"status": [
+						"Completed"
+					]
+				},
         "action": {
           "assessFees": 
             {
@@ -85,14 +99,21 @@
     ]
   },
   "EnvHealth/Personal Services/Body Piercing/*": {
-    "ApplicationSubmitAfter": [
-      {
-    	  "metadata": {
-              "description": "To automate the fee by program element",
-              "operators": {}
-            },
-            "criteria": {},
-            "preScript": "",
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "To automate the fee by program element",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"task": [
+						"Application Review"
+					],
+					"status": [
+						"Completed"
+					]
+				},
         "action": {
           "assessFees": 
             {
@@ -127,14 +148,21 @@
     ]
   },
   "EnvHealth/Personal Services/Massage Parlor/*": {
-    "ApplicationSubmitAfter": [
-      {
-    	  "metadata": {
-              "description": "To automate the fee by program element",
-              "operators": {}
-            },
-            "criteria": {},
-            "preScript": "",
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "To automate the fee by program element",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"task": [
+						"Application Review"
+					],
+					"status": [
+						"Completed"
+					]
+				},
         "action": {
           "assessFees": 
             {

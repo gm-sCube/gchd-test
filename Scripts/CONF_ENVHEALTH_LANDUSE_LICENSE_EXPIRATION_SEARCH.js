@@ -5,13 +5,13 @@
       "searchByRecordType":"Land Use",
       "searchByRecordSubType":"*",
       "searchByRecordCategory":"Permit",
-      "searchStatus": "Active",
-      "searchByDaysOut": 60,
+      "searchStatus": "Active Maintenance",
+      "searchByDaysOut": 45,
       "searchByFromDate": false,
       "searchByToDate": false,
       "expiringInterval":"nextquarter",
       "notificationConfScript":"CONF_ENVHEALTH_LANDUSE_LICENSE_EXPIRATION_NOTICE",
-      "firstNotice": "60 Day Notice",
+      "firstNotice": "45 Day Notice",
       "excludeRecordType": [{
           "type": "Licenses/Type/Subtype/Category"
         },

@@ -17,6 +17,7 @@
           ]
         },
         "action": {
+		  "postToTimeAccounting": true,
           "newAppStatus": "Inspection Passed",
           "taskName": "Pre-Operational Inspection",
           "taskStatus": "Passed"
@@ -36,7 +37,7 @@
           ]
         },
         "action": {
-       
+		  "postToTimeAccounting": true,
           "newAppStatus": "Re-Inspection Required",
           "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
@@ -51,7 +52,7 @@
       }
     ]
   },
-  "EnvHealth/Food Retail/*/Permit": {
+  "EnvHealth/*/*/Permit": {
     "InspectionResultSubmitAfter": [
       {
         "preScript": "",
@@ -68,7 +69,8 @@
           ]
         },
         "action": {
-          "newAppStatus": "Inspection Passed"
+          "newAppStatus": "Inspection Passed",
+		  "postToTimeAccounting": true
         },
         "postScript": ""
       },
@@ -85,6 +87,7 @@
           ]
         },
         "action": {
+		  "postToTimeAccounting": true,
           "newAppStatus": "Re-Inspection Required",
           "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
