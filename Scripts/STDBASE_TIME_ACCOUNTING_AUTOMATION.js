@@ -191,7 +191,7 @@ function getRateByUser(username, entryDate) {
 		var hourlyRate = 0;
 		var initialContext = aa.proxyInvoker.newInstance(
 				"javax.naming.InitialContext", null).getOutput();
-		var ds = initialContext.lookup("java:/AA");
+		var ds = initialContext.lookup("java:/GALVESTONCO");
 		var conn = ds.getConnection();
 		var servProvCode = aa.getServiceProviderCode();
 		// build query
