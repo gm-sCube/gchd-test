@@ -219,7 +219,7 @@
         "postScript": ""
       }
     ]
-  }
+  },
   "EnvHealth/Food Retail/*/Renewal": {
     "ConvertToRealCAPAfter": [
      {
@@ -229,7 +229,7 @@
         },
         "preScript": "",
         "criteria": {
-        "balanceAllowed": false,
+        "balanceAllowed": false
         },
         "action": {
           "notificationTemplate": "SS_PERMIT_ISSUED_REPORT",
@@ -246,7 +246,7 @@
           "reportingInfoStandards": ""
         },
         "postScript": ""
-      },
+      }
 	]
   }
 }

@@ -26,7 +26,7 @@
         },
         "postScript": ""
       }
-    ]
+    ],
 
     "ConvertToRealCapAfter": [
       {
@@ -35,7 +35,7 @@
           "operators": {}
         },
         "criteria": {
-          "balanceAllowed": false
+          "recordType": "EnvHealth/Food Retail/*/Renewal"
         },
         "preScript": "",
         "action": {

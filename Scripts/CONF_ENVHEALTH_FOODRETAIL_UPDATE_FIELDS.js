@@ -16,13 +16,13 @@
            "Inactive"
           ]
         },
-        "preScript": "",
+       "preScript": "",
        "action": {
               "updateExpirationStatus": "Inactive"
           },
         "postScript": ""
       }
-    ]
+    ],
     "PaymentReceiveAfter": [
 	  {
         "metadata": {
@@ -30,15 +30,14 @@
           "operators": {}
         },
         "criteria": {
-        "balanceAllowed": false,
-		"customFields": {
-           
-          },
+          "balanceAllowed": false,
+		  "customFields": {
+          }
         },
         "preScript": "",
-       "action": {
+		"action": {
               "updateExpirationStatus": "About to Expire"
-          },
+        },
         "postScript": ""
       }
 	  

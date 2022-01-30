@@ -31,8 +31,7 @@
 	  "STDBASE_COPY_RECORD_DATA",
 	  "STDBASE_CONDITION_DOCUMENTS"
 	]
-  }
-  ,
+  },
   "InvoiceFeeAfter": {  
     "StandardScripts": [ 
       "STDBASE_SEND_CONTACT_EMAILS"  
@@ -49,9 +48,7 @@
 	  "STDBASE_PEOPLE_AUTOMATION",
       "STDBASE_RECORD_ADDRESS_AUTOMATION",
 	  "STDBASE_COPY_RECORD_DATA",
-	  "STDBASE_CONDITION_DOCUMENTS",
-	  
-	  
+	  "STDBASE_CONDITION_DOCUMENTS"
     ]
   },
   "InspectionResultModifyAfter": {
@@ -60,34 +57,29 @@
 	     "STDBASE_INSPECTION_AUTOMATION",
 	     "STDBASE_SEND_CONTACT_EMAILS"
 	]
-  }
-  ,
+  },
   "InspectionResultSubmitAfter": {
 	  "StandardScripts": [
 	     "STDBASE_TIME_ACCOUNTING_AUTOMATION" ,
 	     "STDBASE_INSPECTION_AUTOMATION",
 	     "STDBASE_SEND_CONTACT_EMAILS"
 	]
-  }  
-  ,
+  },
   "ContactLookUpAfter": {
 	  "StandardScripts": [
 	     "STDBASE_SYNC_RECORD_ASSET_CONTACTS"	  
 	]
-  }
-  ,
+  },
   "ContactAddAfter": {
 	  "StandardScripts": [
 	     "STDBASE_SYNC_RECORD_ASSET_CONTACTS"	  
 	]
-  }
-  ,
+  },
   "ContactRemoveBefore": {
 	  "StandardScripts": [
 	     "STDBASE_SYNC_RECORD_ASSET_CONTACTS"	  
 	]
-  }
-  ,
+  },
   "ContactEditAfter": {
 	  "StandardScripts": [
 	     "STDBASE_SYNC_RECORD_ASSET_CONTACTS"	  
