@@ -183,6 +183,7 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             var scheduleOutDays = myRules.scheduleOutDays;
             var cancelAllInspections = myRules.cancelAllInspections ;
             var invoiceOnNotification = myRules.invoiceOnNotification ;
+			var penalizeOnNotification = myRules.penalizeOnNotification;
 			var assessFeesArray = myRules.assessFees ;
 
             // validate configuration
@@ -211,7 +212,8 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             logDebug("nextNotificationDays: " + nextNotificationDays);
             logDebug("nextNotification: " + nextNotification);
             logDebug("cancelAllInspections: " + cancelAllInspections ) ; 
-			if(typeof(invoiceOnNotification) != 'undefined') logDebug("invoiceOnNotification: " + invoiceOnNotification  ) ; 
+			if(typeof(invoiceOnNotification) != 'undefined') logDebug("invoiceOnNotification: " + invoiceOnNotification  ) ;
+			logDebug("penalizeOnNotification" + penalizeOnNotification);
 			if(typeof(assessFeesArray) != 'undefined') logDebug("assessFeesArray length:" + assessFeesArray.length  ) ;
          
             // TO DO: add validation of rule params
@@ -266,6 +268,13 @@ prepAndSendNotification(agencyReplyEmail, contactTypeArr, acaURL, notificationTe
 		  if (typeof(invoiceOnNotification) != 'undefined' && invoiceOnNotification) {
 			  var capId = recordIdObject; // added by mz to force the capId from the batch job
 			  var controlString = 'AnnualRenewal' 
+			  appTypeArray = thisRecordTypeString.split("/")
+			  logDebug('Attempt to log fees');
+			  eval(getScriptText('STDBASE_PROGRAM_ELEMENT_AUTOMATION')); 
+		  }
+		  if (typeof(penalizeOnNotification) != 'undefined' && penalizeOnNotification) {
+			  var capId = recordIdObject; // added by mz to force the capId from the batch job
+			  var controlString = 'Penalization' 
 			  appTypeArray = thisRecordTypeString.split("/")
 			  logDebug('Attempt to log fees');
 			  eval(getScriptText('STDBASE_PROGRAM_ELEMENT_AUTOMATION')); 
