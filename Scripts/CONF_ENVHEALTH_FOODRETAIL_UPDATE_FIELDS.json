@@ -1,0 +1,46 @@
+{
+  "EnvHealth/Food Retail/*/Permit": {
+    "WorkflowTaskUpdateAfter": [
+	  {
+        "metadata": {
+          "description": "Update Expiration Status",
+          "operators": {}
+        },
+        "criteria": {
+		"customFields": {
+          },
+          "task": [
+           "Permit Status"
+          ],
+          "status": [
+           "Inactive"
+          ]
+        },
+       "preScript": "",
+       "action": {
+              "updateExpirationStatus": "Inactive"
+          },
+        "postScript": ""
+      }
+    ],
+    "PaymentReceiveAfter": [
+	  {
+        "metadata": {
+          "description": "Update Expiration Status",
+          "operators": {}
+        },
+        "criteria": {
+          "balanceAllowed": false,
+		  "customFields": {
+          }
+        },
+        "preScript": "",
+		"action": {
+              "updateExpirationStatus": "About to Expire"
+        },
+        "postScript": ""
+      }
+	  
+    ]
+  }
+}

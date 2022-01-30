@@ -1,0 +1,57 @@
+{
+  "aboutToExpireSearchRules": {
+    "searchCriteria": {
+      "searchByRecordGroup":"EnvHealth",
+      "searchByRecordType":"Food Retail",
+      "searchByRecordSubType":"*",
+      "searchByRecordCategory":"Permit",
+      "searchStatus": "Active",
+      "searchByDaysOut": 45,
+      "searchByFromDate": false,
+      "searchByToDate": false,
+      "expiringInterval":"nextquarter",
+      "notificationConfScript":"CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_NOTICE",
+      "firstNotice": "45 Day Notice",
+      "excludeRecordType": [{
+          "type": "EnvHealth/Land Use/Septic/Permit"
+        },
+        {
+          "type": "Licenses/Type/Subtype/Category"
+        }
+      ],
+      "excludeRecordStatus": [{
+          "status": "Revoked"
+        },
+        {
+          "status": "Closed"
+        }
+      ],
+      "adminEmail": "michael.zachry@scubeenterprise.com",
+      "batchResultEmailTemplate": "BATCH_LICENSE_RENEWAL_RESULTS"
+    }
+  },
+  "expirationNoticeSearchRules": {
+    "searchCriteria": {
+      "searchByRecordGroup": "EnvHealth",
+      "searchByRecordType": "Food Retail",
+      "searchByRecordSubType": "*",
+      "searchByRecordCategory": "Permit",
+      "searchByRecordStatus": "",
+      "searchByDaysOut": 1,
+      "searchByFromDate": false,
+      "searchByToDate": false,
+      "notificationConfScript": "CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_NOTICE",
+      "excludeRecordType": [],
+      "excludeRecordStatus": [
+        {
+          "status": "Revoked"
+        },
+        {
+          "status": "Closed"
+        }
+      ],
+      "adminEmail": "",
+      "batchResultEmailTemplate": "BATCH_LICENSE_RENEWAL_RESULTS_turned_off"
+    }
+  }
+}
