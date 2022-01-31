@@ -61,6 +61,9 @@
           "operators": ""
         },
         "criteria": {
+			"customFields" : {
+				"Risk" : "1" 
+			},
           "inspectionTypePerformed": [
 			"Regular Inspection"
           ],
@@ -94,7 +97,6 @@
 		  "inspectionCopyComment": true,
 		  "postToTimeAccounting": false,
           "newAppStatus": "Re-Inspection Required",
-          "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "180",
@@ -141,7 +143,6 @@
 		  "postToTimeAccounting": false,
 		  "inspectionCopyComment": true,
           "newAppStatus": "Re-Inspection Required",
-          "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "180",
