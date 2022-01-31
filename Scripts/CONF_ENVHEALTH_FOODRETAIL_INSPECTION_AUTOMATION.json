@@ -73,7 +73,7 @@
         },
         "action": {
           "newAppStatus": "Inspection Passed",
-		  "postToTimeAccounting": true
+		  "postToTimeAccounting": false,
           "inspectionType": "Regular Inspection",
           "rangeType": "Years",
           "range": "1",
@@ -94,7 +94,7 @@
           ]
         },
         "action": {
-		  "postToTimeAccounting": true,
+		  "postToTimeAccounting": false,
           "newAppStatus": "Re-Inspection Required",
           "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
