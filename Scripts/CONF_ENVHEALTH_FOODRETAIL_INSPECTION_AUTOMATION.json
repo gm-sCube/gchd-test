@@ -70,7 +70,8 @@
         },
         "action": {
 		  "postToTimeAccounting": false,
-          "inspectionType": "Regular Inspection",
+		  "inspectionCopyComment": true,
+		  "inspectionType": "Regular Inspection",
           "rangeType": "Months",
           "range": "12",
           "sameInspector": true
@@ -90,6 +91,7 @@
           ]
         },
         "action": {
+		  "inspectionCopyComment": true,
 		  "postToTimeAccounting": false,
           "newAppStatus": "Re-Inspection Required",
           "inspectionCopyComment": true,
@@ -137,6 +139,7 @@
         },
         "action": {
 		  "postToTimeAccounting": false,
+		  "inspectionCopyComment": true,
           "newAppStatus": "Re-Inspection Required",
           "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
