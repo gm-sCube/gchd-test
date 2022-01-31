@@ -62,7 +62,7 @@
         },
         "criteria": {
 			"customFields" : {
-				"Risk" : "1" 
+				"Risk" : "Unknown" 
 			},
           "inspectionTypePerformed": [
 			"Regular Inspection"
