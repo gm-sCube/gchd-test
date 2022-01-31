@@ -28,7 +28,7 @@
       }
     ],
 
-    "ConvertToRealCapAfter": [
+    "ConvertToRealCAPAfter": [
       {
         "metadata": {
           "description": "Sets the license status to Active to disable renewal button",
