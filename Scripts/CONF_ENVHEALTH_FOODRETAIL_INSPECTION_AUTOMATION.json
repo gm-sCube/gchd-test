@@ -61,6 +61,9 @@
           "operators": ""
         },
         "criteria": {
+			"customFields {
+				"Risk" : "1"
+			},
           "inspectionTypePerformed": [
 			"Regular Inspection"
           ],
@@ -69,11 +72,10 @@
           ]
         },
         "action": {
-          "newAppStatus": "Inspection Passed",
 		  "postToTimeAccounting": false,
           "inspectionType": "Regular Inspection",
-          "rangeType": "Years",
-          "range": "1",
+          "rangeType": "Months",
+          "range": "12",
           "sameInspector": true
        },
         "postScript": ""
