@@ -52,7 +52,7 @@
       }
     ]
   },
-  "EnvHealth/*/*/Permit": {
+  "EnvHealth/Food Retail/*/Permit": {
     "InspectionResultSubmitAfter": [
       {
         "preScript": "",
@@ -61,11 +61,8 @@
           "operators": ""
         },
         "criteria": {
-		  "customFields": {
-			"Risk" : "1"
-		  },
           "inspectionTypePerformed": [
-            
+			"Regular Inspection"
           ],
           "inspectionResult": [
             "Complete"
@@ -78,6 +75,52 @@
           "rangeType": "Years",
           "range": "1",
           "sameInspector": true
+       },
+        "postScript": ""
+      },
+      {
+        "preScript": "",
+        "metadata": {
+          "description": "",
+          "operators": ""
+        },
+        "criteria": {
+          "inspectionTypePerformed": [],
+          "inspectionResult": [
+            "Requires Reinspection"
+          ]
+        },
+        "action": {
+		  "postToTimeAccounting": false,
+          "newAppStatus": "Re-Inspection Required",
+          "inspectionCopyComment": true,
+          "inspectionType": "Follow-up Inspection",
+          "rangeType": "Days",
+          "range": "180",
+          "sameInspector": true
+        },
+        "postScript": ""
+      }
+    ]
+  },
+  "EnvHealth/*/*/Permit": {
+    "InspectionResultSubmitAfter": [
+      {
+        "preScript": "",
+        "metadata": {
+          "description": "",
+          "operators": ""
+        },
+        "criteria": {
+          "inspectionTypePerformed": [
+          ],
+          "inspectionResult": [
+            "Complete"
+          ]
+        },
+        "action": {
+          "newAppStatus": "Inspection Passed",
+		  "postToTimeAccounting": false
        },
         "postScript": ""
       },
