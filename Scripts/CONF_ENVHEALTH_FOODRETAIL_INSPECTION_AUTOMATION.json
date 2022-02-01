@@ -8,6 +8,9 @@
           "operators": ""
         },
         "criteria": {
+		  "customFields" : {
+			  "Risk" : "1"
+		  },
           "inspectionTypePerformed": [
             "Pre-Operational",
             "Follow-up Inspection"
