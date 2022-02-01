@@ -59,7 +59,6 @@
   },
   "InspectionResultSubmitAfter": {
 	  "StandardScripts": [
-	     "STDBASE_TIME_ACCOUNTING_AUTOMATION" ,
 	     "STDBASE_INSPECTION_AUTOMATION",
 	     "STDBASE_SEND_CONTACT_EMAILS"
 	]
