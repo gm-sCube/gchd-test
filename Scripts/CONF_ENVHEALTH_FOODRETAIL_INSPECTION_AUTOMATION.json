@@ -75,7 +75,7 @@
           ]
         },
         "action": {
-		  "postToTimeAccounting": false,
+		  "postToTimeAccounting": true,
 		  "inspectionCopyComment": true,
 		  "inspectionType": "Regular Inspection",
           "rangeType": "Months",
@@ -98,7 +98,7 @@
         },
         "action": {
 		  "inspectionCopyComment": true,
-		  "postToTimeAccounting": false,
+		  "postToTimeAccounting": true,
           "newAppStatus": "Re-Inspection Required",
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
