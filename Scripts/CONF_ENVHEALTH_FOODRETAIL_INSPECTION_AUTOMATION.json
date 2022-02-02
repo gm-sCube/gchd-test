@@ -64,9 +64,6 @@
           "operators": ""
         },
         "criteria": {
-			"customFields" : {
-				"Risk" : "Unknown" 
-			},
           "inspectionTypePerformed": [
 			"Regular Inspection"
           ],
