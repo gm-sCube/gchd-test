@@ -89,7 +89,7 @@
         },
         "criteria": {
 		  "customFields" : {
-			  "Risk" : "Unknown"
+			  "Business Code" : "something"
 		  },
           "inspectionTypePerformed": [
 			"Follow-up Inspection"
