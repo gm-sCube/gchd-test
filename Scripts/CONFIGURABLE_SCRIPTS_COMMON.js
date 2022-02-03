@@ -1472,7 +1472,7 @@ function isCustomFieldsMatchRules(customFieldsJson) {
 
 	for ( var cf in customFieldsJson) {
 		logDebug("cf: " + cf);
-		logDebug("customFieldsJson: " + customVieldsJson);
+		logDebug("customFieldsJson: " + customFieldsJson);
 		var recordValue = GetASIValue(cf);
 		logDebug("recordValue = GetASIValue(cf): " + recordValue);
 		// this to handle in case the field is check box and we need to check if its un checked 
