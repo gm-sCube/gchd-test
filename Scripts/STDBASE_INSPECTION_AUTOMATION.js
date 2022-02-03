@@ -87,6 +87,7 @@ if (configurableCommonContent && configurableCommonContent != null && configurab
 } else {
 	eval(getScriptText("CONFIGURABLE_SCRIPTS_COMMON", null, true));
 }
+logDebug("capId: " + capId);
 logDebug('AInfo["Risk"]: ' + AInfo["Risk"]);
 var scriptSuffix = "INSPECTION_AUTOMATION";
 
