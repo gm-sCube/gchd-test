@@ -501,7 +501,9 @@ function GetASIValue(asiFieldName) {
 	logDebug("capId: " + capId);
 	logDebug("asiFieldName: " + asiFieldName);
 	// logDebug('AInfo["Risk"]: ' + AInfo["Risk"]);
+	logDebug("logGlobals start");
 	logGlobals(AInfo);
+	logDebug("logGlobals end");
 	if (controlString == "ApplicationSubmitBefore") {
 		return AInfo[asiFieldName];
 	} else if (isPublicUser && (capId.toString().indexOf("EST") != -1 || (cap != null && cap.getCapClass() == "EDITABLE"))) {
