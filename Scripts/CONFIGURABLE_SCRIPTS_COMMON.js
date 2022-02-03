@@ -506,14 +506,15 @@ function GetASIValue(asiFieldName) {
 	logGlobals(AInfo);
 	logDebug("logGlobals end");
 	if (controlString == "ApplicationSubmitBefore") {
-		// return AInfo[asiFieldName];
-		return getAppSpecific(asiFieldName,capId);
+		return AInfo[asiFieldName];
 	} else if (isPublicUser && (capId.toString().indexOf("EST") != -1 || (cap != null && cap.getCapClass() == "EDITABLE"))) {
 		logDebug("using getFieldValue");
 		return getFieldValue(asiFieldName, asiGroups);
 	} else {
-		// return AInfo[asiFieldName];
-		logDebug("using getAppSpecific()");
+		logDebug("using AInfo");
+		return AInfo[asiFieldName];
+		// logDebug("using getAppSpecific()");
+		// logDebug("getAppSpecific(asiFieldName,capId): " + getAppSpecific(asiFieldName,capId));
 		return getAppSpecific(asiFieldName,capId);
 	}
 }
