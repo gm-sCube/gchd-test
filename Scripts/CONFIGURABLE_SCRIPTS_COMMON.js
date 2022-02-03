@@ -1471,7 +1471,10 @@ function isCustomFieldsMatchRules(customFieldsJson) {
 	var result = true;
 
 	for ( var cf in customFieldsJson) {
+		logDebug("cf: " + cf);
+		logDebug("customFieldsJson: " + customVieldsJson);
 		var recordValue = GetASIValue(cf);
+		logDebug("recordValue = GetASIValue(cf): " + recordValue);
 		// this to handle in case the field is check box and we need to check if its un checked 
 		// Accela always returns null in case of the check box is not checked.
 		if (recordValue == null && arrayContainsValue(customFieldsJson[cf], "UNCHECKED")) {
