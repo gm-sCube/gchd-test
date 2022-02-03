@@ -266,7 +266,7 @@ function checkPrimaryCriteria(criteria, operators) {
 			var expr = "isXxxMatchRules(crElementJson)";
 			var crElementJson = criteria[crElement];
 			expr = crElementMethodNameMap[crElement] + "(crElementJson)";
-			logDebug("expr: " + exp);
+			logDebug("expr: " + expr);
 			var evalResult = eval(expr);
 			logDebug("evalResult: " + evalResult);
 			if (!isEmptyOrNull(operators)) {
