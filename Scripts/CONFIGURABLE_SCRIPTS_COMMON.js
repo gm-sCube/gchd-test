@@ -497,6 +497,9 @@ function loadAddressAttributesLocalAV(thisArr) {
 }
 
 function GetASIValue(asiFieldName) {
+	logDebug("cap: " + cap );
+	logDebug("capId: " + capId);
+	logDebug('AInfo["Risk"]: ' + AInfo["Risk"]);
 	if (controlString == "ApplicationSubmitBefore") {
 		return AInfo[asiFieldName];
 	} else if (isPublicUser && (capId.toString().indexOf("EST") != -1 || (cap != null && cap.getCapClass() == "EDITABLE"))) {
