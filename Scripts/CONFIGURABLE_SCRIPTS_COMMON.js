@@ -501,6 +501,7 @@ function GetASIValue(asiFieldName) {
 	logDebug("capId: " + capId);
 	logDebug("asiFieldName: " + asiFieldName);
 	// logDebug('AInfo["Risk"]: ' + AInfo["Risk"]);
+	logDebug("useAppSpecificGroupName: " + useAppSpecificGroupName);
 	logDebug("logGlobals start");
 	logGlobals(AInfo);
 	logDebug("logGlobals end");
