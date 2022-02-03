@@ -511,10 +511,10 @@ function GetASIValue(asiFieldName) {
 		logDebug("using getFieldValue");
 		return getFieldValue(asiFieldName, asiGroups);
 	} else {
-		logDebug("using AInfo");
-		return AInfo[asiFieldName];
-		// logDebug("using getAppSpecific()");
-		// logDebug("getAppSpecific(asiFieldName,capId): " + getAppSpecific(asiFieldName,capId));
+		// logDebug("using AInfo");
+		//return AInfo[asiFieldName];
+		logDebug("using getAppSpecific()");
+		logDebug("getAppSpecific(asiFieldName,capId): " + getAppSpecific(asiFieldName,capId));
 		return getAppSpecific(asiFieldName,capId);
 	}
 }
