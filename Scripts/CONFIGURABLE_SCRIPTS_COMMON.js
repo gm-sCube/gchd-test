@@ -4,11 +4,10 @@
 | Usage			: Script performs common functions as an aide to the Standard Configurable Scripts
 | Created by	: AME Team
 | Created on	: 11/01/2017
-/------------------------------------------------------------------------------------------------------*/
-/*-USER-----------DATE----------------COMMENTS----------------------------------------------------------/
-| HJAMOUS         26/09/2018 12:54:10 fix bug dateformatted not define hani jamous
-/-----END CHANGE LOG-----------------------------------------------------------------------------------*/
 
+2/4/2022 mike zachry - sCube - copied 21.2.4 version local
+2/4/2022 mike zachry - sCube - modified GetASIValue to use getAppSpecific() instead of AInfo[] because global variables are null but capId is not
+/------------------------------------------------------------------------------------------------------*/
 
 var SCRIPT_VERSION = 3.0;
 // Support ACA and AV, without messing with Global publicUser
@@ -36,7 +35,6 @@ if (isPublicUser && (typeof controlString === 'undefined' || controlString == "P
 	} else {
 		eval(getScriptText("INCLUDES_ACCELA_FUNCTIONS", null, true));
 	}
-	
 	var includesAccelaGlobals = getScriptText("INCLUDES_ACCELA_GLOBALS");
 	if (typeof (includesAccelaGlobals) != "undefined" && includesAccelaGlobals != null && includesAccelaGlobals != "") {
 		eval(includesAccelaGlobals);
@@ -110,18 +108,14 @@ function isConfigurableScript(settingsArray, jsonFileSuffix) {
 		return false;
 	}
 	var jsonName = "CONF_" + solution + "_" + jsonFileSuffix;
-        logDebug("jsonName: " + jsonName);
 
 	var cfgJsonStr = getScriptText(jsonName);
-    logDebug('After getting the JSON ........... ' + jsonName);    
 	if (cfgJsonStr == "") {
-		logDebug('cfgJsonStr == ""');
 		return false
 	}
 
 	var cfgJsonObj = JSON.parse(cfgJsonStr);
-	logDebug('After Parsing the JSON ................');
-	
+
 	var wildCardProbabiltyArr = [ itemAppTypeArray[0] + "/" + itemAppTypeArray[1] + "/" + itemAppTypeArray[2] + "/" + itemAppTypeArray[3],
 			itemAppTypeArray[0] + "/" + itemAppTypeArray[1] + "/" + itemAppTypeArray[2] + "/*", itemAppTypeArray[0] + "/" + itemAppTypeArray[1] + "/*/*",
 			itemAppTypeArray[0] + "/*/*/*", itemAppTypeArray[0] + "/*/" + itemAppTypeArray[2] + "/*",
@@ -130,7 +124,6 @@ function isConfigurableScript(settingsArray, jsonFileSuffix) {
 
 	for (w in wildCardProbabiltyArr) {
 		var recordTypeRules = cfgJsonObj[wildCardProbabiltyArr[w]];
-		logDebug('Looking for recordTypeRules: ' + wildCardProbabiltyArr[w]);
 		if (recordTypeRules === undefined)
 			continue;
 
@@ -140,33 +133,52 @@ function isConfigurableScript(settingsArray, jsonFileSuffix) {
 			continue;
 		}
 
-		logDebug("find cfgJsonObj for record type: [" + wildCardProbabiltyArr[w] + "] : " + (recordTypeRules != undefined));
-logDebug("controlString2.... "+controlString)
+		//logDebug("find cfgJsonObj for record type: [" + wildCardProbabiltyArr[w] + "] : " + (recordTypeRules != undefined));
+
 		var recordTypeEventRules = recordTypeRules[controlString];
 		if (recordTypeEventRules === undefined)
 			continue;
-		
-		logDebug("find controlString [" + controlString + "] in recordTypeRules: " + recordTypeEventRules.length);
-		logDebug("Check Is Event Criteria Matched...?");
+
+		//logDebug("find controlString [" + controlString + "] in recordTypeRules: " + recordTypeEventRules.length);
+		//logDebug("Check Is Event Criteria Matched...?");
 		for (x in recordTypeEventRules) {
 			var criteria = recordTypeEventRules[x].criteria;
 			var operators = recordTypeEventRules[x].metadata.operators;
+
+			var disabledCriteria = criteria["disabled"];
+			var ignoreRecordTypesArray = criteria["ignoreRecordTypesArray"];
+
+			if(matches(disabledCriteria, true, "true")){
+					logDebug("(Configurable Scripts Common)(isConfigurableScript) criteria.disabled = " + disabledCriteria);
+					continue; 
+			}
+
+			if(!isEmptyOrNull(ignoreRecordTypesArray)){
+				if (controlString.indexOf("Before") > -1) {
+					if(appMatchArrayBeforeLocal(ignoreRecordTypesArray, capId)){
+						logDebug("(Configurable Scripts Common)(isConfigurableScript) criteria.ignoreRecordTypesArray = " + ignoreRecordTypesArray);
+						continue;
+					}
+				}
+				if (controlString.indexOf("After") > -1 || controlString == "Pageflow") {
+					if(appMatchArrayLocal(ignoreRecordTypesArray, capId)){
+						logDebug("(Configurable Scripts Common)(isConfigurableScript) criteria.ignoreRecordTypesArray = " + ignoreRecordTypesArray);
+						continue;
+					}
+				}
+
+			}
+
 			if (controlString.indexOf("Workflow") > -1) {
-				logDebug("Workflow.................");
 				var evalResult = evaluateBooleanVinA(criteria["task"], wfTask, getLogicalOp(recordTypeEventRules[x], "task"));
-				logDebug("evalResult TASK: " + evalResult);
-				logDebug("criteria['task']: " + criteria["task"]);
 				if (evalResult || criteria["task"] == null || criteria["task"] === undefined || criteria["task"].length == 0) {
 					var evalResult = evaluateBooleanVinA(criteria["status"], wfStatus, getLogicalOp(recordTypeEventRules[x], "status"));
-					logDebug("evalResult STATUS: " + evalResult);
-					logDebug("criteria['status']: " + criteria["status"]);
 					if (evalResult || criteria["status"] == null || criteria["status"] === undefined || criteria["status"].length == 0) {
 						var primaryCriResult = checkPrimaryCriteria(criteria, operators);
-						logDebug("primaryCriResult: " + primaryCriResult);
 						if (!primaryCriResult) {
 							continue;
 						}
-						logDebug(controlString + " :: event criteria matched, add rule to settings array...");
+						//logDebug(controlString + " :: event criteria matched, add rule to settings array...");
 						settingsArray.push(recordTypeEventRules[x]);
 					}//event 2nd level matched
 				}//event 1st level matched
@@ -179,9 +191,20 @@ logDebug("controlString2.... "+controlString)
 						if (!primaryCriResult) {
 							continue;
 						}
-						logDebug(controlString + " :: event criteria matched, add rule to settings array...");
+						//logDebug(controlString + " :: event criteria matched, add rule to settings array...");
 						settingsArray.push(recordTypeEventRules[x]);
 					}//event 2nd level matched
+				}//event 1st level matched
+			} else if (controlString.indexOf("Inspection") > -1 && controlString.indexOf("Cancel") > -1 && typeof inspType != "undefined") {
+				var evalResult = evaluateBooleanVinA(criteria["inspectionTypePerformed"], inspType, getLogicalOp(recordTypeEventRules[x], "inspectionTypePerformed"));
+				if (evalResult || criteria["inspectionTypePerformed"] == null || criteria["inspectionTypePerformed"] === undefined) {
+					if (evalResult) {
+						var primaryCriResult = checkPrimaryCriteria(criteria, operators);
+						if (!primaryCriResult) {
+							continue;
+						}
+						settingsArray.push(recordTypeEventRules[x]);
+					}
 				}//event 1st level matched
 			} else if (controlString.indexOf("InspectionMultipleSchedule") > -1 || controlString.indexOf("InspectionSchedule") > -1) {
 				var evalResult = evaluateBooleanVinA(criteria["inspectionTypePerformed"], inspType, getLogicalOp(recordTypeEventRules[x], "inspectionTypePerformed"));
@@ -225,7 +248,7 @@ logDebug("controlString2.... "+controlString)
 					if (!primaryCriResult) {
 						continue;
 					}
-					logDebug(controlString + " :: event criteria matched, add rule to settings array...");
+					//logDebug(controlString + " :: event criteria matched, add rule to settings array...");
 					settingsArray.push(recordTypeEventRules[x]);
 				}
 
@@ -261,14 +284,11 @@ function checkPrimaryCriteria(criteria, operators) {
 
 	for (cr in PRI_CRITERIA_ELEMENTS) {
 		var crElement = PRI_CRITERIA_ELEMENTS[cr];
-		logDebug("crElement: " + crElement);
 		if (criteria.hasOwnProperty(crElement)) {
 			var expr = "isXxxMatchRules(crElementJson)";
 			var crElementJson = criteria[crElement];
 			expr = crElementMethodNameMap[crElement] + "(crElementJson)";
-			logDebug("expr: " + expr);
 			var evalResult = eval(expr);
-			logDebug("evalResult: " + evalResult);
 			if (!isEmptyOrNull(operators)) {
 				evalResult = evaluateBoolean(evalResult, operators[crElement]);
 			}
@@ -313,15 +333,10 @@ function evaluateBoolean(evalResult, op) {
  * @returns search result after applying op
  */
 function evaluateBooleanVinA(inputArray, value, op) {
-	logDebug('evaluateBooleanVinA - Value: ' + value);
-	
 	if (inputArray == null || inputArray === undefined || inputArray.length == 0) {
 		return true;
 	}
-	for (t in inputArray) {
-		logDebug('Array Item: ' + inputArray[t]);
-	}
-	
+
 	var evalResult = arrayContainsValue(inputArray, value);
 	return evaluateBoolean(evalResult, op);
 }
@@ -497,25 +512,14 @@ function loadAddressAttributesLocalAV(thisArr) {
 }
 
 function GetASIValue(asiFieldName) {
-	logDebug("cap: " + cap );
-	logDebug("capId: " + capId);
-	logDebug("asiFieldName: " + asiFieldName);
-	// logDebug('AInfo["Risk"]: ' + AInfo["Risk"]);
-	logDebug("useAppSpecificGroupName: " + useAppSpecificGroupName);
-	logDebug("logGlobals start");
-	logGlobals(AInfo);
-	logDebug("logGlobals end");
 	if (controlString == "ApplicationSubmitBefore") {
 		return AInfo[asiFieldName];
 	} else if (isPublicUser && (capId.toString().indexOf("EST") != -1 || (cap != null && cap.getCapClass() == "EDITABLE"))) {
-		logDebug("using getFieldValue");
 		return getFieldValue(asiFieldName, asiGroups);
 	} else {
-		// logDebug("using AInfo");
-		//return AInfo[asiFieldName];
-		logDebug("using getAppSpecific()");
-		logDebug("getAppSpecific(asiFieldName,capId): " + getAppSpecific(asiFieldName,capId));
-		return getAppSpecific(asiFieldName,capId);
+		//for some reason AInfo is null at this point. changed to getAppSpecific. need to determine root cause.
+		// return AInfo[asiFieldName];
+		return getAppSpecific(asiFieldName,capId); 
 	}
 }
 
@@ -1484,10 +1488,7 @@ function isCustomFieldsMatchRules(customFieldsJson) {
 	var result = true;
 
 	for ( var cf in customFieldsJson) {
-		logDebug("cf: " + cf);
-		logDebug("customFieldsJson: " + customFieldsJson);
 		var recordValue = GetASIValue(cf);
-		logDebug("recordValue = GetASIValue(cf): " + recordValue);
 		// this to handle in case the field is check box and we need to check if its un checked 
 		// Accela always returns null in case of the check box is not checked.
 		if (recordValue == null && arrayContainsValue(customFieldsJson[cf], "UNCHECKED")) {
@@ -2708,7 +2709,7 @@ function contactObjLocal(ccsm) {
 			xRefContactEntity.setEntityType("PROFESSIONAL");
 			//xRefContactEntity.setEntityID1(parseInt(refLicProfSeq));
 			var auditModel = xRefContactEntity.getAuditModel();
-			auditModel.setAuditDate(new Date());
+			auditModel.setAuditDate(new Date(aa.util.now()));
 			auditModel.setAuditID(currentUserID);
 			auditModel.setAuditStatus("A")
 			xRefContactEntity.setAuditModel(auditModel);
@@ -2755,7 +2756,7 @@ function contactObjLocal(ccsm) {
 			xRefContactEntity.setEntityType("PROFESSIONAL");
 			xRefContactEntity.setEntityID1(parseInt(refLicProfSeq));
 			var auditModel = xRefContactEntity.getAuditModel();
-			auditModel.setAuditDate(new Date());
+			auditModel.setAuditDate(new Date(aa.util.now()));
 			auditModel.setAuditID(currentUserID);
 			auditModel.setAuditStatus("A")
 			xRefContactEntity.setAuditModel(auditModel);
@@ -2915,7 +2916,7 @@ function contactObjLocal(ccsm) {
 		akaModel.setFullName(fullName);
 		akaModel.setStartDate(startDate);
 		akaModel.setEndDate(endDate);
-		auditModel.setAuditDate(new Date());
+		auditModel.setAuditDate(new Date(aa.util.now()));
 		auditModel.setAuditStatus("A");
 		auditModel.setAuditID("ADMIN");
 		akaModel.setAuditModel(auditModel);
@@ -3095,6 +3096,57 @@ function contactObjLocal(ccsm) {
 		return relConsArray;
 	}
 }
+
+function appMatchArrayLocal(recordTypesArray){
+    var capOverride = false;
+    
+    var itemCap = capId
+	if (arguments.length > 1){
+        itemCap = arguments[1]; // use cap ID specified in args
+        capOverride = true;
+    } 
+
+    for(a in recordTypesArray){
+        var recTypeToMatch = recordTypesArray[a];
+        if(capOverride){
+            if(appMatch(recTypeToMatch,itemCap)){
+                return true;
+            }
+        }
+        else{
+            if(appMatch(recTypeToMatch)){
+                return true;
+            }
+        }
+        
+    }
+    return false;
+}
+
+function appMatchArrayBeforeLocal(recordTypesArray){
+    for(a in recordTypesArray){
+        var recTypeToMatch = recordTypesArray[a];
+        if(appMatchBeforeLocal(recTypeToMatch)){
+            return true;
+        }
+    }
+    return false;
+}
+
+function appMatchBeforeLocal(ats) // optional capId or CapID string
+    {
+    var matchArray = appTypeArray //default to current app
+        
+    var isMatch = true;
+    var ata = ats.split("/");
+    if (ata.length != 4)
+        logDebug("**ERROR in appMatch.  The following Application Type String is incorrectly formatted: " + ats);
+    else
+        for (xx in ata)
+            if (!ata[xx].equals(matchArray[xx]) && !ata[xx].equals("*"))
+                isMatch = false;
+    return isMatch;
+    }   
 
 //////////////////// DPOR API //////////////////////////////////////////////////////////////
 
