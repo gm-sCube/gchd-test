@@ -5,7 +5,7 @@
 | Created by	: AME Team
 | Created on	: 11/01/2017
 
-2/4/2022 mike zachry - sCube - copied 21.2.4 version local
+2/4/2022 mike zachry - sCube - copied 21.2.3 version local
 2/4/2022 mike zachry - sCube - modified GetASIValue to use getAppSpecific() instead of AInfo[] because global variables are null but capId is not
 /------------------------------------------------------------------------------------------------------*/
 
