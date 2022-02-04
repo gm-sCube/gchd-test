@@ -42,10 +42,6 @@ Author: Yazan Barghouth
           "inspectionCopyComment": false,
           "rangeType": "Days",
           "range": "10",
-          "rangeTypeToCustomField": "Inspection Interval Unit",
-          "rangeToCustomField": "Inspection Interval",
-          "basedOnScheduledDate": true,
-          "basedOnResultDate": false
           "sameInspector": false,
           "createCondition": "",
           "createConditionType": "",
@@ -69,6 +65,7 @@ Author: Yazan Barghouth
 }
 
 Notes:
+	- mike zachry sCube - added function to add time to the cap instead of the inspection
 	- new property added 'newAppStatus': update record status if Event criteria matched (set empty to ignore)
 	- new property added 'inspectionCopyComment': copy current inspection's result to the new scheduled inspection(if any)
 		inspectionCopyComment: true/false
@@ -216,51 +213,11 @@ function inspectionAutomation(rules) {
 			logDebug("**WARN: ERROR InspectionAutomationScript Creating App [" + rules.caseType + "] err:" + appCreateResult.getErrorMessage());
 		}
 	}
-	
-	var rangeType = "" ;
-	
-	if(!isEmptyOrNull(rules.action.rangeType) && !rules.action.rangeType.equalsIgnoreCase("custom field") )
-		{
-		rangeType = rules.action.rangeType ;
-		}
-	else if(!isEmptyOrNull(rules.action.rangeTypeToCustomField))
-		{
-		var rangeTypeToCustomField =  rules.action.rangeTypeToCustomField ;
-		if( rangeTypeToCustomField.indexOf(".") >-1)
-			{
-			useAppSpecificGroupName = true;
-			}
-		else
-			{
-			useAppSpecificGroupName = false;
-			}
-		rangeType = getAppSpecific( rangeTypeToCustomField ,capId ) ; 
-		}
-	
-    var rangeValue = "" ;
-    
-    if(!isEmptyOrNull(rules.action.range) && !rules.action.range.equalsIgnoreCase("custom field") && !isNaN(rules.action.range) )
-	{
-    	rangeValue = rules.action.range ;
-	}
-else if(!isEmptyOrNull(rules.action.rangeToCustomField))
-	{
-	var rangeToCustomField =  rules.action.rangeToCustomField ;
-	if( rangeToCustomField.indexOf(".") >-1)
-		{
-		useAppSpecificGroupName = true;
-		}
-	else
-		{
-		useAppSpecificGroupName = false;
-		}
-	    rangeValue = getAppSpecific( rangeToCustomField ,capId ) ; 
-	}
-    
-	if (!isEmptyOrNull(rules.action.inspectionType) && !isEmptyOrNull(rules.action.sameInspector) && !isEmptyOrNull(rangeType) && !isEmptyOrNull(rangeValue)
+
+	if (!isEmptyOrNull(rules.action.inspectionType) && !isEmptyOrNull(rules.action.sameInspector) && !isEmptyOrNull(rules.action.rangeType) && !isEmptyOrNull(rules.action.range)
 			&& !isEmptyOrNull(rules.action.inspectionCopyComment)) {
 		var currInspector = null;
-		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rangeType, rangeValue , rules.action.inspectionCopyComment);
+		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rules.action.rangeType, rules.action.range, rules.action.inspectionCopyComment);
 	}//inspection params validation
 
 	if (!isEmptyOrNull(rules.action.createConditionType) && !isEmptyOrNull(rules.action.createCondition) && !isEmptyOrNull(rules.action.createConditionSeverity)) {
@@ -366,90 +323,42 @@ function updateTaskHandleDisposition(taskNamee, newStatus) {
 		var updateResult = aa.workflow.handleDisposition(currentTask.getTaskItem(), capId);
 	}
 }
-
-/**
- * calculate inspection range value.
-  * @param {string}  costRangeType (days, months, years) 
-  * @param {number}  costRange.
-  * @return {array} costRange per days.  
-*/
 function calculateUnifiedRange(costRangeType, costRange) {
-		if (costRangeType.equalsIgnoreCase("months")) {
-			return 30 * costRange;
-		} else if (costRangeType.equalsIgnoreCase("days")) {
-			return costRange;
-		}
-		else if (costRangeType.equalsIgnoreCase("years")) {
-			return 365*costRange ;
-		}
+	if (costRangeType.equalsIgnoreCase("months")) {
+		return 30 * costRange;
+	} else if (costRangeType.equalsIgnoreCase("days")) {
+		return costRange;
 	}
+}
 
 function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspectionCopyComment) {
 
-	
 	if (typeof inspectionCopyComment === 'undefined' || inspectionCopyComment == null) {
 		inspectionCopyComment = false;
 	}
 
 	var currInspector = null;
-	var scheduledDate =  null ;
-	var inspectionDate = null; 
-
+	if (sameInspector) {
 		if (inspId != null) {
 			var inspResultObj = aa.inspection.getInspection(capId, inspId);
 			if (inspResultObj.getSuccess()) {
 				var currentInp = inspResultObj.getOutput();
-				if(sameInspector) 
-				{
 				currInspector = currentInp.getInspector().getGaUserID();
-				}
-				if(currentInp.getScheduledDate() != null )
-					{
-					//'getScheduledDate().getDayOfMonth()' returns = 'number of days' minus 1 day;
-					scheduledDate = dateFormatted(currentInp.getScheduledDate().getMonth(),currentInp.getScheduledDate().getDayOfMonth()+1,currentInp.getScheduledDate().getYear(),  "MM/DD/YYYY" ) ;
-					}
-				if(currentInp.getScheduledDate() != null )
-					{
-					inspectionDate = dateFormatted(currentInp.getInspectionDate().getMonth(),currentInp.getInspectionDate().getDayOfMonth(),currentInp.getInspectionDate().getYear(),  "MM/DD/YYYY" ) ;
-					}	
 			}
 			else {
          logDebug("Error in aa.inspection.getInspection API. Message = " + inspResultObj.getErrorMsg());
             }
 		}
+	}
 
 	var now = new Date(aa.util.now());
-	logDebug("rangeType ='" +rangeType + "' rangeValue = '" +rangeValue + "'") ;
 	var inspRangeDays = calculateUnifiedRange(rangeType, rangeValue);
-	logDebug("inspRangeDays =" +inspRangeDays) ;
-	
-	var baseDate = null ; 
 
-	if(!isEmptyOrNull(rules.action.basedOnScheduledDate) && rules.action.basedOnScheduledDate)
-	{
-	    baseDate  = scheduledDate;
-	    logDebug("baseDate = '" +baseDate + "' basedOnScheduledDate = " + rules.action.basedOnScheduledDate )
-	} 
-	else if(!isEmptyOrNull(rules.action.basedOnResultDate) && rules.action.basedOnResultDate)
-		{
-		baseDate = inspectionDate;
-		logDebug("baseDate = '" +baseDate + "' basedOnResultDate = " + rules.action.basedOnResultDate )
-		}
-	
-	if(baseDate !=null )
-		{
-		// The getDateDiff() method returns menus value if the 'base date' is greater than the 'current date'.
-		var diffDate = getDateDiff(baseDate) ;
-		logDebug("Differnce date between 'base date' and 'current date' = " + diffDate ) ;
-		inspRangeDays = parseInt(inspRangeDays) + parseInt((parseInt(diffDate) *-1)) ;
-		}
-	logDebug("Schedule a new inspection after ='" + inspRangeDays + "' days" ) ;
 	var newInspComments = null;
 	if (inspectionCopyComment && typeof inspComment !== 'undefined' && inspComment != "") {
 		newInspComments = inspComment;
 	}
 	//re-sched inspection
-	
 	if (currInspector != null) {
 		scheduleInspection(inspecType, parseInt(inspRangeDays), currInspector, null, newInspComments);
 	} else {
@@ -709,4 +618,3 @@ function addTimeAccountingRecordFromInspection(itemCap, inspectionId, taGroup, t
 		}
 	}
 }
-
