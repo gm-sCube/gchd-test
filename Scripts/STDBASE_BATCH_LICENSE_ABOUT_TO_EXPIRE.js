@@ -82,7 +82,7 @@ if (showDebug)
 function processExpiration(confSearchScriptName) {
 
 	try {
-
+		logDebug('running local STDBASE_BATCH_LICENSE_ABOUT_TO_EXPIRE');
 		// get configuration
 		var searchRuleConf = "aboutToExpireSearchRules";
 		logDebug("Using Search Rule: " + searchRuleConf + " in " + confSearchScriptName);

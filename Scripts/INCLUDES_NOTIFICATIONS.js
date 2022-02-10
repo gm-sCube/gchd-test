@@ -18,6 +18,7 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
 
         // setup variables for stats
         // main loop
+		logDebug('running local includes_notification');
         var statFilterType = 0
         var statFilterInactive = 0;
         var statFilterError = 0;
