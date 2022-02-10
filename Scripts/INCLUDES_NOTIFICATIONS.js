@@ -578,7 +578,9 @@ function getJSONRulesForNotification(rules, recordType, notification) {
 
             logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]];
-            if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
+			logDebug("typeof thisRull : "+ typeof thisRule);
+			logDebug("typeof thisRule[notification] : "+ typeof thisRule[notification]);
+            if (typeof thisRule != 'undefined' && typeof thisRule[notification] == 'undefined') return thisRule[notification];
 
             logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/*/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/*/*/" + appTypeArray[3]];
