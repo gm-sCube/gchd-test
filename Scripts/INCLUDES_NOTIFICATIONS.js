@@ -158,11 +158,11 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
 
             // get JSON rules for record type
 			appTypeArray = thisRecordTypeString.split("/")
-            var myRules = getJSONRulesForNotification(noticeRules, thisRecordTypeString, thisNextNotification);
 			logDebug("myRules: " + myRules);
 			logDebugObject(myRules);
 			logDebug("thisRecordTypeString: " + thisRecordTypeString);
 			logDebug("thisNextNotification: " + thisNextNotification);
+            var myRules = getJSONRulesForNotification(noticeRules, thisRecordTypeString, thisNextNotification);
             if (!myRules || typeof myRules === 'undefined') {
                 logDebug("No Rules defined for the configured search criteria. Record Type: " + thisRecordTypeString + ". Notice: " + thisNextNotification);
                 logDebug("Please check the batch job configuration script.");
