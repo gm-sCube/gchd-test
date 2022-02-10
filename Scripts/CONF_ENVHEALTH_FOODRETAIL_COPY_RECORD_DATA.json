@@ -57,12 +57,6 @@
         },
         "preScript": "",
         "criteria": {
-          "task": [
-            "Permit Renewal"
-          ],
-          "status": [
-            "Renewed"
-          ],
           "recordType": "EnvHealth/*/*/Permit"
         },
         "action": {
