@@ -572,35 +572,35 @@ function getJSONRulesForNotification(rules, recordType, notification) {
             var appTypeArray = recordType.split("/");
             var thisRule;
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + appTypeArray[3]);
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/" + appTypeArray[3]];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]);
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/" + appTypeArray[1] + "/*/" + appTypeArray[3]];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/*/" + appTypeArray[3]);
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/*/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/*/*/" + appTypeArray[3]];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/" + appTypeArray[2] + "/" + appTypeArray[3]);
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/" + appTypeArray[2] + "/" + appTypeArray[3]);
             var thisRule = rules[appTypeArray[0] + "/*/" + appTypeArray[2] + "/" + appTypeArray[3]];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/" + appTypeArray[2] + "/*");
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/" + appTypeArray[2] + "/*");
             thisRule = rules[appTypeArray[0] + "/*/" + appTypeArray[2] + "/*"];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*");
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*");
             thisRule = rules[appTypeArray[0] + "/" + appTypeArray[1] + "/" + appTypeArray[2] + "/*"];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/*/*");
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/" + appTypeArray[1] + "/*/*");
             thisRule = rules[appTypeArray[0] + "/" + appTypeArray[1] + "/*/*"];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
-            //logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/*/*");
+            logDebug("Searching for JSON Rules for " + appTypeArray[0] + "/*/*/*");
             thisRule = rules[appTypeArray[0] + "/*/*/*"];
             if (typeof thisRule != 'undefined' && typeof thisRule[notification] != 'undefined') return thisRule[notification];
 
