@@ -1,5 +1,5 @@
 {
-	"EnvHealth/Food Retail/*/Permit": {
+	"EnvHealth/Food Retail/Restaurant/Permit": {
 		"45 Day Notice": {
 			"notificationTemplate": "SS_PERMIT_ABOUT_TO_EXPIRE",
 			"notificationReport": false,
