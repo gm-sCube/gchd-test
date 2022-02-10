@@ -6,7 +6,7 @@
 			"notifyContactTypes": "Applicant, Accounts Receivable",
 			"mailerSetType": "Renewal",
 			"mailerSetStatus": "Closed",
-			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE", 
+			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE",
 			"updateExpirationStatus": "Pending",
 			"updateRecordStatus": false,
 			"updateWorkflowTask": false,
@@ -30,10 +30,15 @@
 			"nextNotification": false,
 			"inspectionType": false,
 			"scheduleOutDays": false,
-			"cancelAllInspections":false,
-			"penalizeOnNtofication":false,
-			"assessFees": [{
-				"feeCode":"LATE FEE","feeSchedule":"EH_PENALTIES","feeQuantity":1,"feeInvoice":"Y","feePeriod":"Final"
+			"cancelAllInspections": false,
+			"penalizeOnNtofication": false,
+			"assessFees": [
+				{
+					"feeCode": "LATE FEE",
+					"feeSchedule": "EH_PENALTIES",
+					"feeQuantity": 1,
+					"feeInvoice": "Y",
+					"feePeriod": "Final"
 				}
 			]
 		}
