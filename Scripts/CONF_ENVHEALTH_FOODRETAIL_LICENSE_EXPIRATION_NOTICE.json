@@ -27,7 +27,7 @@
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
 			"nextNotificationDays": false,
-			"nextNotification": false,
+			"nextNotification": "",
 			"inspectionType": false,
 			"scheduleOutDays": false,
 			"cancelAllInspections": false,
