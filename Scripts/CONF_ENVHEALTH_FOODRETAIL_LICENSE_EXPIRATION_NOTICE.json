@@ -11,8 +11,8 @@
 			"updateRecordStatus": false,
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
-			"nextNotificationDays": false,
-			"nextNotification": false,
+			"nextNotificationDays": 45,
+			"nextNotification": "Expiration Notice",
 			"invoiceOnNotification": true
 		},
 		"Expiration Notice": {
