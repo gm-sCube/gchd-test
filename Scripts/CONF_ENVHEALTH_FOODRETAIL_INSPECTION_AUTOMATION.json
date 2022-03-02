@@ -77,7 +77,7 @@
 		  "inspectionType": "Regular Inspection",
           "rangeType": "Months",
           "range": "12",
-          "sameInspector": false
+          "sameInspector": true
        },
         "postScript": ""
       },
