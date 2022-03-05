@@ -2,4 +2,4 @@
 
 
 
-logDebug(myCapId);
+logDebug(AInfo["Next Notification"]);
