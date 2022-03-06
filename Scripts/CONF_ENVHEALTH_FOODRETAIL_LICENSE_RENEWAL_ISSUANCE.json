@@ -28,31 +28,6 @@
         },
         "postScript": "clearNotificationInfo"
       }
-    ],
-
-    "ConvertToRealCAPAfter": [
-      {
-        "metadata": {
-          "description": "Sets the license status to Active to disable renewal button",
-          "operators": {}
-        },
-        "criteria": {
-          "balanceAllowed": false,
-          "recordType": "EnvHealth/Food Retail/*/Renewal"
-        },
-        "preScript": "",
-        "action": {
-          "issuedRecordStatus": "Active",
-          "issuedExpirationStatus": "Active",
-          "issuedLPStatus": "A",
-		  "expirationType":"Years",
-          "expirationPeriod": "1",
-		  "originationDate": "Expiration Date",
-          "customExpirationFunction": "",
-          "copyComponents": []
-        },
-        "postScript": "clearNotificationInfo"
-      }
     ]
   }
 }
