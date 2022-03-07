@@ -1,51 +1,46 @@
 {
 	"EnvHealth/Institutions/*/Permit": {
-		"60 Day Notice": {
+		"45 Day Notice": {
 			"notificationTemplate": "SS_PERMIT_ABOUT_TO_EXPIRE",
 			"notificationReport": false,
 			"notifyContactTypes": "Applicant, Accounts Receivable",
 			"mailerSetType": "Renewal",
-			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE", 
-			"updateExpirationStatus": "About to Expire",
+			"mailerSetStatus": "Closed",
+			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE",
+			"updateExpirationStatus": "Pending",
 			"updateRecordStatus": false,
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
-			"nextNotificationDays": 30,
-			"nextNotification": "30 Day Notice"
-		},
-		"30 Day Notice": {
-			"notificationTemplate": "SS_PERMIT_EXPIRATION_30_DAY_NOTICE",
-			"notificationReport": false,
-			"notifyContactTypes": "Applicant, Accounts Receivable",
-			"mailerSetType": "Renewal",
-			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "LIC_EXPIRATION_30_DAY_NOTICE",
-			"updateExpirationStatus": false,
-			"updateRecordStatus": false,
-			"updateWorkflowTask": false,
-			"updateWorkflowStatus": false,
-			"nextNotificationDays": 30,
-			"nextNotification": "Expiration Notice"
+			"nextNotificationDays": 45,
+			"nextNotification": "Expiration Notice",
+			"invoiceOnNotification": true
 		},
 		"Expiration Notice": {
 			"notificationTemplate": "SS_PERMIT_EXPIRATION_FINAL_NOTICE",
 			"notificationReport": false,
 			"notifyContactTypes": "Applicant, Accounts Receivable",
 			"mailerSetType": "Renewal",
-			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "LIC_EXPIRATION_FINAL_NOTICE",
-			"updateExpirationStatus": "Expired",
-			"updateRecordStatus": "Expired",
+			"mailerSetStatus": "Closed",
+			"mailerSetPrefix": "EXPIRATION_NOTICE",
+			"updateExpirationStatus": "Delinquent",
+			"updateRecordStatus": "Active",
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
 			"nextNotificationDays": false,
-			"nextNotification": false,
+			"nextNotification": "",
 			"inspectionType": false,
 			"scheduleOutDays": false,
-			"cancelAllInspections":true
-			
-           
+			"cancelAllInspections": false,
+			"penalizeOnNtofication": false,
+			"assessFees": [
+				{
+					"feeCode": "LATE FEE",
+					"feeSchedule": "EH_PENALTIES",
+					"feeQuantity": 1,
+					"feeInvoice": "Y",
+					"feePeriod": "Final"
+				}
+			]
 		}
 	}
 }

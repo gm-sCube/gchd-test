@@ -146,6 +146,7 @@ Notes:
 			 logDebug(expirationType);
 			 // Get Next Expiration Date if using Expiration Code
 			 if (expirationType == "Expiration Code") {
+				 logDebug("in Expiration Code section");
 				 var rExpBiz = aa.proxyInvoker.newInstance("com.accela.aa.license.expiration.ExpirationBusiness").getOutput();
 				 var rB1Model = rB1ExpResult.getB1Expiration();
 				 var rNextDate = rExpBiz.getNextExpDate(rB1Model);
@@ -153,6 +154,7 @@ Notes:
 			 }
  
 			 if ((expirationType == "Days" || expirationType == "Months" || expirationType == "Years") && recordSettings.action.expirationPeriod != null && recordSettings.action.expirationPeriod != "") {
+				 logDebug("in non-Expiration Code section");
  
 				 var orgInitDate = aa.util.now();
 				 if (originationDate != null && originationDate.equalsIgnoreCase("File Date")) {
@@ -171,6 +173,7 @@ Notes:
 				 }else if (expirationType == "Months"){
 					 rB1ExpResult.setExpDate(aa.date.parseDate(dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod)));
 				 }else if (expirationType == "Years"){
+					 logDebug("updating base on Years section");
 					 rB1ExpResult.setExpDate(aa.date.parseDate(dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12)));
 				 }else {
 					 logDebug("**WARN expirationType not supported " + expirationType);
@@ -178,6 +181,7 @@ Notes:
 			 }
 			 
 			 if (expirationType == "Function" && recordSettings.action.customExpirationFunction != null && recordSettings.action.customExpirationFunction != "") {
+				 logDebug("in Function section");
 				 var dateCalculationFuntion = recordSettings.action.customExpirationFunction + "( rB1ExpResult )";
 				 var dateResult = eval("(" + dateCalculationFuntion + ")");
 				 if (dateResult instanceof Date) {
@@ -188,6 +192,7 @@ Notes:
  
 			 }
 		 }
+		 logDebug("updating aa.expiration.editB1Expiration");
 		 aa.expiration.editB1Expiration(rB1ExpResult.getB1Expiration());
 		 // ------------------------------------------------------------------
  
