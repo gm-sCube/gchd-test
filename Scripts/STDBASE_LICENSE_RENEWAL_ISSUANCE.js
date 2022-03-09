@@ -201,6 +201,10 @@ Notes:
 		 logDebug("updating aa.expiration.editB1Expiration");
 		 logDebugObject(rB1ExpResult.getB1Expiration());
 		 aa.expiration.editB1Expiration(rB1ExpResult.getB1Expiration());
+		 rB1ExpResult = aa.expiration.getLicensesByCapID(parentCapId).getOutput();
+		 logDebug("second time around");
+		 logDebugObject(rB1ExpResult.getB1Expiration());
+		 
 		 // ------------------------------------------------------------------
  
 		 // LP Expiration
