@@ -144,6 +144,8 @@ Notes:
 		 }
 		 if (expirationType != null && expirationType != "") {
 			 logDebug(expirationType);
+			 logDebug("recordSettings.action.expirationPeriod: " + recordSettings.action.expirationPeriod);
+
 			 // Get Next Expiration Date if using Expiration Code
 			 if (expirationType == "Expiration Code") {
 				 logDebug("in Expiration Code section");
