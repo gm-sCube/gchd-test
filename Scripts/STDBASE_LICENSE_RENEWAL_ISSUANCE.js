@@ -179,7 +179,7 @@ Notes:
 					 logDebug("updating base on Years section");
 					 rB1ExpResult.setExpDate(aa.date.parseDate(dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12)));
 					 logDebug("orgInitDate2: " + orgInitDate);
-					 logDebug("dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12)": + dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12));
+					 logDebug("dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12):" + dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12));
 					 
 				 }else {
 					 logDebug("**WARN expirationType not supported " + expirationType);
