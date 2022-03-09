@@ -166,6 +166,7 @@ Notes:
 					 orgInitDate = aa.util.now();
 				 } else if (originationDate != null && originationDate.equalsIgnoreCase("Expiration Date")) {
 					 orgInitDate = aa.util.formatDate(convertDate(rB1ExpResult.getExpDate()), "MM/dd/yyyy");
+					 logDebug("orgInitDate: " + orgInitDate);
 				 } else {
 					 logDebug("**WARN originationDate type not supported " + originationDate + " used now() init value");
 				 }
