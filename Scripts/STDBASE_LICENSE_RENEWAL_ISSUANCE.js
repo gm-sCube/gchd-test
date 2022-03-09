@@ -199,6 +199,7 @@ Notes:
 			 }
 		 }
 		 logDebug("updating aa.expiration.editB1Expiration");
+		 logDebugObject(rB1ExpResult.getB1Expiration());
 		 aa.expiration.editB1Expiration(rB1ExpResult.getB1Expiration());
 		 // ------------------------------------------------------------------
  
