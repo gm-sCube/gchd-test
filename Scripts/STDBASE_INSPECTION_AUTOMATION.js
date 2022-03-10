@@ -42,6 +42,8 @@ Author: Yazan Barghouth
           "inspectionCopyComment": false,
           "rangeType": "Days",
           "range": "10",
+		  "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
           "sameInspector": false,
           "createCondition": "",
           "createConditionType": "",
@@ -55,7 +57,8 @@ Author: Yazan Barghouth
           "removeConditionType": "",
           "expirationTypeUpdate":"Expiration Code",
           "expirationDaysToAdvance":"30",
-          "cancelAllInspections" : true ; 
+          "cancelAllInspections" : true ,
+		  "inspectionDisplayInACA": "N" , values: ("N" or "Y") , the default value equal 'Y'
         },
         "preScript": "",
         "postScript": ""
@@ -213,11 +216,51 @@ function inspectionAutomation(rules) {
 			logDebug("**WARN: ERROR InspectionAutomationScript Creating App [" + rules.caseType + "] err:" + appCreateResult.getErrorMessage());
 		}
 	}
+	
+	var rangeType = "" ;
+	
+	if(!isEmptyOrNull(rules.action.rangeType) && !rules.action.rangeType.equalsIgnoreCase("custom field") )
+		{
+		rangeType = rules.action.rangeType ;
+		}
+	else if(!isEmptyOrNull(rules.action.rangeTypeToCustomField))
+		{
+		var rangeTypeToCustomField =  rules.action.rangeTypeToCustomField ;
+		if( rangeTypeToCustomField.indexOf(".") >-1)
+			{
+			useAppSpecificGroupName = true;
+			}
+		else
+			{
+			useAppSpecificGroupName = false;
+			}
+		rangeType = getAppSpecific( rangeTypeToCustomField ,capId ) ; 
+		}
+	
+    var rangeValue = "" ;
+    
+    if(!isEmptyOrNull(rules.action.range) && !rules.action.range.equalsIgnoreCase("custom field") && !isNaN(rules.action.range) )
+	{
+    	rangeValue = rules.action.range ;
+	}
+else if(!isEmptyOrNull(rules.action.rangeToCustomField))
+	{
+	var rangeToCustomField =  rules.action.rangeToCustomField ;
+	if( rangeToCustomField.indexOf(".") >-1)
+		{
+		useAppSpecificGroupName = true;
+		}
+	else
+		{
+		useAppSpecificGroupName = false;
+		}
+	    rangeValue = getAppSpecific( rangeToCustomField ,capId ) ; 
+	}
 
 	if (!isEmptyOrNull(rules.action.inspectionType) && !isEmptyOrNull(rules.action.sameInspector) && !isEmptyOrNull(rules.action.rangeType) && !isEmptyOrNull(rules.action.range)
 			&& !isEmptyOrNull(rules.action.inspectionCopyComment)) {
 		var currInspector = null;
-		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rules.action.rangeType, rules.action.range, rules.action.inspectionCopyComment);
+		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rangeType, rangeValue, rules.action.inspectionCopyComment);
 	}//inspection params validation
 
 	if (!isEmptyOrNull(rules.action.createConditionType) && !isEmptyOrNull(rules.action.createCondition) && !isEmptyOrNull(rules.action.createConditionSeverity)) {
@@ -254,7 +297,7 @@ function inspectionAutomation(rules) {
 			logDebug("**WARN unsupported expirationTypeUpdate " + rules.action.expirationTypeUpdate);
 		}
 	}//has expirationTypeUpdate
-	
+
 	if(!isEmptyOrNull(rules.action.postToTimeAccounting) && rules.action.postToTimeAccounting ) {
 		// call function to post to time accounting
 		inspObj = aa.inspection.getInspection(capId,inspId).getOutput();
@@ -267,6 +310,12 @@ function inspectionAutomation(rules) {
 		}
 	}else{
 		logDebug('no time accounting rule to process or failed to meet criteria');
+	}
+	
+	var inspectionDisplayInACA = rules.action.inspectionDisplayInACA ;
+	if(!isEmptyOrNull(inspectionDisplayInACA) )
+	{
+		setInspectionDisplayInACA(capId, inspId, inspectionDisplayInACA, null) ;
 	}
 }
 
@@ -332,7 +381,13 @@ function calculateUnifiedRange(costRangeType, costRange) {
 }
 
 function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspectionCopyComment) {
-
+	var funcName = "schedInspection";
+    var inspectionTypeIsAlreadyScheduled = checkInspectionTypeIsAlreadyScheduled(capId,inspecType);
+	 if(inspectionTypeIsAlreadyScheduled)
+	 {
+		 logDebug(funcName + " WARNING: inspection type '" + inspecType + "' is already Scheduled.");
+		 return false; 
+	 }
 	if (typeof inspectionCopyComment === 'undefined' || inspectionCopyComment == null) {
 		inspectionCopyComment = false;
 	}
@@ -348,6 +403,17 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 			else {
          logDebug("Error in aa.inspection.getInspection API. Message = " + inspResultObj.getErrorMsg());
             }
+		}
+	}
+	
+	if (!sameInspector) {
+		capDetail = aa.cap.getCapDetail(capId).getOutput();
+		userObj = aa.person.getUser(capDetail.getAsgnStaff());
+		if (userObj.getSuccess()) {
+			staff = userObj.getOutput();
+			userID = staff.getUserID();
+			currInspector = userID;
+			logDebug("userID: " + userID);
 		}
 	}
 
@@ -381,7 +447,82 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 	}
 }
 
-function addTimeAccountingRecordToInspectionV2(itemCap, inspectionId, taGroup, taType, resultDate, billable) {
+/**
+ * Updates the setDisplayInACA and setIsRestrictView4ACA flags on an inspection
+ *
+ * @param {object} vCapId
+ * @param {int} inspSeqNbr
+ * @param {string} setDisplayInACA       , inspection default value equal 'Y'
+ * @param {string} setIsRestrictView4ACA , inspection default value equal 'N'
+ * @returns {boolean}
+ */
+ function setInspectionDisplayInACA(vCapId, inspSeqNbr, setDisplayInACA, setIsRestrictView4ACA){
+    try {
+  
+        var funcName = "setInspectionDisplayInACA"
+        var inspScriptModelResult = aa.inspection.getInspection(vCapId, inspSeqNbr);
+        if (inspScriptModelResult.getSuccess()) {
+            inspScriptModel = inspScriptModelResult.getOutput();
+            inspModel = inspScriptModel.getInspection();
+			var actModel = inspModel.getActivity();
+			if(!isEmptyOrNull(setDisplayInACA))
+				{
+				actModel.setDisplayInACA(setDisplayInACA);
+				logDebug( "Updated setDisplayInACA = " + actModel.getDisplayInACA());
+				}
+			if(!isEmptyOrNull(setIsRestrictView4ACA))
+				{
+				actModel.setIsRestrictView4ACA(setIsRestrictView4ACA);
+				logDebug( "Updated setIsRestrictView4ACA = " + actModel.getIsRestrictView4ACA());
+				}
+			inspModel.setActivity(actModel);	
+			var editInspResult = aa.inspection.editInspection(inspScriptModel)
+			if (!editInspResult.getSuccess()) {
+				logDebug(funcName + " WARNING: updating inspection '" + editInspResult.getErrorMessage() + "'");
+				return false;
+			} else {
+				logDebug(funcName + " Successfully updated inspection '" + inspScriptModel.getInspectionType() + "'");
+				return true;
+			}
+		
+        } else {
+            logDebug(funcName + " **ERROR: Could not get inspection from record. InspSeqNbr: " + inspSeqNbr + ". " + inspScriptModelResult.getErrorMessage());
+        }
+        
+    } catch (e) {
+            logDebug("ERROR: " + e);
+    }
+ }
+
+ /**
+ * Check inspection type is already scheduled by cap object and inspection type
+ *
+ * @param {object} vCapId
+ * @param {string} inspectionType      
+ * @returns {boolean}
+ */
+ function checkInspectionTypeIsAlreadyScheduled(vCapId,inspectionType)
+ {
+	var funcName = "checkInspectionTypeIsAlreadyScheduled";
+	var inspResultObj = aa.inspection.getInspections(vCapId);
+	if (inspResultObj.getSuccess())
+	{
+		var inspList = inspResultObj.getOutput();
+		for (index in inspList)
+			{
+			 var inspStatus= inspList[index].getInspectionStatus();
+			 var inspType= inspList[index].getInspectionType();
+			 if(inspStatus.equals("Scheduled") && inspType.equals(inspectionType))
+				 {
+				 logDebug(funcName + " WARNING: inspection type '" + inspectionType + "' is already scheduled on the record id:" + vCapId.getCustomID() );
+				 return true ; 
+				 }
+			}
+			return false; 
+		}
+ }
+ 
+ function addTimeAccountingRecordToInspectionV2(itemCap, inspectionId, taGroup, taType, resultDate, billable) {
 	/*
     V2 will look at db fields 'Start Time' & 'End Time'. If null, script will defer to 'Total time'
 	Author CGray
