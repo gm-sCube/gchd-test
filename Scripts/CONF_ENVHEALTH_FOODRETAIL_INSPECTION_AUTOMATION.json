@@ -75,9 +75,13 @@
 		  "postToTimeAccounting": true,
 		  "inspectionCopyComment": true,
 		  "inspectionType": "Regular Inspection",
-          "rangeType": "Months",
-          "range": "12",
-          "sameInspector": true
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
+          "basedOnScheduledDate": true,
+          "basedOnResultDate": false,
+          "sameInspector": false
        },
         "postScript": ""
       },
