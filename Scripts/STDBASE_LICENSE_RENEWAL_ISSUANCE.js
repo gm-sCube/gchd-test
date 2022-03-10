@@ -165,7 +165,7 @@ Notes:
 				 } else if (originationDate != null && originationDate.equalsIgnoreCase("Renewed Date")) {
 					 orgInitDate = aa.util.now();
 				 } else if (originationDate != null && originationDate.equalsIgnoreCase("Expiration Date")) {
-					 orgInitDate = aa.util.formatDate(convertDate(rB1ExpResult.getExpDate()), "MM/dd/yyyy");
+					 orgInitDate = aa.util.formatDate(localConvertDate(rB1ExpResult.getExpDate()), "MM/dd/yyyy");
 					 logDebug("orgInitDate: " + orgInitDate);
 				 } else {
 					 logDebug("**WARN originationDate type not supported " + originationDate + " used now() init value");
@@ -177,7 +177,7 @@ Notes:
 					 rB1ExpResult.setExpDate(aa.date.parseDate(dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod)));
 				 }else if (expirationType == "Years"){
 					 logDebug("updating base on Years section");
-					 rB1ExpResult.setExpDate(aa.date.parseDate(dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12)));
+					 rB1ExpResult.setExpDate(aa.date.parseDate(localDateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12)));
 					 logDebug("orgInitDate2: " + orgInitDate);
 					 logDebug("dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12):" + dateAddMonths(orgInitDate, recordSettings.action.expirationPeriod * 12));
 					 
@@ -402,3 +402,78 @@ updates
     logDebug("A JavaScript Error occured: " + err.message);
   }
 }
+
+function localConvertDate(thisDate)
+	{
+
+	if (typeof(thisDate) == "string")
+		{
+		var retVal = new Date(String(thisDate));
+		if (!retVal.toString().equals("Invalid Date"))
+			return retVal;
+		}
+
+	if (typeof(thisDate)== "object")
+		{
+
+		if (!thisDate.getClass) // object without getClass, assume that this is a javascript date already
+			{
+			return thisDate;
+			}
+
+		if (thisDate.getClass().toString().equals("class com.accela.aa.emse.dom.ScriptDateTime"))
+			{
+			return new Date(thisDate.getMonth() + "/" + thisDate.getDayOfMonth() + "/" + thisDate.getYear());
+			}
+			
+		if (thisDate.getClass().toString().equals("class com.accela.aa.emse.util.ScriptDateTime"))
+			{
+			return new Date(thisDate.getMonth() + "/" + thisDate.getDayOfMonth() + "/" + thisDate.getYear());
+			}			
+
+		if (thisDate.getClass().toString().equals("class java.util.Date"))
+			{
+			return new Date(thisDate.getTime());
+			}
+
+		if (thisDate.getClass().toString().equals("class java.lang.String"))
+			{
+			return new Date(String(thisDate));
+			}
+		if (thisDate.getClass().toString().equals("class java.sql.Timestamp"))
+			{
+			return new Date(thisDate.getMonth() + "/" + thisDate.getDate() + "/" + thisDate.getYear());
+			}
+		}
+
+	if (typeof(thisDate) == "number")
+		{
+		return new Date(thisDate);  // assume milliseconds
+		}
+
+	logDebug("**WARNING** convertDate cannot parse date : " + thisDate);
+	return null;
+
+	}
+ 
+ function localDateAddMonths(pDate, pMonths)
+	{
+	// Adds specified # of months (pMonths) to pDate and returns new date as string in format MM/DD/YYYY
+	// If pDate is null, uses current date
+	// pMonths can be positive (to add) or negative (to subtract) integer
+	// If pDate is on the last day of the month, the new date will also be end of month.
+	// If pDate is not the last day of the month, the new date will have the same day of month, unless such a day doesn't exist in the month, in which case the new date will be on the last day of the month
+	//
+	if (!pDate) baseDate = new Date(aa.util.now());
+	else
+		baseDate = convertDate(pDate);
+
+	var day = baseDate.getDate();
+	baseDate.setMonth(baseDate.getMonth() + pMonths);
+	if (baseDate.getDate() < day)
+		{
+		baseDate.setDate(1);
+		baseDate.setDate(baseDate.getDate() - 1);
+		}
+	return ((baseDate.getMonth() + 1) + "/" + baseDate.getDate() + "/" + baseDate.getFullYear());
+	}
