@@ -1,5 +1,5 @@
 {
-  "EnvHealth/*/*/Renewal": {
+  "EnvHealth/*/*/Deprecated": {
     "WorkflowTaskUpdateAfter": [
       {
         "metadata": {
@@ -32,7 +32,7 @@
       }
     ]
   },
-"EnvHealth/Rec Health/*/Renewal": {
+"EnvHealth/Rec Health/*/Deprecated": {
     "WorkflowTaskUpdateAfter": [
       {
         "metadata": {
