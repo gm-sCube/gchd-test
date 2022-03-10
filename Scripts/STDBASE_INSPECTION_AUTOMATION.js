@@ -595,6 +595,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
                 }
             }
 		}
+		logDebug("timeElapsedString: " + timeElapsedString);
         if (timeElapsedString) {
             var totMinutes = 0;
             totMinutes += parseInt(timeElapsedString.split(":")[0]) * 60;
