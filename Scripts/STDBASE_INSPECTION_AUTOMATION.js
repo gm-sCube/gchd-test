@@ -655,7 +655,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
             }
         }
         else {
-            logDebug("**ERROR: adding Time Accounting Record: No time parameters have been provided");
+            logDebug("**WARNING: adding Time Accounting Record: No time parameters have been provided");
             return false;
         }
 	}
