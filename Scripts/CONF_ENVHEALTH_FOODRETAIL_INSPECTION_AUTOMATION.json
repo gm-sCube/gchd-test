@@ -72,7 +72,7 @@
           ]
         },
         "action": {
-		  "postToTimeAccounting": false,
+		  "postToTimeAccounting": true,
 		  "inspectionCopyComment": true,
 		  "inspectionType": "Regular Inspection",
           "rangeTypeToCustomField": "Inspection Interval Unit",
