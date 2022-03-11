@@ -650,7 +650,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 				return true;
             }
             else {
-                logDebug("**ERROR: adding Time Accounting Record: " + addResult.getErrorMessage());
+                logDebug("**WARNING: adding Time Accounting Record: " + addResult.getErrorMessage());
                 return false;
             }
         }
@@ -751,11 +751,11 @@ function addTimeAccountingRecordFromInspection(itemCap, inspectionId, taGroup, t
 				logDebug("Successfully added Time Accounting Record.");
 			}
 			else {
-				logDebug("**ERROR: adding Time Accounting Record: " + addResult.getErrorMessage());
+				logDebug("**WARNING: adding Time Accounting Record: " + addResult.getErrorMessage());
 			}
 		}
 		else {
-			logDebug("**ERROR: adding Time Accounting Record, requires both Start/End Times");
+			logDebug("**WARNING: adding Time Accounting Record, requires both Start/End Times");
 			return false;
 		}
 	}
