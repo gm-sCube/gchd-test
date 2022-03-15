@@ -42,6 +42,7 @@
         },
         "preScript": "",
         "action": {
+	      "updateRecordStatus": "Active",
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
