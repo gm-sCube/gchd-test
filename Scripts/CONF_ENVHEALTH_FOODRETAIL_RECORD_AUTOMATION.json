@@ -1,6 +1,6 @@
 {
 	"EnvHealth/Food Retail/*/Renewal": {
-		"ConverToRealCAPAfter": [
+		"ConvertToRealCAPAfter": [
 			{
 				"metadata": {
 					"description": "to automate completion of task upon submission of renewal",
