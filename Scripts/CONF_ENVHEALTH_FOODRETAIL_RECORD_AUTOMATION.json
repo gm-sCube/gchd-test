@@ -1,11 +1,9 @@
-removed from environment
-
 {
-	"EnvHealth/Food Retail/*/Application": {
-		"PaymentReceiveAfter": [
+	"EnvHealth/Food Retail/*/Renewal": {
+		"ConverToRealCAPAfter": [
 			{
 				"metadata": {
-					"description": "to automate completion of task upon payment of application fees",
+					"description": "to automate completion of task upon submission of renewal",
 					"operators": {}
 				},
 				"preScript": "",
@@ -15,8 +13,8 @@ removed from environment
 				"action": {
 					"updateTask": [
 						{
-							"task": "Permit Issuance",
-							"status": "Issued"
+							"task": "Permit Renewal",
+							"status": "Renewed"
 						}
 					]
 				},

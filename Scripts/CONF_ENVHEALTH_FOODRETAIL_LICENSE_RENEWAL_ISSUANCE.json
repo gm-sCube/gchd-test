@@ -1,35 +1,5 @@
 {
 "EnvHealth/Food Retail/*/Renewal": {
-    "WorkflowTaskUpdateAfter": [
-      {
-        "metadata": {
-          "description": "Updates parent EnvHealth record - used for back office",
-          "operators": {}
-        },
-        "criteria": {
-          "balanceAllowed": false,
-          "task": [
-            "Permit Renewal" 
-          ],
-          "status": [
-            "Renewed"  
-          ]
-        },
-        "preScript": "",
-        "action": {
-          "issuedRecordStatus": "Active",
-          "issuedExpirationStatus": "Active",
-          "issuedLPStatus": "A",
-		  "expirationType": "Years",
-          "expirationPeriod": "1",
-		  "originationDate": "Expiration Date",
-          "customExpirationFunction": "",
-          "copyComponents": []
-        },
-        "postScript": "clearNotificationInfo"
-      }
-    ],
-
     "ConvertToRealCAPAfter": [
       {
         "metadata": {
@@ -42,7 +12,6 @@
         },
         "preScript": "",
         "action": {
-	      "updateRecordStatus": "Active",
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
