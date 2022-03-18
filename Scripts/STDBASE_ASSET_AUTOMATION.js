@@ -182,7 +182,7 @@ function assetAutomation(rules) {
 		newAssetDataModel = newAssetDataModel.getOutput().getAssetDataModel();
 	}
 	if (!refAssetExist) {
-		masterAsset = fillMasterModelFromASI(rules, false);
+		masterAsset = fillMasterModelFromASI(rules, true);
 
 		if (rules.action.copyAppNameToAssetName) {
 			var capBasicInfo = aa.cap.getCapBasicInfo(capId).getOutput();
