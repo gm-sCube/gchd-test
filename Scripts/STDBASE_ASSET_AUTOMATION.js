@@ -202,8 +202,7 @@ function assetAutomation(rules) {
 		logDebugObject(newAssetDataModel);
 
 		try {
-			//assetSeqNum = assetDataService.createAssetDataWithoutEvent(newAssetDataModel);
-			return;
+			assetSeqNum = assetDataService.createAssetDataWithoutEvent(newAssetDataModel);
 		} catch (ex) {
 			logDebug("**Exception while creating asset, script STDBASE_" + scriptSuffix + " Error:" + ex);
 			return;
