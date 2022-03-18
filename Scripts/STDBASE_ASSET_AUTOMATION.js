@@ -200,7 +200,7 @@ function assetAutomation(rules) {
 		logDebugObject(masterAsset);
 		logDebug("logDebugObject(newAssetDataModel)");
 		logDebugObject(newAssetDataModel);
-
+		return;
 		try {
 			assetSeqNum = assetDataService.createAssetDataWithoutEvent(newAssetDataModel);
 		} catch (ex) {
