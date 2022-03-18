@@ -196,7 +196,7 @@ function assetAutomation(rules) {
 
 		newAssetDataModel.setAssetMaster(masterAsset);
 
-		logDebug("logDebugObject(masterAsset)"
+		logDebug("logDebugObject(masterAsset)");
 		logDebugObject(masterAsset);
 		logDebug("logDebugObject(newAssetDataModel)");
 		logDebugObject(newAssetDataModel);
