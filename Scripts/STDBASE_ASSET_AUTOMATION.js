@@ -167,7 +167,7 @@ function assetAutomation(rules) {
 		// If no masterAsset is found attempt to find it by Custom Fields if any are defined
 		if(!masterAsset && rules.action.hasOwnProperty("customFieldsDefaultMapping") && rules.action.customFieldsDefaultMapping.length > 0){
 			logDebug("Search by Custom Fields customFieldsDefaultMapping.length = "+ rules.action.customFieldsDefaultMapping.length);
-			masterAssetModelForSearch = fillMasterModelFromASI(rules, true);
+			masterAssetModelForSearch = fillMasterModelFromASI(rules, false);
 			masterAsset = findAssetByMasterAssetModel(masterAssetModelForSearch);
 			if (masterAsset != null) {
 				assetSeqNum = masterAsset.getG1AssetSequenceNumber();
@@ -182,7 +182,7 @@ function assetAutomation(rules) {
 		newAssetDataModel = newAssetDataModel.getOutput().getAssetDataModel();
 	}
 	if (!refAssetExist) {
-		masterAsset = fillMasterModelFromASI(rules, true);
+		masterAsset = fillMasterModelFromASI(rules, false);
 
 		if (rules.action.copyAppNameToAssetName) {
 			var capBasicInfo = aa.cap.getCapBasicInfo(capId).getOutput();
