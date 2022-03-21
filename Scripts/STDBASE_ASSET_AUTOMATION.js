@@ -469,10 +469,14 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 	if (fillAssetId) {
 		if(rules.action.linkParent){
 			vParentCapId = getParentByCapId(capId);
-			assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
+			if (maskName) {
+				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+			}else{
+				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
+			}
 		}
 		else{
-			if (rules.action.maskName) {
+			if (maskName) {
 				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
 			}else{
 				assetMasterModel.setG1AssetID(capId.getCustomID());
