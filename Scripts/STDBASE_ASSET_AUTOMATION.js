@@ -466,7 +466,7 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 			vParentCapId = getParentByCapId(capId);
 			logDebug("rules.action.maskName: ", rules.action.maskName);
 			if (rules.action.maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
+				// assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
 			}else{
 				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
 			}
