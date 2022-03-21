@@ -465,11 +465,11 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 		if(rules.action.linkParent){
 			vParentCapId = getParentByCapId(capId);
 			logDebug("rules.action.maskName: ", rules.action.maskName);
-			if (rules.action.maskName) {
+			// if (rules.action.maskName) {
 				// assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
-			}else{
+			// }else{
 				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
-			}
+			// }
 		}
 		else{
 			if (rules.action.maskName) {
