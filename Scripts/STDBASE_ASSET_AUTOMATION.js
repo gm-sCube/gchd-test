@@ -140,6 +140,7 @@ function assetAutomation(rules) {
 	var vParentCapId = null;
 	var rulesAssetGroup = handleUndefined(rules.action.assetGroup,false);
 	var rulesAssetType = handleUndefined(rules.action.assetType,false);
+	var maskName = handleUndefined(rules.action.maskName,false);
 
 	if (rules.action.checkExistingAsset) {
 		
@@ -471,7 +472,11 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 			assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
 		}
 		else{
-			assetMasterModel.setG1AssetID(capId.getCustomID());
+			if (rules.action.maskName) {
+				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+			}else{
+				assetMasterModel.setG1AssetID(capId.getCustomID());
+			}
 		}
 		
 	}//fillAssetId
@@ -533,4 +538,17 @@ updates
   } catch (err) {
     logDebug("A JavaScript Error occured: " + err.message);
   }
+}
+
+function myGetNextSequence(maskName) {
+	var agencySeqBiz = aa.proxyInvoker.newInstance("com.accela.sg.AgencySeqNextBusiness").getOutput();
+	var params = aa.proxyInvoker.newInstance("com.accela.domain.AgencyMaskDefCriteria").getOutput();
+	params.setAgencyID(aa.getServiceProviderCode());
+	params.setMaskName(maskName);
+	params.setRecStatus("A");
+	params.setSeqType("Agency");
+
+	var seq = agencySeqBiz.getNextMaskedSeq("ADMIN", params, null, null);
+
+	return seq;
 }
