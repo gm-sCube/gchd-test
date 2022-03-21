@@ -468,17 +468,17 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 			if (typeof maskName  === 'undefined') {
 				logDebug("maskName is undefined");
 			}else{
-				logDebug("maskName = " + maskName);
+				logDebug("logDebug maskName = " + maskName);
 			}
-			// if (rules.action.maskName) {
-				// assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
-			// }else{
+			if (maskName) {
+				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+			}else{
 				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
-			// }
+			}
 		}
 		else{
 			if (rules.action.maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
+				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
 			}else{
 				assetMasterModel.setG1AssetID(capId.getCustomID());
 			}
