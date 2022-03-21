@@ -675,7 +675,7 @@
           "copyContacts": [
             "ALL"           
           ],
-		  "maskName": "EH Facility"
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
