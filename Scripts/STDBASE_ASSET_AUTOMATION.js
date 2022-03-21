@@ -197,11 +197,6 @@ function assetAutomation(rules) {
 
 		newAssetDataModel.setAssetMaster(masterAsset);
 
-		logDebug("logDebugObject(masterAsset)");
-		logDebugObject(masterAsset);
-		logDebug("logDebugObject(newAssetDataModel)");
-		logDebugObject(newAssetDataModel);
-
 		try {
 			assetSeqNum = assetDataService.createAssetDataWithoutEvent(newAssetDataModel); 
 		} catch (ex) {
@@ -469,15 +464,15 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 	if (fillAssetId) {
 		if(rules.action.linkParent){
 			vParentCapId = getParentByCapId(capId);
-			if (maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+			if (rules.action.maskName) {
+				assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
 			}else{
 				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
 			}
 		}
 		else{
-			if (maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+			if (rules.action.maskName) {
+				assetMasterModel.setG1AssetID(myGetNextSequence(rules.action.maskName));
 			}else{
 				assetMasterModel.setG1AssetID(capId.getCustomID());
 			}
