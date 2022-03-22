@@ -8,6 +8,7 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"disabled": true,
 					"balanceAllowed": false
 				},
 				"action": {
