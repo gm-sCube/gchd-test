@@ -19,6 +19,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -60,6 +61,7 @@
           "copyContacts": [
             "ALL"
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -101,6 +103,7 @@
           "copyContacts": [
             "ALL"          
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -142,6 +145,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -183,6 +187,7 @@
           "copyContacts": [
             "ALL"           
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -224,6 +229,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -265,6 +271,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -306,6 +313,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -347,6 +355,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -388,6 +397,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -429,6 +439,7 @@
           "copyContacts": [
             "ALL"           
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -470,6 +481,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -552,6 +564,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -593,6 +606,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -634,6 +648,7 @@
           "copyContacts": [
             "ALL"           
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -717,6 +732,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -758,7 +774,8 @@
           "copyContacts": [
             "ALL"            
           ],
-          "updateExistingRefAsset": true,
+ 		  "maskName": "EH Facility",
+         "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
           "checkExistingAsset": true,
@@ -799,6 +816,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -840,6 +858,7 @@
           "copyContacts": [
             "ALL"            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",

@@ -7,6 +7,7 @@
           "operators": {}
         },
         "criteria": {
+		  "disabled": false,
           "task": [
             "Permit Renewal"
           ],
@@ -19,9 +20,9 @@
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
-          "expirationType": "Expiration Code",
-          "expirationPeriod": "",
-          "customExpirationFunction": "",
+		  "expirationType": "Years",
+          "expirationPeriod": 1,          
+		  "customExpirationFunction": "",
           "copyComponents": []
         },
         "postScript": "clearNotificationInfo"
@@ -34,7 +35,7 @@
           "operators": {}
         },
         "criteria": {
-		  "disabled": true,
+		  "disabled": false,
           "balanceAllowed": false,
           "recordType": "EnvHealth/Food Retail/*/Renewal"
         },
@@ -43,8 +44,8 @@
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
-          "expirationType": "Expiration Code",
-          "expirationPeriod": "",
+          "expirationType": "Years",
+          "expirationPeriod": 1,
           "customExpirationFunction": "",
           "copyComponents": []
         },
