@@ -1,31 +1,57 @@
 {
-"EnvHealth/Rec Health/*/Renewal": {
-    "WorkflowTaskUpdateAfter": [
-      {
-        "metadata": {
-          "description": "Updates parent EnvHealth record",
-          "operators": {}
-        },
-        "criteria": {
-          "task": [
-            "Permit Renewal" 
-          ],
-          "status": [
-            "Renewed"  
-          ]
-        },
-        "preScript": "",
-        "action": {
-          "issuedRecordStatus": "Active",
-          "issuedExpirationStatus": "Active",
-          "issuedLPStatus": "A",
-		  "expirationType":"Expiration Code",
-          "expirationPeriod": "",
-          "customExpirationFunction": "",
-          "copyComponents": []
-        },
-        "postScript": ""
-      }
-    ]
-  }
+	"EnvHealth/Rec Health/*/Renewal": {
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "Updates parent EnvHealth record",
+					"operators": {}
+				},
+				"disabled": false,
+				"balanceAllowed": false,
+				"criteria": {
+					"task": [
+						"Permit Renewal"
+					],
+					"status": [
+						"Renewed"
+					]
+				},
+				"preScript": "",
+				"action": {
+					"issuedRecordStatus": "Active",
+					"issuedExpirationStatus": "Active",
+					"issuedLPStatus": "A",
+					"expirationType": "Years",
+					"expirationPeriod": 1,
+					"customExpirationFunction": "",
+					"copyComponents": []
+				},
+				"postScript": "clearNotificationInfo"
+			}
+		],
+		"ConvertToRealCAPAfter": [
+			{
+				"metadata": {
+					"description": "Sets the license status to Active to disable the ACA renewal button",
+					"operators": {}
+				},
+				"criteria": {
+					"disabled": false,
+					"balanceAllowed": false,
+					"recordType": "EnvHealth/Personal Services/*/Renewal"
+				},
+				"preScript": "",
+				"action": {
+					"issuedRecordStatus": "Active",
+					"issuedExpirationStatus": "Active",
+					"issuedLPStatus": "A",
+					"expirationType": "Years",
+					"expirationPeriod": 1,
+					"customExpirationFunction": "",
+					"copyComponents": []
+				},
+				"postScript": "clearNotificationInfo"
+			}
+		]
+	}
 }

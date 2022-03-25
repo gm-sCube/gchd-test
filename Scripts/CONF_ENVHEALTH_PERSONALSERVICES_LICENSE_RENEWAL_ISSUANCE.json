@@ -7,6 +7,8 @@
           "operators": {}
         },
         "criteria": {
+		  "disabled": false,
+          "balanceAllowed": false,
           "task": [
             "Permit Renewal" 
           ],
@@ -19,12 +21,36 @@
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
-		  "expirationType":"Expiration Code",
-          "expirationPeriod": "",
+		  "expirationType":"Years",
+          "expirationPeriod": 1,
           "customExpirationFunction": "",
           "copyComponents": []
         },
-        "postScript": ""
+        "postScript": "clearNotificationInfo"
+      }
+    ],
+    "ConvertToRealCAPAfter": [
+      {
+        "metadata": {
+          "description": "Sets the license status to Active to disable the ACA renewal button",
+          "operators": {}
+        },
+        "criteria": {
+		  "disabled": false,
+          "balanceAllowed": false,
+          "recordType": "EnvHealth/Personal Services/*/Renewal"
+        },
+        "preScript": "",
+        "action": {
+          "issuedRecordStatus": "Active",
+          "issuedExpirationStatus": "Active",
+          "issuedLPStatus": "A",
+          "expirationType": "Years",
+          "expirationPeriod": 1,
+          "customExpirationFunction": "",
+          "copyComponents": []
+        },
+        "postScript": "clearNotificationInfo"
       }
     ]
   }
