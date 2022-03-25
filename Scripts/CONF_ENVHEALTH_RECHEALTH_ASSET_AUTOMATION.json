@@ -20,6 +20,7 @@
             "ALL"
            
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
@@ -61,6 +62,7 @@
           "copyContacts": [
             "ALL"
           ],
+		  "maskName": "EH Facility",
           "updateExistingRefAsset": true,
           "assetType": "Building",
           "assetGroup": "Facilities",
