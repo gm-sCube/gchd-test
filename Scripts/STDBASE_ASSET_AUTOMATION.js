@@ -471,14 +471,14 @@ function fillMasterModelFromASI(rules, fillAssetId) {
 				logDebug("logDebug maskName = " + maskName);
 			}
 			if (maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+				assetMasterModel.setG1AssetID(getNextAssetSequence(maskName));
 			}else{
 				assetMasterModel.setG1AssetID(vParentCapId.getCustomID());
 			}
 		}
 		else{
 			if (rules.action.maskName) {
-				assetMasterModel.setG1AssetID(myGetNextSequence(maskName));
+				assetMasterModel.setG1AssetID(getNextAssetSequence(maskName));
 			}else{
 				assetMasterModel.setG1AssetID(capId.getCustomID());
 			}
@@ -545,13 +545,13 @@ updates
   }
 }
 
-function myGetNextSequence(maskName) {
+function getNextAssetSequence(maskName) {
 	var agencySeqBiz = aa.proxyInvoker.newInstance("com.accela.sg.AgencySeqNextBusiness").getOutput();
 	var params = aa.proxyInvoker.newInstance("com.accela.domain.AgencyMaskDefCriteria").getOutput();
 	params.setAgencyID(aa.getServiceProviderCode());
 	params.setMaskName(maskName);
 	params.setRecStatus("A");
-	params.setSeqType("Agency");
+	params.setSeqType("ASSET ID");
 
 	var seq = agencySeqBiz.getNextMaskedSeq("ADMIN", params, null, null);
 
