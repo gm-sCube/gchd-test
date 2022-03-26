@@ -1,5 +1,5 @@
 {
-	"EnvHealth/Rec Health/Spa/*": {
+	"EnvHealth/Rec Health/Spa/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -9,10 +9,10 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
@@ -24,13 +24,11 @@
 					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Rec Health/Spa/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
@@ -46,7 +44,7 @@
 			}
 		]
 	},
-	"EnvHealth/Rec Health/Pool/*": {
+	"EnvHealth/Rec Health/Pool/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -56,10 +54,10 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
@@ -71,13 +69,11 @@
 					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Rec Health/Pool/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},

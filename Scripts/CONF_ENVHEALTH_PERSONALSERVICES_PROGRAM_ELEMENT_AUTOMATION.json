@@ -8,6 +8,7 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"disabled": true,
 					"task": [
 						"Application Review"
 					],
@@ -35,7 +36,9 @@
               "description": "To automate the fee by program element",
               "operators": {}
             },
-            "criteria": {},
+            "criteria": {
+				"disabled": true
+			},
             "preScript": "",
         "action": {
           "assessFees": 
@@ -58,6 +61,7 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"disabled": true,
 					"task": [
 						"Application Review"
 					],
@@ -84,7 +88,9 @@
               "description": "To automate the fee by program element",
               "operators": {}
             },
-            "criteria": {},
+            "criteria": {
+				"disabled": true
+			},
             "preScript": "",
         "action": {
           "assessFees": 
@@ -107,6 +113,7 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"disabled": true,
 					"task": [
 						"Application Review"
 					],
@@ -133,7 +140,9 @@
               "description": "To automate the fee by program element",
               "operators": {}
             },
-            "criteria": {},
+            "criteria": {
+				"disabled": true
+			},
             "preScript": "",
         "action": {
           "assessFees": 
@@ -156,6 +165,7 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"disabled": true,
 					"task": [
 						"Application Review"
 					],
@@ -182,7 +192,9 @@
               "description": "To automate the fee by program element",
               "operators": {}
             },
-            "criteria": {},
+            "criteria": {
+				"disabled": true
+			},
             "preScript": "",
         "action": {
           "assessFees": 
