@@ -31,12 +31,33 @@
         },
         "criteria": {
           "balanceAllowed": false,
+		  "recordStatus": "Active"
 		  "customFields": {
           }
         },
         "preScript": "",
 		"action": {
               "updateExpirationStatus": "About to Expire"
+        },
+        "postScript": ""
+      }
+	  
+    ],
+    "PaymentReceiveAfter": [
+	  {
+        "metadata": {
+          "description": "Update Expiration Status",
+          "operators": {}
+        },
+        "criteria": {
+          "balanceAllowed": false,
+		  "recordStatus": "Pending"
+		  "customFields": {
+          }
+        },
+        "preScript": "",
+		"action": {
+          "updateRecordStatus": "Active"
         },
         "postScript": ""
       }
