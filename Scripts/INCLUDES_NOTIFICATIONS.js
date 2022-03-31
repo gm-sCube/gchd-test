@@ -214,8 +214,8 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
             logDebug("nextNotification: " + nextNotification);
             logDebug("cancelAllInspections: " + cancelAllInspections ) ; 
 			if(typeof(invoiceOnNotification) != 'undefined') logDebug("invoiceOnNotification: " + invoiceOnNotification  ) ;
-			logDebug("penalizeOnNotification" + penalizeOnNotification);
-			if(typeof(assessFeesArray) != 'undefined') logDebug("assessFeesArray length:" + assessFeesArray.length  ) ;
+			if(typeof(penalizeOnNotification) != 'undefined') logDebug("penalizeOnNotification" + penalizeOnNotification); 
+			// if(typeof(assessFeesArray) != 'undefined') logDebug("assessFeesArray length:" + assessFeesArray.length  ) ;
          
             // TO DO: add validation of rule params
 

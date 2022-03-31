@@ -3,7 +3,7 @@
 		"45 Day Notice": {
 			"notificationTemplate": "SS_PERMIT_ABOUT_TO_EXPIRE",
 			"notificationReport": false,
-			"notifyContactTypes": "Applicant, Accounts Receivable",
+			"notifyContactTypes": "Accounts Receivable",
 			"mailerSetType": "Renewal",
 			"mailerSetStatus": "Closed",
 			"mailerSetPrefix": "LIC_ABOUT_TO_EXPIRE",
@@ -16,13 +16,40 @@
 			"invoiceOnNotification": true
 		},
 		"Expiration Notice": {
-			"notificationTemplate": "SS_PERMIT_EXPIRATION_FINAL_NOTICE",
+			"notificationTemplate": "SS_PERMIT_EXPIRATION_FIRST_NOTICE",
 			"notificationReport": false,
-			"notifyContactTypes": "Applicant, Accounts Receivable",
+			"notifyContactTypes": "Accounts Receivable",
 			"mailerSetType": "Renewal",
 			"mailerSetStatus": "Closed",
-			"mailerSetPrefix": "EXPIRATION_NOTICE",
-			"updateExpirationStatus": "Delinquent",
+			"mailerSetPrefix": "1st EXPIRATION_NOTICE",
+			"updateExpirationStatus": "Pending",
+			"updateRecordStatus": "Active",
+			"updateWorkflowTask": false,
+			"updateWorkflowStatus": false,
+			"nextNotificationDays": 30,
+			"nextNotification": "2nd Expiration Notice",
+			"inspectionType": false,
+			"scheduleOutDays": false,
+			"cancelAllInspections": false,
+			"penalizeOnNtofication": true,
+			"assessFees": [
+				{
+					"feeCode": "LATE FEE",
+					"feeSchedule": "EH_PENALTIES",
+					"feeQuantity": 1,
+					"feeInvoice": "Y",
+					"feePeriod": "Final"
+				}
+			]
+		},
+		"2nd Expiration Notice": {
+			"notificationTemplate": "SS_PERMIT_EXPIRATION_SECOND_NOTICE",
+			"notificationReport": false,
+			"notifyContactTypes": "Accounts Receivable",
+			"mailerSetType": "Renewal",
+			"mailerSetStatus": "Closed",
+			"mailerSetPrefix": "2nd EXPIRATION_NOTICE",
+			"updateExpirationStatus": "Pending",
 			"updateRecordStatus": "Active",
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
@@ -31,10 +58,10 @@
 			"inspectionType": false,
 			"scheduleOutDays": false,
 			"cancelAllInspections": false,
-			"penalizeOnNtofication": false,
+			"penalizeOnNtofication": true,
 			"assessFees": [
 				{
-					"feeCode": "LATE FEE",
+					"feeCode": "SEC LATE FEE",
 					"feeSchedule": "EH_PENALTIES",
 					"feeQuantity": 1,
 					"feeInvoice": "Y",
