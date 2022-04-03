@@ -919,6 +919,51 @@
 			}
 		]
 	},
+	"EnvHealth/Food Retail/Establishment/Permit": {
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "To automate the fee by program element completed application review",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"task": [
+						"Permit Status"
+					],
+					"status": [
+						"Invoice Fees"
+					]
+				},
+				"action": {
+					"assessFees": {
+						"feeSchedule": "EH_FOOD_ESTABLISHMENT",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
+				}
+			}
+		],
+		"AnnualRenewal": [
+			{
+				"metadata": {
+					"description": "To assess and invoice the fees when sending notifications",
+					"operators": {}
+				},
+				"criteria": {},
+				"preScript": "",
+				"action": {
+					"assessFees": {
+						"feeSchedule": "EH_FOOD_ESTABLISHMENT",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
+				}
+			}
+		]
+	},
 	"EnvHealth/Food Retail/Vending Machine/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
