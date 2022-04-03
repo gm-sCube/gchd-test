@@ -8,9 +8,6 @@
           "operators": ""
         },
         "criteria": {
-		  "customFields" : {
-			  "Risk" : "1"
-		  },
           "inspectionTypePerformed": [
             "Pre-Operational",
             "Follow-up Inspection"
@@ -46,7 +43,7 @@
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "180",
-          "sameInspector": true ,
+          "sameInspector": false,
           "taskName": "Pre-Operational Inspection",
           "taskStatus":"Re-Inspection Required" 
           
@@ -75,10 +72,10 @@
 		  "postToTimeAccounting": true,
 		  "inspectionCopyComment": true,
 		  "inspectionType": "Regular Inspection",
-          "rangeTypeToCustomField": "",
-          "rangeToCustomField": "",
-          "rangeType": "Months",
-          "range": "12",
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
           "basedOnScheduledDate": true,
           "basedOnResultDate": false,
           "sameInspector": false
@@ -92,9 +89,6 @@
           "operators": ""
         },
         "criteria": {
-		  "customFields" : {
-			  "Business Code" : "something"
-		  },
           "inspectionTypePerformed": [
 			"Follow-up Inspection"
           ],
@@ -105,10 +99,13 @@
         "action": {
 		  "postToTimeAccounting": true,
 		  "inspectionCopyComment": true,
-		  "inspectionType": "Follow-up Inspection",
-          "rangeType": "Months",
-          "range": "12",
-          "sameInspector": true
+		  "inspectionType": "Regular Inspection",
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
+          "basedOnResultDate": true,
+          "sameInspector": false
        },
         "postScript": ""
       },
@@ -125,13 +122,14 @@
           ]
         },
         "action": {
+		  "inspectionType": "Follow-up Inspection",
 		  "inspectionCopyComment": true,
 		  "postToTimeAccounting": true,
           "newAppStatus": "Re-Inspection Required",
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
-          "range": "180",
-          "sameInspector": true
+          "range": "30",
+          "sameInspector": false
         },
         "postScript": ""
       }

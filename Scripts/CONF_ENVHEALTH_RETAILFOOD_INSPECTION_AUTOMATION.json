@@ -9,15 +9,17 @@
         },
         "criteria": {
           "inspectionTypePerformed": [
-            "Pre-Operational"
+            "Pre-Operational",
+            "Follow-up Inspection"
           ],
           "inspectionResult": [
-            "Passed"
+            "Complete"
           ]
         },
         "action": {
+		  "postToTimeAccounting": true,
           "newAppStatus": "Inspection Passed",
-          "taskName": "Inspection",
+          "taskName": "Pre-Operational Inspection",
           "taskStatus": "Passed"
         },
         "postScript": ""
@@ -29,42 +31,22 @@
           "operators": ""
         },
         "criteria": {
-          "inspectionTypePerformed": [
-            "Pre-Operational"
-          ],
+          "inspectionTypePerformed": [],
           "inspectionResult": [
-            "Failed"
+            "Requires Reinspection"
           ]
         },
         "action": {
-          "newAppStatus": "Inspection Failed",
-          "taskName": "Inspection",
-          "taskStatus": "Failed"
-        },
-        "postScript": ""
-      },
-      {
-        "preScript": "",
-        "metadata": {
-          "description": "",
-          "operators": ""
-        },
-        "criteria": {
-          "inspectionTypePerformed": [
-            "Pre-Operational"
-          ],
-          "inspectionResult": [
-            "Re-inspect"
-          ]
-        },
-        "action": {
-          "caseCopyComments": true,
+		  "postToTimeAccounting": true,
+          "newAppStatus": "Re-Inspection Required",
+          "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "180",
-          "sameInspector": true,
-          "taskName": "Inspection",
-          "taskStatus": "Re-inspect"
+          "sameInspector": false,
+          "taskName": "Pre-Operational Inspection",
+          "taskStatus":"Re-Inspection Required" 
+          
         },
         "postScript": ""
       }
@@ -80,18 +62,24 @@
         },
         "criteria": {
           "inspectionTypePerformed": [
-            "Routine Inspection",
-            "Observational Inspection"
+			"Regular Inspection"
           ],
           "inspectionResult": [
-            "Passed"
+            "Complete"
           ]
         },
         "action": {
-          "newAppStatus": "Inspection Passed",
-          "taskName": "Inspection",
-          "taskStatus": "Passed"
-        },
+		  "postToTimeAccounting": true,
+		  "inspectionCopyComment": true,
+		  "inspectionType": "Regular Inspection",
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
+          "basedOnScheduledDate": true,
+          "basedOnResultDate": false,
+          "sameInspector": false
+       },
         "postScript": ""
       },
       {
@@ -102,18 +90,23 @@
         },
         "criteria": {
           "inspectionTypePerformed": [
-            "Routine Inspection",
-            "Observational Inspection"
+			"Follow-up Inspection"
           ],
           "inspectionResult": [
-            "Failed"
+            "Complete"
           ]
         },
         "action": {
-          "newAppStatus": "Inspection Failed",
-          "taskName": "Inspection",
-          "taskStatus": "Failed"
-        },
+		  "postToTimeAccounting": true,
+		  "inspectionCopyComment": true,
+		  "inspectionType": "Regular Inspection",
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
+          "basedOnResultDate": true,
+          "sameInspector": false
+       },
         "postScript": ""
       },
       {
@@ -123,22 +116,20 @@
           "operators": ""
         },
         "criteria": {
-          "inspectionTypePerformed": [
-            "Routine Inspection",
-            "Observational Inspection"
-          ],
+          "inspectionTypePerformed": [],
           "inspectionResult": [
-            "Re-inspect"
+            "Requires Reinspection"
           ]
         },
         "action": {
-          "caseCopyComments": true,
+		  "inspectionType": "Follow-up Inspection",
+		  "inspectionCopyComment": true,
+		  "postToTimeAccounting": true,
+          "newAppStatus": "Re-Inspection Required",
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
-          "range": "180",
-          "sameInspector": true,
-          "taskName": "Inspection",
-          "taskStatus": "Re-inspect"
+          "range": "30",
+          "sameInspector": false
         },
         "postScript": ""
       }

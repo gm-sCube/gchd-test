@@ -8,6 +8,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Pre-Operational"
           ],
@@ -29,6 +30,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Pre-Operational"
           ],
@@ -50,6 +52,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Pre-Operational"
           ],
@@ -79,6 +82,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Routine Inspection"
           ],
@@ -100,6 +104,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Routine Inspection"
           ],
@@ -121,6 +126,7 @@
           "operators": ""
         },
         "criteria": {
+		  "Disabled": true,
           "inspectionTypePerformed": [
             "Routine Inspection"
           ],
