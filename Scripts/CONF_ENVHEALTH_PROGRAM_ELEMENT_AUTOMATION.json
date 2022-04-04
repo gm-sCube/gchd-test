@@ -6,7 +6,9 @@
 	              "description": "To automate the fee by program element",
 	              "operators": {}
 	            },
-	            "criteria": {},
+	            "criteria": {
+				"disabled": true
+				},
 	            "preScript": "",
 	        "action": {
 	          "assessFees": 
@@ -28,7 +30,9 @@
 		              "description": "To automate the fee by program element",
 		              "operators": {}
 		            },
-		            "criteria": {},
+		            "criteria": {
+					"disabled": true						
+					},
 		            "preScript": "",
 		        "action": {
 		          "assessFees": 
@@ -50,7 +54,9 @@
 	              "description": "To automate the fee by program element",
 	              "operators": {}
 	            },
-	            "criteria": {},
+				"criteria": {
+				"disabled": true						
+				},
 	            "preScript": "",
 	        "action": {
 	          "assessFees": 
@@ -71,7 +77,9 @@
 	              "description": "To automate the fee by program element",
 	              "operators": {}
 	            },
-	            "criteria": {},
+				"criteria": {
+				"disabled": true						
+				},
 	            "preScript": "",
 	        "action": {
 	          "assessFees": 

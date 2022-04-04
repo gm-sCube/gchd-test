@@ -1,5 +1,5 @@
 {
-	"EnvHealth/Institutions/Residential Care/*": {
+	"EnvHealth/Institutions/Residential Care/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -9,48 +9,42 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_RESIDENTIAL_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_RESIDENTIAL_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Residential Care/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_RESIDENTIAL_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_RESIDENTIAL_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
 	},
-	"EnvHealth/Institutions/Correctional Facility/*": {
+	"EnvHealth/Institutions/Correctional Facility/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -60,48 +54,42 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_CORRECTIONAL_FACILITY",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_CORRECTIONAL_FACILITY",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Correctional Facility/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_CORRECTIONAL_FACILITY",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_CORRECTIONAL_FACILITY",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
 	},
-	"EnvHealth/Institutions/Child Day Care/*": {
+	"EnvHealth/Institutions/Child Day Care/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -111,48 +99,42 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_CHILD_DAY_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_CHILD_DAY_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Child Day Care/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_CHILD_DAY_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_CHILD_DAY_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
 	},
-	"EnvHealth/Institutions/Educational Building Care/*": {
+	"EnvHealth/Institutions/Educational Building/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -162,48 +144,42 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_EDUCATIONAL_BUILDING",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_EDUCATIONAL_BUILDING",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Educational Building Care/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_EDUCATIONAL_BUILDING",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_EDUCATIONAL_BUILDING",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
 	},
-	"EnvHealth/Institutions/Nursing Home/*": {
+	"EnvHealth/Institutions/Nursing Home/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -213,48 +189,42 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_NURSING_HOME",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_NURSING HOME",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Nursing Home/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_NURSING_HOME",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_NURSING_HOME",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
 	},
-	"EnvHealth/Institutions/Adult Day Care/*": {
+	"EnvHealth/Institutions/Adult Day Care/Permit": {
 		"WorkflowTaskUpdateAfter": [
 			{
 				"metadata": {
@@ -264,43 +234,37 @@
 				"preScript": "",
 				"criteria": {
 					"task": [
-						"Application Review"
+						"Permit Status"
 					],
 					"status": [
-						"Completed"
+						"Invoice Fees"
 					]
 				},
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_ADULT_DAY_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_ADULT_DAY_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
-		]
-	},
-	"EnvHealth/Institutions/Adult Day Care/Renewal": {
-		"ConvertToRealCAPAfter": [
+		],
+		"AnnualRenewal": [
 			{
 				"metadata": {
-					"description": "To automate the fee by program element",
+					"description": "To assess and invoice the fees when sending notifications",
 					"operators": {}
 				},
 				"criteria": {},
 				"preScript": "",
 				"action": {
-					"assessFees": [
-						{
-							"feeSchedule": "EH_ADULT_DAY_CARE",
-							"feeQuantity": 1,
-							"feeInvoice": "Y",
-							"feePeriod": "FINAL"
-						}
-					]
+					"assessFees": {
+						"feeSchedule": "EH_ADULT_DAY_CARE",
+						"feeQuantity": 1,
+						"feeInvoice": "Y",
+						"feePeriod": "FINAL"
+					}
 				}
 			}
 		]
