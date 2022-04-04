@@ -33,7 +33,6 @@
   },
   "InvoiceFeeAfter": {  
     "StandardScripts": [ 
-      "STDBASE_SEND_CONTACT_EMAILS"  
     ]
   },
   "WorkflowTaskUpdateBefore": {  
@@ -53,13 +52,11 @@
   "InspectionResultModifyAfter": {
 	  "StandardScripts": [
 	     "STDBASE_INSPECTION_AUTOMATION",
-	     "STDBASE_SEND_CONTACT_EMAILS"
 	]
   },
   "InspectionResultSubmitAfter": {
 	  "StandardScripts": [
 	     "STDBASE_INSPECTION_AUTOMATION",
-	     "STDBASE_SEND_CONTACT_EMAILS"
 	]
   },
   "ContactLookUpAfter": {
