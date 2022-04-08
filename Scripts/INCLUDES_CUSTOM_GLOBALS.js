@@ -1,7 +1,6 @@
 showDebug = false;
 showMessage = false;
-debugLevel = false;
-
+debugLevel = 3;
 if (currentUserID == "ADMIN") {
    showDebug = true;
    showMessage = true;
