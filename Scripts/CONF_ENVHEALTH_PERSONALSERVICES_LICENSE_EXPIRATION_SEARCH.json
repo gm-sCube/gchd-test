@@ -6,7 +6,7 @@
       "searchByRecordSubType":"*",
       "searchByRecordCategory":"Permit",
       "searchStatus": "Active",
-      "searchByDaysOut": 45,
+      "searchByDaysOut": 50,
       "searchByFromDate": false,
       "searchByToDate": false,
       "expiringInterval":"nextquarter",
