@@ -216,10 +216,10 @@ function processBatchNotification(recordIdObjectArray, searchRules, noticeRules)
 			if(typeof(invoiceOnNotification) != 'undefined') {
 				logDebug("invoiceOnNotification: " + invoiceOnNotification  ) ;
 			}else{
-				logDebug("invoiceNotification is undefined");
+				logDebug("invoiceOnNotification is undefined");
 			}
 			if(typeof(penalizeOnNotification) != 'undefined') {
-				logDebug("penalizeOnNotification" + penalizeOnNotification); 
+				logDebug("penalizeOnNotification: " + penalizeOnNotification); 
 			}else{
 				logDebug("penalizeOnNotification is undefined");
 			}
