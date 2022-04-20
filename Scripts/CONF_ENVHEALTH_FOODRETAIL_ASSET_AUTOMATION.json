@@ -838,6 +838,48 @@
       }
     ]
   },
+  "EnvHealth/Food Retail/Establishment/Application": {
+    "WorkflowTaskUpdateAfter": [
+      {
+        "metadata": {
+          "description": "Create Food Establishment Asset",
+          "operators": {}
+        },
+        "preScript": "",
+        "criteria": {
+          "task": [
+            "Permit Issuance"
+          ],
+          "status": [
+            "Issued"
+          ]
+        },
+        "action": {
+          "copyContacts": [
+            "ALL"            
+          ],
+		  "maskName": "EH Facility",
+          "updateExistingRefAsset": true,
+          "assetType": "Building",
+          "assetGroup": "Facilities",
+          "checkExistingAsset": true,
+          "dateOfService": "",
+          "status": "Pending",
+          "copyAddress": [
+            "ALL"
+          ],
+          "customFieldsDefaultMapping": {},
+          "linkParent": true,
+          "copyDocumentTypes": [
+            "Site Plan",
+            "Building Plan"
+          ],
+          "copyAppNameToAssetName": true
+        },
+        "postScript": ""
+      }
+    ]
+  },
   "EnvHealth/Food Retail/Vending Machine/Application": {
     "WorkflowTaskUpdateAfter": [
       {
