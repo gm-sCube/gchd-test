@@ -17,7 +17,7 @@
           "notificationTemplate": "SS_ADDITIONAL_INFO_REQD",
           "notificationReport": [],
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -49,9 +49,9 @@
           "notificationReport": [
             "EnvHealth Agency License Report"
           ],
-          "reportParamContactType": "Applicant",
+          "reportParamContactType": "Property Owner",
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -76,7 +76,7 @@
           "notificationTemplate": "SS_APP_DENIED",
           "notificationReport": [],
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -101,7 +101,7 @@
           "notificationTemplate": "SS_APP_WITHDRAWAL",
           "notificationReport": [],
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -129,9 +129,9 @@
           "notificationReport": [
             "EnvHealth Agency License Report"
           ],
-          "reportParamContactType": "Applicant",
+          "reportParamContactType": "Property Owner",
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -156,7 +156,7 @@
           "notificationTemplate": "SS_APP_SUBMITTAL",
           "notificationReport": [],
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
@@ -182,9 +182,9 @@
             "notificationReport": [
               "EnvHealth Invoice Report"
             ],
-            "reportParamContactType": "Applicant",
+            "reportParamContactType": "Property Owner",
             "notifyContactTypes": [
-              "Applicant"
+              "Property Owner"
             ],          
             "additionalEmailsTo": "",
             "url4ACA": "",
@@ -213,7 +213,7 @@
           "notificationTemplate": "SS_PERMIT_STATUS",
           "notificationReport": [],
           "notifyContactTypes": [
-            "Applicant"
+            "Property Owner"
           ],
           "additionalEmailsTo": "",
           "url4ACA": "",
