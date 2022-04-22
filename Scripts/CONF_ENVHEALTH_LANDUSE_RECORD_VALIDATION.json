@@ -8,6 +8,7 @@
         },
         "preScript": "",
         "criteria": {
+		  "disabled": true,
           "task": [
             "Permit Issuance" ,
             "Decision Notification"
@@ -31,6 +32,7 @@
           },
           "preScript": "",
           "criteria": {
+		    "disabled": true,
             "task": [
 				"Permit Issuance" ,
 				"Decision Notification"
@@ -55,6 +57,7 @@
             },
             "preScript": "",
             "criteria": {
+			  "disabled": true,
               "task": [
 					"Permit Issuance" ,
 					"Decision Notification"
