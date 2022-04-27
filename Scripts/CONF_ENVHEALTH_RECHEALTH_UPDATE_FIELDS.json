@@ -29,7 +29,7 @@
     "PaymentReceiveAfter": [
 	  {
         "metadata": {
-          "description": "Update Expiration Status",
+          "description": "Update Expiration Status During New Application",
           "operators": {}
         },
         "criteria": {
@@ -43,13 +43,11 @@
               "updateExpirationStatus": "Active"
         },
         "postScript": ""
-      }
+      },
 	  
-    ],
-    "PaymentReceiveAfter": [
 	  {
         "metadata": {
-          "description": "Update Expiration Status",
+          "description": "Update Expiration Status During Renewal",
           "operators": {}
         },
         "criteria": {
