@@ -39,7 +39,7 @@
         },
         "preScript": "",
 		"action": {
-          "updateRecordStatus": "About to Expire"
+          "updateExpirationStatus": "About to Expire"
         },
         "postScript": ""
       }
