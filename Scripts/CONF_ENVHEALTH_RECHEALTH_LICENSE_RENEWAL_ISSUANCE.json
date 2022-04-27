@@ -22,6 +22,7 @@
 					"issuedExpirationStatus": "Active",
 					"issuedLPStatus": "A",
 					"expirationType": "Years",
+					"originationDate": "Expiration Date",
 					"expirationPeriod": 1,
 					"customExpirationFunction": "",
 					"copyComponents": []
@@ -46,6 +47,7 @@
 					"issuedExpirationStatus": "Active",
 					"issuedLPStatus": "A",
 					"expirationType": "Years",
+					"originationDate": "Expiration Date",
 					"expirationPeriod": 1,
 					"customExpirationFunction": "",
 					"copyComponents": []
