@@ -40,7 +40,7 @@
         },
         "preScript": "",
 		"action": {
-              "updateExpirationStatus": "About to Expire"
+              "updateExpirationStatus": "Active"
         },
         "postScript": ""
       }
@@ -60,7 +60,7 @@
         },
         "preScript": "",
 		"action": {
-          "updateRecordStatus": "Active"
+          "updateRecordStatus": "About to Expire"
         },
         "postScript": ""
       }
