@@ -29,30 +29,11 @@
     "PaymentReceiveAfter": [
 	  {
         "metadata": {
-          "description": "Update Expiration Status During New Application",
+          "description": "Update Expiration Status",
           "operators": {}
         },
         "criteria": {
           "balanceAllowed": false,
-		  "recordStatus": "Active",
-		  "customFields": {
-          }
-        },
-        "preScript": "",
-		"action": {
-              "updateExpirationStatus": "Active"
-        },
-        "postScript": ""
-      },
-	  
-	  {
-        "metadata": {
-          "description": "Update Expiration Status During Renewal",
-          "operators": {}
-        },
-        "criteria": {
-          "balanceAllowed": false,
-		  "recordStatus": "Pending",
 		  "customFields": {
           }
         },
