@@ -20,8 +20,9 @@
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
-		  "expirationType": "",
-          "expirationPeriod": "" ,          
+		  "expirationType": "Years",
+		  "originationDate": "Expiration Date",
+          "expirationPeriod": "1" ,
 		  "customExpirationFunction": "",
           "copyComponents": []
         },
@@ -44,8 +45,9 @@
           "issuedRecordStatus": "Active",
           "issuedExpirationStatus": "Active",
           "issuedLPStatus": "A",
-          "expirationType": "",
-          "expirationPeriod": "",
+		  "expirationType": "Years",
+		  "originationDate": "Expiration Date",
+          "expirationPeriod": "1" ,
           "customExpirationFunction": "",
           "copyComponents": []
         },
