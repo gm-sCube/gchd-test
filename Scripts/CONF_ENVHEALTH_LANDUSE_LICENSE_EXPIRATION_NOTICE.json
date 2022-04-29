@@ -22,14 +22,14 @@
 			"mailerSetStatus": "Open",
 			"mailerSetPrefix": "EXPIRATION_NOTICE",
 			"updateExpirationStatus": "Delinquent",
-			"updateRecordStatus": "Active",
+			"updateRecordStatus": "false",
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
 			"nextNotificationDays": false,
 			"nextNotification": false,
 			"inspectionType": false,
 			"scheduleOutDays": false,
-			"cancelAllInspections":true
+			"cancelAllInspections":false
 			
            
 		}
