@@ -300,7 +300,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
