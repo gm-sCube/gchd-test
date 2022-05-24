@@ -534,7 +534,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 	@param billable {boolean} Billable true for "Y", false for "N"
     */
     if (!aa.timeAccounting.getTimeTypeByTimeTypeName) {
-		logDebug("addTimeAccountingRecordToInpection function required AA 7.1SP3 or higher.");
+		logDebug("addTimeAccountingRecordToInpection function required AA 7.1SP3 or higher.",3);
         return false;
     }
 	capIDString = itemCap.getCustomID();
@@ -543,19 +543,19 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 	appTypeAlias = appTypeResult.getAlias();
 	appTypeString = appTypeResult.toString();
 	appTypeArray = appTypeString.split("/");
-	logDebug('appTypeString = ' + appTypeString);
-	logDebug('appTypeArray[0] = ' + appTypeArray[0]);
-	logDebug('inspectionId = ' + inspectionId);
-	logDebug('getInspector(inspectionId) = ' + getInspector(inspectionId));
-	logDebug('inspId = ' + inspId);
-	logDebug('getInspector(inspId) = ' + getInspector(inspId));
+	logDebug('appTypeString = ' + appTypeString,3);
+	logDebug('appTypeArray[0] = ' + appTypeArray[0],3);
+	logDebug('inspectionId = ' + inspectionId,3);
+	logDebug('getInspector(inspectionId) = ' + getInspector(inspectionId),3);
+	logDebug('inspId = ' + inspId,3);
+	logDebug('getInspector(inspId) = ' + getInspector(inspId),3);
 	var inspResultObj = aa.inspection.getInspection(itemCap, inspectionId);
 	if (inspResultObj.getSuccess()) {
 		var currentInp = inspResultObj.getOutput();
 		currInspector = currentInp.getInspector().getGaUserID();
-		logDebug('currInspector = ' + currInspector);
+		logDebug('currInspector = ' + currInspector,3);
 	}else{
-		logDebug('could not find inspector');
+		logDebug('could not find inspector',3);
 	}				
     // userRight = aa.userright.getUserRight(appTypeArray[0], getInspector(inspectionId)).getOutput();
 	userRight = aa.userright.getUserRight(appTypeArray[0], currInspector).getOutput();    // userRight = aa.userright.getUserRight(appTypeArray[0], getInspector(inspectionId)).getOutput();
@@ -584,7 +584,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
             timeElapsedString = epochMsToTime(timeElapsedString);
         }
         else {
-			logDebug("Start/End Times are null, using total time");
+			logDebug("Start/End Times are null, using total time",3);
             if (inspTotalTime) {
                 inspTotalTime = String(parseFloat(inspTotalTime).toFixed(1));
                 if (inspTotalTime.indexOf(".") != -1) {
@@ -595,7 +595,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
                 }
             }
 		}
-		logDebug("timeElapsedString: " + timeElapsedString);
+		logDebug("timeElapsedString: " + timeElapsedString,3);
         if (timeElapsedString) {
             var totMinutes = 0;
             totMinutes += parseInt(timeElapsedString.split(":")[0]) * 60;
@@ -632,12 +632,12 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
             TimeAccounting.getTimeLogModel().setEntityType("INSPECTION");
             var taTypeResult = aa.timeAccounting.getTimeTypeByTimeTypeName(taType);
             if (!taTypeResult.getSuccess() || !taTypeResult.getOutput()) {
-                logDebug("**WARNING: error retrieving Timeaccounting type : " + taType + " : " + taTypeResult.getErrorMessage()); 
+                logDebug("**WARNING: error retrieving Timeaccounting type : " + taType + " : " + taTypeResult.getErrorMessage(),3); 
 				return false;
             }
             var taGroupResult = aa.timeAccounting.getTimeGroupByTimeGroupName(taGroup);
             if (!taGroupResult.getSuccess() || !taGroupResult.getOutput()) {
-                logDebug("**WARNING: error retrieving Timeaccounting group : " + taGroup + " : " + taGroupResult.getErrorMessage());
+                logDebug("**WARNING: error retrieving Timeaccounting group : " + taGroup + " : " + taGroupResult.getErrorMessage(),3);
                 return false;
             }
             TimeAccounting.setTimeGroupSeq(taGroupResult.getOutput().getTimeGroupSeq());
@@ -650,12 +650,12 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 				return true;
             }
             else {
-                logDebug("**WARNING: adding Time Accounting Record: " + addResult.getErrorMessage());
+                logDebug("**WARNING: adding Time Accounting Record: " + addResult.getErrorMessage(),3);
                 return false;
             }
         }
         else {
-            logDebug("**WARNING: adding Time Accounting Record: No time parameters have been provided");
+            logDebug("**WARNING: adding Time Accounting Record: No time parameters have been provided",3);
             return false;
         }
 	}
