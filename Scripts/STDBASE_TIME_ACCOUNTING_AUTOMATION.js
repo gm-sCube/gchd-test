@@ -33,7 +33,7 @@ JSON Example :
 
 - Workflow Task and Status must be set in JSON file to specify which task/status invoke this code
  */
-showMessage = true;
+// showMessage = true;
 // showDebug = true;
 
 var scriptSuffix = "TIME_ACCOUNTING_AUTOMATION";
