@@ -131,7 +131,7 @@ function UpdateFields(rules) {
 	
 
 	// this to  check if the record has balance or not.
-	if (rules.criteria.hasOwnProperty("allowBalance") && !rules.criteria.allowBalance) {
+	if (!isEmptyOrNull(allowBalance) && rules.criteria.hasOwnProperty("allowBalance") && !rules.criteria.allowBalance) {
 		var capDetails = aa.cap.getCapDetail(capId).getOutput();
 		if (capDetails.getBalance() > 0) {
 			logDebug("permit has an outstanding balance");
