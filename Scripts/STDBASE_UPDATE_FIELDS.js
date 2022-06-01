@@ -102,7 +102,7 @@ try {
 		}
 
 		if (!UpdateFields(rules.action)) {
-			return;
+			break;
 		}
 
 		//run post script
