@@ -68,6 +68,8 @@ Description : JSON Example :
 Note : for the source name when the value source is standard comments then the source name should be "comment type/comment ID"
 and when the source is standard choice the source name will be standard choice / standard choice value.
 
+Added optional checking for balanceAllowed
+
  */
 
 try {
@@ -99,7 +101,9 @@ try {
 			continue;
 		}
 
-		UpdateFields(rules.action);
+		if (!UpdateFields(rules.action) {
+			return;
+		}
 
 		//run post script
 		if (!isEmptyOrNull(postScript)) {
@@ -124,6 +128,25 @@ function UpdateFields(rules) {
 	var updateAppName = rules.updateAppName;
 	var newValue = null;
 	
+
+	// this to  check if the record has balance or not.
+	if (rules.criteria.hasOwnProperty("allowBalance") && !rules.criteria.allowBalance) {
+		var capDetails = aa.cap.getCapDetail(capId).getOutput();
+		if (capDetails.getBalance() > 0) {
+			logDebug("permit has an outstanding balance");
+			return false;
+		}else{
+			if (rules.criteria.chkInvoicedFees) {
+				var feesArr = loadFees(capId);
+				for ( var i in feesArr) {
+					if (feesArr[i].status == "NEW") {
+						logDebug("permit has assessed fees");
+						return false;
+					}
+				}
+			}
+		}
+	}
 
 	var expirationStatus =rules.updateExpirationStatus ;
 	if (!isEmptyOrNull(expirationStatus))
