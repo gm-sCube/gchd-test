@@ -30,7 +30,7 @@
           "operators": {}
         },
         "criteria": {
-          "balanceAllowed": false,
+		  "allowBalance": false,
 		  "customFields": {
           }
         },

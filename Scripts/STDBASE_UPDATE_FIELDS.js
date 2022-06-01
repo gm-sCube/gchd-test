@@ -68,7 +68,7 @@ Description : JSON Example :
 Note : for the source name when the value source is standard comments then the source name should be "comment type/comment ID"
 and when the source is standard choice the source name will be standard choice / standard choice value.
 
-Added optional checking for balanceAllowed
+Added optional checking for allowBalance
 
  */
 
@@ -126,6 +126,7 @@ function UpdateFields(rules) {
 	var asitSearchColumn = rules.asitSearchColumn;
 	var sourceName = rules.sourceName;
 	var updateAppName = rules.updateAppName;
+	var allowBalance = rules.criteria.allowBalance;
 	var newValue = null;
 	
 
