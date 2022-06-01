@@ -101,7 +101,7 @@ try {
 			continue;
 		}
 
-		if (!UpdateFields(rules.action) {
+		if (!UpdateFields(rules.action)) {
 			return;
 		}
 
