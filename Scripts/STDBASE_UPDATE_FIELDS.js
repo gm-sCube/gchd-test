@@ -101,7 +101,7 @@ try {
 			continue;
 		}
 
-		UpdateFields(rules.action);
+		UpdateFields(rules);
 
 		//run post script
 		if (!isEmptyOrNull(postScript)) {
@@ -118,12 +118,12 @@ try {
  */
 function UpdateFields(rules) {
 	
-	var daysOut = rules.daysOut;
-	var valueSource = rules.valueSource;
-	var customListToUpdate = rules.customListToUpdate;
-	var asitSearchColumn = rules.asitSearchColumn;
-	var sourceName = rules.sourceName;
-	var updateAppName = rules.updateAppName;
+	var daysOut = rules.action.daysOut;
+	var valueSource = rules.action.valueSource;
+	var customListToUpdate = rules.action.customListToUpdate;
+	var asitSearchColumn = rules.action.asitSearchColumn;
+	var sourceName = rules.action.sourceName;
+	var updateAppName = rules.action.updateAppName;
 	var newValue = null;
 	
 
@@ -146,7 +146,7 @@ function UpdateFields(rules) {
 		}
 	}
 
-	var expirationStatus =rules.updateExpirationStatus ;
+	var expirationStatus =rules.action.updateExpirationStatus ;
 	if (!isEmptyOrNull(expirationStatus))
 		{
 		var rB1ExpResult = aa.expiration.getLicensesByCapID(capId).getOutput();
@@ -213,11 +213,11 @@ function UpdateFields(rules) {
 
 	//update field with new value
 	if (newValue != null) {
-		if (rules.customFieldToUpdate != null && rules.customFieldToUpdate != "") {
-			editAppSpecific(rules.customFieldToUpdate, newValue);
+		if (rules.action.customFieldToUpdate != null && rules.action.customFieldToUpdate != "") {
+			editAppSpecific(rules.action.customFieldToUpdate, newValue);
 		}
-		if (rules.customListToUpdate != null && rules.customListToUpdate != "") {
-			UpdateAsitTableColumn(rules.customListToUpdate, newValue)
+		if (rules.action.customListToUpdate != null && rules.action.customListToUpdate != "") {
+			UpdateAsitTableColumn(rules.action.customListToUpdate, newValue)
 		}
 	}
 
@@ -400,8 +400,8 @@ function customListColumnUpdateLocal(capIDModel, tableName, searchColumnName, se
  * @returns
  */
 function getNewValue(rules) {
-	var valueSource = rules.valueSource;
-	var sourceName = rules.sourceName;
+	var valueSource = rules.action.valueSource;
+	var sourceName = rules.action.sourceName;
 	if (valueSource && valueSource.trim() == "") {
 		return sourceName;
 	} else if (valueSource == "Standard Choice") {

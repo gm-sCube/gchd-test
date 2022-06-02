@@ -50,6 +50,7 @@
         },
         "criteria": {
 		  "allowBalance": false,
+		  "chkInvoicedFees": true,
 		  "customFields": {
           }
         },
