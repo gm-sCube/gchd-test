@@ -22,7 +22,7 @@
        "action": {
               "updateExpirationStatus": "Inactive"
           },
-        "postScript": ""
+        "postScript": "clearPermitNotificationInfo"
       }
 	  
     ],
@@ -42,7 +42,7 @@
 		"action": {
           "updateExpirationStatus": "About to Expire"
         },
-        "postScript": "clearNotificationInfo"
+        "postScript": "clearPermitNotificationInfo"
       }
 	  
     ],
@@ -62,7 +62,7 @@
 		"action": {
           "updateExpirationStatus": "About to Expire"
         },
-        "postScript": "clearNotificationInfo"
+        "postScript": "clearPermitNotificationInfo"
       }
 	  
     ]
