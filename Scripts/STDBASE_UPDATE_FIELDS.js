@@ -101,7 +101,9 @@ try {
 			continue;
 		}
 
-		UpdateFields(rules);
+		if (!UpdateFields(rules)) {
+			break;
+		}
 
 		//run post script
 		if (!isEmptyOrNull(postScript)) {
