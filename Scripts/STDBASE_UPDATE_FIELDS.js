@@ -101,9 +101,7 @@ try {
 			continue;
 		}
 
-		if (!UpdateFields(rules.action)) {
-			break;
-		}
+		UpdateFields(rules.action);
 
 		//run post script
 		if (!isEmptyOrNull(postScript)) {
@@ -126,12 +124,11 @@ function UpdateFields(rules) {
 	var asitSearchColumn = rules.asitSearchColumn;
 	var sourceName = rules.sourceName;
 	var updateAppName = rules.updateAppName;
-	var allowBalance = rules.criteria.allowBalance;
 	var newValue = null;
 	
 
 	// this to  check if the record has balance or not.
-	if (!isEmptyOrNull(allowBalance) && rules.criteria.hasOwnProperty("allowBalance") && !rules.criteria.allowBalance) {
+	if (!isEmptyOrNull(rules.criteria.allowBalance) && rules.criteria.allowBalance == false) {
 		var capDetails = aa.cap.getCapDetail(capId).getOutput();
 		if (capDetails.getBalance() > 0) {
 			logDebug("permit has an outstanding balance");
