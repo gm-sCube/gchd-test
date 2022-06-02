@@ -101,12 +101,10 @@ try {
 			continue;
 		}
 
-		if (!UpdateFields(rules)) {
-			break;
-		}
+		var mresult = UpdateFields(rules);
 
 		//run post script
-		if (!isEmptyOrNull(postScript)) {
+		if (!isEmptyOrNull(postScript) && mresult) {
 			eval(getScriptText(postScript, null, false));
 		}
 	}
@@ -309,7 +307,7 @@ function UpdateFields(rules) {
 		editAppName(vNewAppName,itemCap);		
 
 	}
-
+return true;
 }
 
 function customListColumnUpdateLocal(capIDModel, tableName, searchColumnName, searchValue, columnToUpdate, valueToUpdate) {
