@@ -25,6 +25,46 @@
         "postScript": ""
       }
 	  
+    ],
+    "PaymentReceiveAfter": [
+	  {
+        "metadata": {
+          "description": "Update Expiration Status",
+          "operators": {}
+        },
+        "criteria": {
+		  "allowBalance": false,
+		  "chkInvoicedFees": true,
+		  "customFields": {
+          }
+        },
+        "preScript": "",
+		"action": {
+          "updateExpirationStatus": "About to Expire"
+        },
+        "postScript": "clearNotificationInfo"
+      }
+	  
+    ],
+    "PaymentApplyAfter": [
+	  {
+        "metadata": {
+          "description": "Update Expiration Status",
+          "operators": {}
+        },
+        "criteria": {
+		  "allowBalance": false,
+		  "chkInvoicedFees": true,
+		  "customFields": {
+          }
+        },
+        "preScript": "",
+		"action": {
+          "updateExpirationStatus": "About to Expire"
+        },
+        "postScript": "clearNotificationInfo"
+      }
+	  
     ]
   }
 }
