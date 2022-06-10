@@ -78,7 +78,7 @@
           "range": "Custom Field",
           "basedOnScheduledDate": true,
           "basedOnResultDate": false,
-		  "inspector":"Record",
+		  "assignment":"Record",
           "sameInspector": false
        },
         "postScript": ""
