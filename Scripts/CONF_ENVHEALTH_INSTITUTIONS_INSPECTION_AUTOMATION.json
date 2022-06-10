@@ -43,7 +43,7 @@
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "180",
-          "sameInspector": false,
+          "sameInspector": true,
           "taskName": "Pre-Operational Inspection",
           "taskStatus":"Re-Inspection Required" 
           
@@ -78,6 +78,7 @@
           "range": "Custom Field",
           "basedOnScheduledDate": true,
           "basedOnResultDate": false,
+		  "inspector":"RECORD",
           "sameInspector": false
        },
         "postScript": ""
@@ -105,6 +106,7 @@
           "rangeType": "Custom Field",
           "range": "Custom Field",
           "basedOnResultDate": true,
+		  "inspector":"RECORD",
           "sameInspector": false
        },
         "postScript": ""
@@ -129,7 +131,28 @@
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "30",
-          "sameInspector": false
+          "sameInspector": true
+        },
+        "postScript": ""
+      }
+    ],
+    "WorkflowTaskUpdateAfter": [
+      {
+        "preScript": "",
+        "metadata": {
+          "description": "",
+          "operators": ""
+        },
+        "criteria": {
+          "taskName": [
+            "Permit Status"
+          ],
+          "taskStatus": [
+            "Inactive"
+          ]
+        },
+        "action": {
+          "cancelAllInspections": true
         },
         "postScript": ""
       }

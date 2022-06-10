@@ -44,6 +44,8 @@ Author: Yazan Barghouth
           "range": "10",
 		  "rangeTypeToCustomField": "Inspection Interval Unit",
           "rangeToCustomField": "Inspection Interval",
+		  "basedOnScheduledDate": true,
+          "basedOnResultDate": false,
           "sameInspector": false,
           "createCondition": "",
           "createConditionType": "",
@@ -58,7 +60,10 @@ Author: Yazan Barghouth
           "expirationTypeUpdate":"Expiration Code",
           "expirationDaysToAdvance":"30",
           "cancelAllInspections" : true ,
-		  "inspectionDisplayInACA": "N" , values: ("N" or "Y") , the default value equal 'Y'
+		  "inspectionDisplayInACA": "N" , values: ("N" or "Y") , the default value equal 'Y',
+		  "assignment":"Auto",									//how to assign an inspector, if "Auto", will use function autoAssign, if "Record", assign to person assigned to the record, if blank, will look for value in inspector field. If no value, will schedule w/o assignment.
+		  "inspector":"",											//specific inspector userid to assign inspection to, assignment field should be left blank
+		
         },
         "preScript": "",
         "postScript": ""
@@ -68,7 +73,6 @@ Author: Yazan Barghouth
 }
 
 Notes:
-	- mike zachry sCube - added function to add time to the cap instead of the inspection
 	- new property added 'newAppStatus': update record status if Event criteria matched (set empty to ignore)
 	- new property added 'inspectionCopyComment': copy current inspection's result to the new scheduled inspection(if any)
 		inspectionCopyComment: true/false
@@ -257,10 +261,9 @@ else if(!isEmptyOrNull(rules.action.rangeToCustomField))
 	    rangeValue = getAppSpecific( rangeToCustomField ,capId ) ; 
 	}
 
-	if (!isEmptyOrNull(rules.action.inspectionType) && !isEmptyOrNull(rules.action.sameInspector) && !isEmptyOrNull(rules.action.rangeType) && !isEmptyOrNull(rules.action.range)
+	if (!isEmptyOrNull(rules.action.inspectionType) && !isEmptyOrNull(rules.action.rangeType) && !isEmptyOrNull(rules.action.range)
 			&& !isEmptyOrNull(rules.action.inspectionCopyComment)) {
-		var currInspector = null;
-		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rangeType, rangeValue, rules.action.inspectionCopyComment);
+		schedInspection(rules.action.inspectionType, rules.action.sameInspector, rangeType, rangeValue, rules.action.inspectionCopyComment, rules.action.assignment, rules.action.inspector);
 	}//inspection params validation
 
 	if (!isEmptyOrNull(rules.action.createConditionType) && !isEmptyOrNull(rules.action.createCondition) && !isEmptyOrNull(rules.action.createConditionSeverity)) {
@@ -297,7 +300,7 @@ else if(!isEmptyOrNull(rules.action.rangeToCustomField))
 			logDebug("**WARN unsupported expirationTypeUpdate " + rules.action.expirationTypeUpdate);
 		}
 	}//has expirationTypeUpdate
-
+	
 	if(!isEmptyOrNull(rules.action.postToTimeAccounting) && rules.action.postToTimeAccounting ) {
 		// call function to post to time accounting
 		inspObj = aa.inspection.getInspection(capId,inspId).getOutput();
@@ -311,6 +314,7 @@ else if(!isEmptyOrNull(rules.action.rangeToCustomField))
 	}else{
 		logDebug('no time accounting rule to process or failed to meet criteria');
 	}
+	
 	
 	var inspectionDisplayInACA = rules.action.inspectionDisplayInACA ;
 	if(!isEmptyOrNull(inspectionDisplayInACA) )
@@ -372,15 +376,34 @@ function updateTaskHandleDisposition(taskNamee, newStatus) {
 		var updateResult = aa.workflow.handleDisposition(currentTask.getTaskItem(), capId);
 	}
 }
+
+/**
+ * calculate inspection range value.
+  * @param {string}  costRangeType (days, months,years) 
+  * @param {number}  costRange.
+  * @return {number} costRange per days.  
+*/
 function calculateUnifiedRange(costRangeType, costRange) {
-	if (costRangeType.equalsIgnoreCase("months")) {
-		return 30 * costRange;
-	} else if (costRangeType.equalsIgnoreCase("days")) {
-		return costRange;
-	}
+	 var currentDate =  new Date(aa.util.now());
+	 if (costRangeType.equalsIgnoreCase("years")) {
+		    var newDate= dateAddMonths(currentDate, parseInt(costRange)*12) ;
+			logDebug("costRangeType:" + costRangeType +" ,costRange:" + costRange + " ,newDate:" + newDate); 
+			return getDateDiff(newDate,currentDate)*-1 ;
+			
+		}	else if (costRangeType.equalsIgnoreCase("months")) {
+			 var newDate= dateAddMonths(currentDate, parseInt(costRange)) ;
+			 logDebug("costRangeType:" + costRangeType +" ,costRange:" + costRange + " ,newDate:" + newDate); 
+			return getDateDiff(newDate,currentDate)*-1 ; 
+		} else if (costRangeType.equalsIgnoreCase("days")) {	
+			return costRange;
+		}
+		else{
+			return null;
+			}
 }
 
-function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspectionCopyComment) {
+function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspectionCopyComment, assignment, inspector) {
+	
 	var funcName = "schedInspection";
     var inspectionTypeIsAlreadyScheduled = checkInspectionTypeIsAlreadyScheduled(capId,inspecType);
 	 if(inspectionTypeIsAlreadyScheduled)
@@ -388,62 +411,137 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 		 logDebug(funcName + " WARNING: inspection type '" + inspecType + "' is already Scheduled.");
 		 return false; 
 	 }
+	 
 	if (typeof inspectionCopyComment === 'undefined' || inspectionCopyComment == null) {
 		inspectionCopyComment = false;
 	}
 
 	var currInspector = null;
-	if (sameInspector) {
-		if (inspId != null) {
-			var inspResultObj = aa.inspection.getInspection(capId, inspId);
-			if (inspResultObj.getSuccess()) {
-				var currentInp = inspResultObj.getOutput();
-				currInspector = currentInp.getInspector().getGaUserID();
+	var scheduledDate =  null ;
+	var inspectionDate = null; 
+	var inspectorId= null 
+	
+	if (inspId != null) {
+		var inspResultObj = aa.inspection.getInspection(capId, inspId);
+		if (inspResultObj.getSuccess()) {
+			var currentInp = inspResultObj.getOutput();
+			
+			if(!isEmptyOrNull(sameInspector) && sameInspector) 
+			{
+			currInspector = currentInp.getInspector().getGaUserID();
+			inspectorId=currInspector; 
+			logDebug("currInspector=" + currInspector );
 			}
-			else {
-         logDebug("Error in aa.inspection.getInspection API. Message = " + inspResultObj.getErrorMsg());
-            }
+			
+			if(currentInp.getScheduledDate() != null )
+				{
+				//'getScheduledDate().getDayOfMonth()' returns = 'number of days' - 1 day
+				scheduledDate = dateFormatted(currentInp.getScheduledDate().getMonth(),currentInp.getScheduledDate().getDayOfMonth()+1,currentInp.getScheduledDate().getYear(),  "MM/DD/YYYY" ) ;
+				}
+			if(currentInp.getScheduledDate() != null )
+				{
+				inspectionDate = dateFormatted(currentInp.getInspectionDate().getMonth(),currentInp.getInspectionDate().getDayOfMonth(),currentInp.getInspectionDate().getYear(),  "MM/DD/YYYY" ) ;
+				}	
 		}
+		else {  
+	      logDebug("Error in aa.inspection.getInspection API. Message = " + inspResultObj.getErrorMessage());
+		}
+	}
+		
+	if (isEmptyOrNull(inspectorId) && !isEmptyOrNull(inspector)) {
+			inspectorId=inspector; 
+			logDebug("inspector= " + inspectorId);
 	}
 	
-	if (!sameInspector) {
-		capDetail = aa.cap.getCapDetail(capId).getOutput();
-		userObj = aa.person.getUser(capDetail.getAsgnStaff());
-		if (userObj.getSuccess()) {
-			staff = userObj.getOutput();
-			userID = staff.getUserID();
-			currInspector = userID;
-			logDebug("userID: " + userID);
+	if(isEmptyOrNull(inspectorId) && !isEmptyOrNull(assignment))
+		{
+			
+		switch (assignment) {	
+		case "Record":  
+			// if assignment = Record, schedule and assign to the record holder
+			capDetail = aa.cap.getCapDetail(capId).getOutput();
+			userObj = aa.person.getUser(capDetail.getAsgnStaff());
+			if (userObj.getSuccess()) {
+				staff = userObj.getOutput();
+				inspectorId = staff.getUserID();
+				logDebug("assignment="+assignment+" ,Record-assigned to staff=" + inspectorId);
+			} else {
+				logDebug("assignment="+assignment+" ,Error in aa.person.getUser API. Message ="+userObj.getErrorMessage());    	
+			}
+			break;
+		case "LastInspector": 
+			if(controlString.indexOf("InspectionResultSubmitAfter") > -1 && !matches(inspObj, null, "")){
+					var vInspInspectorObj = inspObj.getInspector();
+					if (vInspInspectorObj) {
+						var inspectorId = vInspInspectorObj.getUserID();
+						logDebug("assignment="+assignment+" ,last inspector ID=" + inspectorId +" on Event:InspectionResultSubmitAfter");
+					}	
+			}
+			else{
+				
+				inspectorId = getLastInspectorLocal(capId);
+				logDebug("assignment="+assignment+" ,last inspector ID=" + inspectorId);
+			}
+		default:
+			break;
+		} // switch
 		}
-	}
-
+		
+			
 	var now = new Date(aa.util.now());
 	var inspRangeDays = calculateUnifiedRange(rangeType, rangeValue);
+	
+	var baseDate = null ; 
 
+	if(!isEmptyOrNull(rules.action.basedOnScheduledDate) && rules.action.basedOnScheduledDate)
+	{
+	    baseDate  = scheduledDate;
+	    logDebug("baseDate = '" +baseDate + "' basedOnScheduledDate = " + rules.action.basedOnScheduledDate )
+	} 
+	else if(!isEmptyOrNull(rules.action.basedOnResultDate) && rules.action.basedOnResultDate)
+		{
+		baseDate = inspectionDate;
+		logDebug("baseDate = '" +baseDate + "' basedOnResultDate = " + rules.action.basedOnResultDate )
+		}
+		
+	if(baseDate !=null )
+		{
+		//getDateDiff() method returns minus value, in case the 'base date' is greater than the 'current date'.
+		var diffDate = getDateDiff(baseDate) ;
+		logDebug("Differnce date between 'base date' and 'current date' = " + diffDate ) ;
+		inspRangeDays = parseInt(inspRangeDays) + parseInt((parseInt(diffDate) *-1)) ;
+		}
+	  logDebug("Schedule a new inspection after ='" + inspRangeDays + "' days" ) ;
+	  
 	var newInspComments = null;
 	if (inspectionCopyComment && typeof inspComment !== 'undefined' && inspComment != "") {
 		newInspComments = inspComment;
 	}
+	
 	//re-sched inspection
-	if (currInspector != null) {
-		scheduleInspection(inspecType, parseInt(inspRangeDays), currInspector, null, newInspComments);
-	} else {
+	if (inspectorId != null) {
+		scheduleInspection(inspecType, parseInt(inspRangeDays), inspectorId, null, newInspComments);
+	}
+    else if ((assignment+"").toLowerCase()== "auto")
+	{
 		scheduleInspection(inspecType, parseInt(inspRangeDays), null, null, newInspComments);
-
-		var inspects = aa.inspection.getInspections(capId);
-		if (inspects.getSuccess()) {
-			inspects = inspects.getOutput();
-			inspects.sort(compareInspDateDesc);
-
-			if (inspects != null && inspects.length > 0 && inspects[0] != null) {
-				//assign inspector for last-sched inspection
-				try {
-					autoAssignInspectionLocal(inspects[inspects.length - 1].getIdNumber());
-				} catch (ex) {
+		var lastScheduledInspectionNumber= getLastScheduledInspectionNumber(capId) ;
+		autoAssignInspection(lastScheduledInspectionNumber);
+		 logDebug("auto assign inspection, inspection number:" + lastScheduledInspectionNumber);
+		
+	}
+	else {
+		// not assigned to inspector and assignment != 'auto'
+		scheduleInspection(inspecType, parseInt(inspRangeDays), null, null, newInspComments);
+		
+		try {
+			//auto assign inspection afetr scheduled
+         var lastScheduledInspectionNumber= getLastScheduledInspectionNumber(capId) ;
+		 autoAssignInspection(lastScheduledInspectionNumber); 
+		 logDebug("auto assign inspection, inspection number:" + lastScheduledInspectionNumber);
+		 } catch (ex) {
 					logDebug(ex);
 				}
-			}//inspects !null
-		}//success
 	}
 }
 
@@ -493,7 +591,7 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
             logDebug("ERROR: " + e);
     }
  }
-
+ 
  /**
  * Check inspection type is already scheduled by cap object and inspection type
  *
@@ -521,7 +619,6 @@ function schedInspection(inspecType, sameInspector, rangeType, rangeValue, inspe
 			return false; 
 		}
  }
- 
  function addTimeAccountingRecordToInspectionV2(itemCap, inspectionId, taGroup, taType, resultDate, billable) {
 	/*
     V2 will look at db fields 'Start Time' & 'End Time'. If null, script will defer to 'Total time'
@@ -682,6 +779,7 @@ function addTimeAccountingRecordFromInspection(itemCap, inspectionId, taGroup, t
 		TimeAccounting = TimeAccountingResult.getOutput();
         var tInsp = aa.inspection.getInspection(capId, inspectionId);
         if (tInsp.getSuccess()) {
+   
             inspObj = tInsp.getOutput();
         }
 		if (inspObj.getInspection().getActivity().getStartTime() != null && inspObj.getInspection().getActivity().getEndTime() != null) {
@@ -758,5 +856,60 @@ function addTimeAccountingRecordFromInspection(itemCap, inspectionId, taGroup, t
 			logDebug("**WARNING: adding Time Accounting Record, requires both Start/End Times");
 			return false;
 		}
+			 
 	}
 }
+
+ /**
+ * get last Scheduled inspection number by cap object  
+ *
+ * @param {object} vCapId 
+ * @returns inspection number {integer}
+ */
+ function getLastScheduledInspectionNumber(vCapId)
+ {
+	 var inspResultObj = aa.inspection.getInspections(capId);
+	if (inspResultObj.getSuccess())
+		{
+		inspList = inspResultObj.getOutput();
+		inspList.sort(compareInspDateDesc)
+		for (xx in inspList)
+		{
+			if(inspList[xx].getInspectionStatus().equals("Scheduled"))
+			{
+			return inspList[xx].getIdNumber(); 
+			}
+		}
+ }
+ }
+ 
+ /**
+ * get last inspector by cap object  
+ *
+ * @param {object} vCapId 
+ * @returns user ID {string}
+ */
+function getLastInspectorLocal(vCapId)
+	{
+	var funcName= "getLastInspectorLocal";
+	var inspResultObj = aa.inspection.getInspections(vCapId);
+	if (inspResultObj.getSuccess())
+		{
+		inspList = inspResultObj.getOutput();
+		inspList.sort(compareInspDateDesc)
+		for (xx in inspList)
+		{
+				inspUser = aa.person.getUser(inspList[xx].getInspector().getFirstName(),inspList[xx].getInspector().getMiddleName(),inspList[xx].getInspector().getLastName());
+				if(inspUser.getSuccess())
+				{
+				inspUserObj= inspUser.getOutput();
+				return inspUserObj.getUserID();	
+				}
+				else
+				{
+					logDebug(funcName + " Error in aa.person.getUser API. Message ="+inspUser.getErrorMessage());    
+				}
+		}
+		}
+	return null;
+	}
