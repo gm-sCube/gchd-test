@@ -106,7 +106,7 @@
           "rangeType": "Custom Field",
           "range": "Custom Field",
           "basedOnResultDate": true,
-		  "inspector":"RECORD",
+		  "assignment":"Record",
           "sameInspector": false
        },
         "postScript": ""
