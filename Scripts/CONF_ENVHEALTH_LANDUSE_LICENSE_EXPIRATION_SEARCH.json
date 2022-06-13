@@ -5,7 +5,7 @@
       "searchByRecordType":"Land Use",
       "searchByRecordSubType":"*",
       "searchByRecordCategory":"Permit",
-      "searchStatus": "Active Maintenance",
+      "searchStatus": "Active",
       "searchByDaysOut": 50,
       "searchByFromDate": false,
       "searchByToDate": false,
