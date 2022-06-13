@@ -20,7 +20,7 @@
 			"notifyContactTypes": "Applicant, Accounts Receivable",
 			"mailerSetType": "Renewal",
 			"mailerSetStatus": "Open",
-			"mailerSetPrefix": "EXPIRATION_NOTICE",
+			"mailerSetPrefix": "SEPTIC_LIC_EXPIRATION_NOTICE",
 			"updateExpirationStatus": "Delinquent",
 			"updateRecordStatus": "false",
 			"updateWorkflowTask": false,
