@@ -22,7 +22,7 @@
 			"mailerSetStatus": "Open",
 			"mailerSetPrefix": "SEPTIC_LIC_EXPIRATION_NOTICE",
 			"updateExpirationStatus": "Delinquent",
-			"updateRecordStatus": "false",
+			"updateRecordStatus": false,
 			"updateWorkflowTask": false,
 			"updateWorkflowStatus": false,
 			"nextNotificationDays": false,
