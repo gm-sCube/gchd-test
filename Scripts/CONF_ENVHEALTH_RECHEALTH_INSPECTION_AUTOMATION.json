@@ -8,10 +8,7 @@
           "operators": ""
         },
         "criteria": {
-          "inspectionTypePerformed": [
-            "Pre-Operational",
-            "Follow-up Inspection"
-          ],
+          "inspectionTypePerformed": [],
           "inspectionResult": [
             "Complete"
           ]
@@ -20,8 +17,6 @@
 		  "postToTimeAccounting": true,
           "newAppStatus": "Inspection Passed",
           "taskName": "Pre-Operational Inspection",
-		  "sameInspector":false,
-		  "assignment":"Record",
           "taskStatus": "Passed"
         },
         "postScript": ""
@@ -44,11 +39,31 @@
           "inspectionCopyComment": true,
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
-          "range": "180",
+          "range": "30",
           "sameInspector": true,
           "taskName": "Pre-Operational Inspection",
           "taskStatus":"Re-Inspection Required" 
           
+        },
+        "postScript": ""
+      }
+    ],
+    "WorkflowTaskUpdateAfter": [
+      {
+        "preScript": "",
+        "metadata": {
+          "description": "",
+          "operators": ""
+        },
+        "criteria": {
+          "taskName": [],
+          "taskStatus": [
+            "Denied",
+			"Withdrawn"
+          ]
+        },
+        "action": {
+          "cancelAllInspections": true
         },
         "postScript": ""
       }
@@ -130,7 +145,6 @@
 		  "inspectionType": "Follow-up Inspection",
 		  "inspectionCopyComment": true,
 		  "postToTimeAccounting": true,
-          "newAppStatus": "Re-Inspection Required",
           "inspectionType": "Follow-up Inspection",
           "rangeType": "Days",
           "range": "30",
