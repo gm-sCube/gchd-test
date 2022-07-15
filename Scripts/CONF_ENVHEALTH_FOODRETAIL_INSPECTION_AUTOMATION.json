@@ -173,6 +173,31 @@
         },
         "postScript": ""
       }
+    ],
+	"ConvertToRealCAPAfter": [
+      {
+        "preScript": "",
+        "metadata": {
+          "description": "",
+          "operators": ""
+        },
+        "criteria": {
+          "taskName": [],
+          "taskStatus": []
+        },
+        "action": {
+		  "inspectionType": "Regular Inspection",
+          "rangeTypeToCustomField": "Inspection Interval Unit",
+          "rangeToCustomField": "Inspection Interval",
+          "rangeType": "Custom Field",
+          "range": "Custom Field",
+		  "basedOnScheduledDate": false,
+          "basedOnResultDate": false,
+		  "assignment":"Record",
+          "sameInspector": false
+       },
+        "postScript": ""
+      }
     ]
 	
   }
