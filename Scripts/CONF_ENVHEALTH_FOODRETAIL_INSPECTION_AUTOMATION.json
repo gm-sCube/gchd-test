@@ -182,6 +182,7 @@
           "operators": ""
         },
         "criteria": {
+		  "disabled": true,
           "taskName": [],
           "taskStatus": []
         },
