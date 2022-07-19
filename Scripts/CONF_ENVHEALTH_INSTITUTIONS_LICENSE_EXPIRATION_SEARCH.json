@@ -37,7 +37,7 @@
       "searchByRecordSubType": "*",
       "searchByRecordCategory": "Permit",
       "searchByRecordStatus": "",
-      "searchByDaysOut": 1,
+      "searchByDaysOut": 0,
       "searchByFromDate": false,
       "searchByToDate": false,
       "notificationConfScript": "CONF_ENVHEALTH_INSTITUTIONS_LICENSE_EXPIRATION_NOTICE",
