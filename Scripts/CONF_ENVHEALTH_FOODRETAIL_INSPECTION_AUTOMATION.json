@@ -93,8 +93,8 @@
           "rangeToCustomField": "Inspection Interval",
           "rangeType": "Custom Field",
           "range": "Custom Field",
-          "basedOnScheduledDate": true,
-          "basedOnResultDate": false,
+          "basedOnScheduledDate": false,
+          "basedOnResultDate": true,
 		  "assignment":"Record",
           "sameInspector": false
        },
