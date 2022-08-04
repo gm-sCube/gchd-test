@@ -1,0 +1,30 @@
+{
+	"EnvHealth/Land Use/Septic/Permit": {
+		"WorkflowTaskUpdateAfter": [
+			{
+				"metadata": {
+					"description": "to automate completion of task upon submission of renewal",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"taskName": [
+						"Renew Permit"
+					],
+					"taskStatus": [
+						"Permit Renewed"
+					]
+				},
+				"action": {
+					"updateTask": [
+						{
+							"task": "Permit Status",
+							"status": "System In Service"
+						}
+					]
+				},
+				"postScript": ""
+			}
+		]
+	}
+}
