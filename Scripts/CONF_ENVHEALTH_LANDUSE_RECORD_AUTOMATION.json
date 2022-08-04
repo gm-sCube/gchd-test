@@ -24,6 +24,30 @@
 					]
 				},
 				"postScript": ""
+			},
+			{
+				"metadata": {
+					"description": "to automate completion of task upon submission of renewal",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"taskName": [
+						"Permit Status"
+					],
+					"taskStatus": [
+						"Start Renewal"
+					]
+				},
+				"action": {
+					"updateTask": [
+						{
+							"task": "Permit Renewal",
+							"status": "First Letter Sent"
+						}
+					]
+				},
+				"postScript": ""
 			}
 		]
 	}
