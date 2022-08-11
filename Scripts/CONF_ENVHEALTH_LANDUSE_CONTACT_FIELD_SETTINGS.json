@@ -36,7 +36,7 @@
       "readOnly": false
     },
     "firstName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -76,7 +76,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -111,7 +111,7 @@
       "readOnly": false
     }
   },
-   "Accounts Receivable": {
+  "Accounts Receivable": {
     "ssn": {
       "required": false,
       "hidden": true,
@@ -148,12 +148,12 @@
       "readOnly": false
     },
     "firstName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
     "lastName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -188,7 +188,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -260,12 +260,12 @@
       "readOnly": false
     },
     "firstName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
     "lastName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -300,7 +300,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -372,12 +372,12 @@
       "readOnly": false
     },
     "firstName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
     "lastName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -412,7 +412,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -484,12 +484,12 @@
       "readOnly": false
     },
     "firstName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
     "lastName": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
@@ -524,7 +524,7 @@
       "readOnly": false
     },
     "email": {
-      "required": true,
+      "required": false,
       "hidden": false,
       "readOnly": false
     },
