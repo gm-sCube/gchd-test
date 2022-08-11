@@ -56,7 +56,7 @@
           "operators": ""
         },
         "criteria": {
-		  "disabled":true
+		  "disabled":true,
           "taskName": [],
           "taskStatus": [
             "Denied",
