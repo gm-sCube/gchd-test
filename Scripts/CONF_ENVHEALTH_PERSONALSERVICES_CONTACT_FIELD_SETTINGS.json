@@ -81,7 +81,7 @@
       "readOnly": false
     },
     "addressLine1": {
-      "required": false,
+      "required": true,
       "hidden": false,
       "readOnly": false
     },
@@ -96,17 +96,17 @@
       "readOnly": false
     },
     "city": {
-      "required": false,
+      "required": true,
       "hidden": false,
       "readOnly": false
     },
     "state": {
-      "required": false,
+      "required": true,
       "hidden": false,
       "readOnly": false
     },
     "zip": {
-      "required": false,
+      "required": true,
       "hidden": false,
       "readOnly": false
     }
