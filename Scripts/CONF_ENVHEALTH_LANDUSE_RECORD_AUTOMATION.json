@@ -8,8 +8,9 @@
 				},
 				"preScript": "",
 				"criteria": {
+					"status": ["Active"],
 					"taskName": [
-						"Renew Permit"
+						"Permit Renewal"
 					],
 					"taskStatus": [
 						"Permit Renewed"
@@ -20,6 +21,31 @@
 						{
 							"task": "Permit Status",
 							"status": "System In Service"
+						}
+					]
+				},
+				"postScript": ""
+			},
+			{
+				"metadata": {
+					"description": "to automate completion of task upon submission of renewal",
+					"operators": {}
+				},
+				"preScript": "",
+				"criteria": {
+					"status": ["Active"],
+					"taskName": [
+						"Permit Status"
+					],
+					"taskStatus": [
+						"Start Renewal"
+					]
+				},
+				"action": {
+					"updateTask": [
+						{
+							"task": "Permit Renewal",
+							"status": "First Letter Sent"
 						}
 					]
 				},
