@@ -38,8 +38,8 @@
       "searchByRecordCategory": "Permit",
       "searchByRecordStatus": "",
       "searchByDaysOut": 0,
-      "searchByFromDate": false,
-      "searchByToDate": false,
+      "searchByFromDate": "04/04/2022",
+      "searchByToDate": "09/30/2022",
       "notificationConfScript": "CONF_ENVHEALTH_FOODRETAIL_LICENSE_EXPIRATION_NOTICE",
       "excludeRecordType": [],
       "excludeRecordStatus": [
