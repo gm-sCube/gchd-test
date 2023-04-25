@@ -58,16 +58,7 @@
 			"inspectionType": false,
 			"scheduleOutDays": false,
 			"cancelAllInspections": false,
-			"penalizeOnNotification": false,
-			"assessFees": [
-				{
-					"feeCode": "LATE FEE",
-					"feeSchedule": "EH_PENALTIES",
-					"feeQuantity": 1,
-					"feeInvoice": "Y",
-					"feePeriod": "Final"
-				}
-			]
+			"penalizeOnNotification": false
 		}
 	}
 }
